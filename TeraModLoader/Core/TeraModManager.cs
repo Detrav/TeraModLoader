@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Detrav.TeraModLoader.TeraApi;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Detrav.TeraModLoader.Core
                     Data.Mod m = new Data.Mod(a);
                     if (m.ready)
                     {
+                        Logger.log("Loaded {0}", m);
                         ts.Add(m);
                     }
                 }

@@ -42,5 +42,10 @@ namespace Detrav.TeraModLoader.Core.Data
         {
             return (ITeraMod)Activator.CreateInstance(type);
         }
+
+        public override string ToString()
+        {
+            return String.Format("Mod {0} - Version {1}", name, version);
+        }
     }
 }
