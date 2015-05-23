@@ -73,6 +73,8 @@
     <Compile Include="Crypt\Utils.cs" />
     <Compile Include="Sniffer\TcpClient.cs" />
     <Compile Include="TeraApi\Logger.cs" />
+    <Compile Include="TeraApi\TeraPacket.cs" />
+    <Compile Include="TeraApi\TeraPacketWithData.cs" />
     <Compile Include="Windows\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

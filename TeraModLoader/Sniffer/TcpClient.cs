@@ -28,7 +28,7 @@ namespace Detrav.TeraModLoader.Sniffer
 
         private byte[] recvStream;
         private byte[] sendStream;
-        private Queue<TeraPacket> teraPackets = new Queue<TeraPacket>();
+        private Queue<TeraPacketWithData> teraPackets = new Queue<TeraPacketWithData>();
         private static byte[] initPacket = new byte[4] { 0x01, 0x00, 0x00, 0x00 };
 
         public TcpClient(bool _flagToDebug)
@@ -232,7 +232,7 @@ namespace Detrav.TeraModLoader.Sniffer
             ushort length = BitConverter.ToUInt16(recvStream, 0);
             if (recvStream.Length < length)
                 return false;
-            var packet = new TeraPacket(getRecvData(length), TeraPacket.Type.Recv);
+            var packet = new TeraPacketWithData(getRecvData(length), TeraPacketWithData.Type.Recv);
             lock (teraPackets)
             {
                 teraPackets.Enqueue(packet);
@@ -282,7 +282,7 @@ namespace Detrav.TeraModLoader.Sniffer
             ushort length = BitConverter.ToUInt16(sendStream, 0);
             if (sendStream.Length < length)
                 return false;
-            var packet = new TeraPacket(getSendData(length), TeraPacket.Type.Send);
+            var packet = new TeraPacketWithData(getSendData(length), TeraPacketWithData.Type.Send);
             lock (teraPackets)
             {
                 teraPackets.Enqueue(packet);
@@ -300,7 +300,7 @@ namespace Detrav.TeraModLoader.Sniffer
             return result;
         }
 
-        internal TeraPacket getPacketSync()
+        internal TeraPacketWithData getPacketSync()
         {
             lock (teraPackets)
             {
