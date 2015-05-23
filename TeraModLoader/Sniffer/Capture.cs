@@ -127,7 +127,7 @@ namespace Detrav.TeraModLoader.Sniffer
                         t = client.getPacketSync();
                         if (t != null)
                         {
-                            Logger.info("{0}", t);
+                            //Logger.info("{0}", t);
                             if (onPacketArrivalSync!=null)
                                 onPacketArrivalSync(this,new PacketArrivalEventArgs(key,t));
                         }
