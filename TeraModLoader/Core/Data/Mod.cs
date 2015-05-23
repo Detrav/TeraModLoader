@@ -37,5 +37,10 @@ namespace Detrav.TeraModLoader.Core.Data
         }
 
         public bool ready { get; private set; }
+
+        public ITeraMod create()
+        {
+            return (ITeraMod)Activator.CreateInstance(type);
+        }
     }
 }
