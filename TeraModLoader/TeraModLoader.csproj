@@ -75,7 +75,7 @@
     <Compile Include="Sniffer\CaptureEvents.cs" />
     <Compile Include="Sniffer\Connection.cs" />
     <Compile Include="Sniffer\TcpClient.cs" />
-    <Compile Include="TeraApi\ITeraMod.cs" />
+    <Compile Include="TeraApi\Interfaces\ITeraMod.cs" />
     <Compile Include="TeraApi\Logger.cs" />
     <Compile Include="TeraApi\TeraPacket.cs" />
     <Compile Include="TeraApi\TeraPacketWithData.cs" />

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Detrav.TeraModLoader.TeraApi
+namespace Detrav.TeraModLoader.TeraApi.Interfaces
 {
     public interface ITeraMod
     {
-        
+        void load();
+        void unLoad();
     }
 }
