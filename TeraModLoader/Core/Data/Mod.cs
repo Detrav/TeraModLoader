@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace Detrav.TeraModLoader.Core.Data
 {
@@ -13,7 +14,7 @@ namespace Detrav.TeraModLoader.Core.Data
         private Assembly assembly;
         public string name { get; private set; }
         public Version version { get; private set; }
-        //icon;
+        public BitmapImage icon { get; private set; }
         private Type type;
 
         public Mod(Assembly assembly)
@@ -26,6 +27,8 @@ namespace Detrav.TeraModLoader.Core.Data
             {
                 if (v.GetInterfaces().Contains(typeof(ITeraMod)))
                 {
+                    if (v.GetMethod("getModIcon") != null)
+                        icon = (BitmapImage)v.GetMethod("getModIcon").Invoke(null, null);
                     type = v;
                     ready = true;
                     break;
