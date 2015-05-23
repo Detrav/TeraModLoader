@@ -11,8 +11,15 @@ namespace Detrav.TeraModLoader.Sniffer
 {
     internal class Capture : IDisposable
     {
+        internal event OnPacketArrival onPacketArrivalSync;
+        internal event OnNewConnection onNewConnectionSync;
+        internal event OnEndConnection onEndConnectionSync;
+
         ICaptureDevice device;
         private Dictionary<Connection, TcpClient> tcpClients = new Dictionary<Connection,TcpClient>();
+        private Queue<Connection> newConnections = new Queue<Connection>();
+        private Queue<Connection> endConnections = new Queue<Connection>();
+
         public Capture(ICaptureDevice captureDevice, string host)
         {
             device = captureDevice;
@@ -50,6 +57,10 @@ namespace Detrav.TeraModLoader.Sniffer
                 tcpClients.Add(connection, tcpClient);
                 connected = true;
                 Logger.log("Новое соединение: " + connection.ToString());
+                lock (newConnections)
+                {
+                    newConnections.Enqueue(connection);
+                }
             }
 
             if (tcpPacket.Ack && connected)
@@ -61,11 +72,40 @@ namespace Detrav.TeraModLoader.Sniffer
             {
                 tcpClients.Remove(connection);
                 Logger.log("Конец соединения: " + connection.ToString());
+                lock(endConnections)
+                {
+                    endConnections.Enqueue(connection);
+                }
             }
         }
 
-        internal void doEvent()
+        internal void doEventSync()
         {
+            
+            Connection c;
+            do
+            {
+                c = null;
+                lock (newConnections)
+                {
+                    if (newConnections.Count > 0) ;
+                    c = newConnections.Dequeue();
+                }
+                if (onNewConnectionSync != null)
+                    onNewConnectionSync(this, new ConnectionEventArgs(c));
+            } while (c != null);
+
+            do
+            {
+                lock (endConnections)
+                {
+                    if (endConnections.Count > 0) ;
+                    c = endConnections.Dequeue();
+                }
+                if (onEndConnectionSync != null)
+                    onEndConnectionSync(this, new ConnectionEventArgs(c));
+            } while (c != null);
+
             TcpClient client;
             Dictionary<Connection, TcpClient>.KeyCollection keys;
             lock (tcpClients)
@@ -84,9 +124,14 @@ namespace Detrav.TeraModLoader.Sniffer
                     TeraPacketWithData t;
                     do
                     {
-                        t = null;
                         t = client.getPacketSync();
-                        if(t!=null) Logger.info("{0}", t);
+                        if (t != null)
+                        {
+                            Logger.info("{0}", t);
+                            if (onPacketArrivalSync!=null)
+                                onPacketArrivalSync(this,new PacketArrivalEventArgs(key,t));
+                        }
+
                     }
                     while (t != null);
                 }
@@ -114,8 +159,6 @@ namespace Detrav.TeraModLoader.Sniffer
         ~Capture()
         {
             Dispose();
-        }
-
-        
+        }        
     }
 }

@@ -40,7 +40,7 @@ namespace Detrav.TeraModLoader.Windows
         void timer_Tick(object sender, EventArgs e)
         {
             timer.Stop();
-            c.doEvent();
+            c.doEventSync();
             timer.Start();
         }
     }
