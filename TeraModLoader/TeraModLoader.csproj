@@ -65,6 +65,7 @@
     <Compile Include="Crypt\Session.cs" />
     <Compile Include="Crypt\Sha.cs" />
     <Compile Include="Crypt\Utils.cs" />
+    <Compile Include="TeraApi\Logger.cs" />
     <Compile Include="Windows\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
