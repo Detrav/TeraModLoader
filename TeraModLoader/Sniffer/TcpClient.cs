@@ -31,7 +31,7 @@ namespace Detrav.TeraModLoader.Sniffer
         private Queue<TeraPacketWithData> teraPackets = new Queue<TeraPacketWithData>();
         private static byte[] initPacket = new byte[4] { 0x01, 0x00, 0x00, 0x00 };
 
-        public TcpClient(bool _flagToDebug)
+        public TcpClient()
         {
             // TODO: Complete member initialization
             frags[0] = new List<tcp_frag>();

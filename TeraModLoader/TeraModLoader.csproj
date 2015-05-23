@@ -71,6 +71,8 @@
     <Compile Include="Crypt\Session.cs" />
     <Compile Include="Crypt\Sha.cs" />
     <Compile Include="Crypt\Utils.cs" />
+    <Compile Include="Sniffer\Capture.cs" />
+    <Compile Include="Sniffer\Connection.cs" />
     <Compile Include="Sniffer\TcpClient.cs" />
     <Compile Include="TeraApi\Logger.cs" />
     <Compile Include="TeraApi\TeraPacket.cs" />

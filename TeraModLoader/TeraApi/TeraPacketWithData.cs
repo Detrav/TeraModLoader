@@ -122,7 +122,7 @@ namespace Detrav.TeraModLoader.TeraApi
         }
         public short toInt16(int b)
         {
-            return toInt16(date, b);
+            return toInt16(data, b);
         }
         public uint toUInt32(int b)
         {
