@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraModLoader.TeraApi.Interfaces
 {
-    public interface ITeraMod
+    class ITeraClient
     {
-        void load(ITeraClient parent);
-        void unLoad();
     }
 }
