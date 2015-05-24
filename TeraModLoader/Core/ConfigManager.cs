@@ -1,4 +1,5 @@
-﻿using Detrav.TeraApi.Interfaces;
+﻿using Detrav.TeraApi;
+using Detrav.TeraApi.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Detrav.TeraModLoader.Core
             if (playerName == null)
             {
                 file = Path.Combine(file, "config.json");
+                Logger.debug("Init configManager for {0}", file);
                 return;
             }
 
@@ -35,23 +37,27 @@ namespace Detrav.TeraModLoader.Core
 
         public void save(object config)
         {
+            Logger.debug("Started save for {0}", file);
             if (!Directory.Exists(Path.GetDirectoryName(file))) Directory.CreateDirectory(Path.GetDirectoryName(file));
             using(TextWriter tw = new StreamWriter(file))
             {
                 JsonSerializerSettings s = new JsonSerializerSettings();
                 tw.Write(JsonConvert.SerializeObject(config));
             }
-
+            Logger.debug("End save for {0}", file);
         }
 
         public object load(Type t)
         {
-           if(File.Exists(file))
-           using(TextReader tr = new StreamReader(file))
-           {
-               return JsonConvert.DeserializeObject(tr.ReadToEnd(), t);
-           }
-           return null;
+            Logger.debug("Started load for {0}", file);
+            if (File.Exists(file))
+                using (TextReader tr = new StreamReader(file))
+                {
+                    Logger.debug("End load for {0}", file);
+                    return JsonConvert.DeserializeObject(tr.ReadToEnd(), t);
+                }
+            Logger.debug("Error on load for {0}", file);
+            return null;
         }
     }
 }

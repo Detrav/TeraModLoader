@@ -18,6 +18,7 @@ namespace Detrav.TeraModLoader.Core
         static string directory = "mods";
         public TeraModManager()
         {
+            Logger.debug("Start init for TeraModManager", "");
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
             List<Data.Mod> ts = new List<Data.Mod>();
             foreach (var file in Directory.GetFiles(directory, "*.dll"))
@@ -45,7 +46,7 @@ namespace Detrav.TeraModLoader.Core
                         }
                     }
                 }
-                catch {  }
+                catch (Exception e) { Logger.debug("{0}", e); }
             }
             mods = ts.ToArray();
         }
@@ -78,6 +79,7 @@ namespace Detrav.TeraModLoader.Core
 
         internal void initializeMods(out ITeraMod[] resultMods, out Button[] resultButtons)
         {
+            Logger.log("Start initializeMods");
             List<ITeraMod> teraMods = new List<ITeraMod>();
             List<Button> buttons = new List<Button>();
             foreach(var mod in mods)
@@ -85,6 +87,7 @@ namespace Detrav.TeraModLoader.Core
                 if (mod.enable)
                 {
                     ITeraMod m = mod.create();
+                    m.configManager(new ConfigManager(mod.name));
                     teraMods.Add(m);
                     Button b = new Button();
                     StackPanel sp = new StackPanel();
@@ -123,6 +126,7 @@ namespace Detrav.TeraModLoader.Core
 
         internal StackPanel[] getModsCheckBox()
         {
+            Logger.log("Start getModsCheckBox");
             List<StackPanel> modsStackPanel = new List<StackPanel>();
             foreach(var mod in mods)
             {

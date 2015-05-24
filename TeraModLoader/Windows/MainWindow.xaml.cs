@@ -1,4 +1,5 @@
-﻿using Detrav.TeraApi.Interfaces;
+﻿using Detrav.TeraApi;
+using Detrav.TeraApi.Interfaces;
 using Detrav.TeraModLoader.Core;
 using Detrav.TeraModLoader.Sniffer;
 using System;
@@ -27,12 +28,13 @@ namespace Detrav.TeraModLoader.Windows
         public MainWindow()
         {
             InitializeComponent();
+            Logger.debug("{0}", "InitializeComponent");
         }
 
         Capture capture;
         DispatcherTimer timer;
         TeraModManager teraModManager;
-        Dictionary<Connection, ITeraClient> teraClients = new Dictionary<Connection,ITeraClient>();
+        Dictionary<Connection, TeraClient> teraClients = new Dictionary<Connection,ITeraClient>();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -54,20 +56,41 @@ namespace Detrav.TeraModLoader.Windows
             timer.Tick += timer_Tick;
             timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Start();
+            Logger.debug("{0}", "Window started");
         }
 
         void capture_onPacketArrivalSync(object sender, PacketArrivalEventArgs e)
         {
-            //throw new NotImplementedException();
+            TeraClient client;
+            if(teraClients.TryGetValue(e.connection,out client))
+            {
+                client.PacketArrival(e.packet);
+            }
+
         }
 
         void capture_onEndConnectionSync(object sender, ConnectionEventArgs e)
         {
-            ITeraClient teraClient;
-            if(teraClients.TryGetValue(e.connection,out teraClient))
+            
+            TeraClient teraClient;
+            if (teraClients.TryGetValue(e.connection, out teraClient))
             {
                 teraClient.unLoad();
                 teraClients.Remove(e.connection);
+                TabItem ti = null;
+                foreach (TabItem temp in tabControl.Items)
+                {
+                    if(e.connection.Equals(temp.Header))
+                    {
+                        ti = temp;
+                        break;
+                    }
+                }
+                if (ti != null)
+                {
+                    tabControl.Items.Remove(ti);
+                    Logger.debug("Tab {0} in tab control removed", e.connection);
+                }
             }
         }
 
@@ -79,7 +102,7 @@ namespace Detrav.TeraModLoader.Windows
             teraClient.load(mods);
             teraClients.Add(e.connection, teraClient);
             TabItem item = new TabItem();
-            item.Header = e.connection.ToString();
+            item.Header = e.connection;
             var sp = new StackPanel();
             foreach (Button plugin in buttons)
             {
@@ -87,6 +110,7 @@ namespace Detrav.TeraModLoader.Windows
             }
             item.Content = sp;
             tabControl.Items.Add(item);
+            Logger.debug("Tab {0} in tab control added", e.connection);
         }
 
         void timer_Tick(object sender, EventArgs e)
