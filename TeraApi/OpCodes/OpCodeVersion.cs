@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes
 {
-    enum OpCodeVersion
+    public enum OpCodeVersion
     {
         P2805
     }
