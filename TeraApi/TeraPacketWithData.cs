@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi
 {
+    public enum PacketType { Any, Send, Recv }
     public class TeraPacketWithData
     {
-        public enum Type { Send, Recv }
-        public Type type { get; set; }
+        public PacketType type { get; set; }
         public ushort size { get; set; }
         public ushort opCode { get; set; }
         public byte[] data { get; private set; }
-        public TeraPacketWithData(byte[] _data, Type _type)
+        public TeraPacketWithData(byte[] _data, PacketType _type)
         {
             data = (byte[])_data.Clone();
             size = toUInt16(0);//Размер

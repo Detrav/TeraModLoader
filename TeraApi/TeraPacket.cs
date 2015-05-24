@@ -8,12 +8,14 @@ namespace Detrav.TeraApi
 {
     public class TeraPacket
     {
+        public PacketType type { get; set; }
         public ushort size { get; set; }
         public ushort opCode { get; set; }
 
 
         public TeraPacket(TeraPacketWithData p)
         {
+            type = p.type;
             size = p.toUInt16(0);
             opCode = p.toUInt16(2);
         }

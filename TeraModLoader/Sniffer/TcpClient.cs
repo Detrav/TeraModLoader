@@ -232,7 +232,7 @@ namespace Detrav.TeraModLoader.Sniffer
             ushort length = BitConverter.ToUInt16(recvStream, 0);
             if (recvStream.Length < length)
                 return false;
-            var packet = new TeraPacketWithData(getRecvData(length), TeraPacketWithData.Type.Recv);
+            var packet = new TeraPacketWithData(getRecvData(length), PacketType.Recv);
             lock (teraPackets)
             {
                 teraPackets.Enqueue(packet);
@@ -282,7 +282,7 @@ namespace Detrav.TeraModLoader.Sniffer
             ushort length = BitConverter.ToUInt16(sendStream, 0);
             if (sendStream.Length < length)
                 return false;
-            var packet = new TeraPacketWithData(getSendData(length), TeraPacketWithData.Type.Send);
+            var packet = new TeraPacketWithData(getSendData(length), PacketType.Send);
             lock (teraPackets)
             {
                 teraPackets.Enqueue(packet);
