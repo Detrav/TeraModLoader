@@ -44,5 +44,15 @@ namespace Detrav.TeraApi.OpCodes
             }
             return null;
         }
+
+        public static object getOpCode(ushort opCode)
+        {
+            switch (currentVersion)
+            {
+                case OpCodeVersion.P2805:
+                    return (OpCode2805)opCode;
+            }
+            return null;
+        }
     }
 }
