@@ -117,6 +117,8 @@ namespace Detrav.TeraModLoader.Windows
         {
             timer.Stop();
             capture.doEventSync();
+            foreach (var pair in teraClients)
+                pair.Value.doEvents();
             timer.Start();
         }
 

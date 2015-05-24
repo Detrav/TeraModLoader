@@ -13,6 +13,7 @@ namespace Detrav.TeraModLoader.Core
     class TeraClient : ITeraClient
     {
         public event OnPacketArrival onPacketArrival;
+        public event OnTick onTick;
         private ITeraMod[] mods;
 
         public void unLoad()
@@ -36,6 +37,12 @@ namespace Detrav.TeraModLoader.Core
         {
             if (onPacketArrival != null)
                 onPacketArrival(this, new PacketArrivalEventArgs(teraPacketWithData));
+        }
+
+        internal void doEvents()
+        {
+            if (onTick != null)
+                onTick(this, EventArgs.Empty);
         }
     }
 }
