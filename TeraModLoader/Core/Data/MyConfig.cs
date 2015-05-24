@@ -10,6 +10,8 @@ namespace Detrav.TeraModLoader.Core.Data
     {
         public SortedList<string, bool> modEnable = new SortedList<string,bool>();
         public List<ServerInfo> servers = new List<ServerInfo>();
+        public int deviceIndex = 0;
+        public int serverIndex = 0;
     }
 
     internal class ServerInfo

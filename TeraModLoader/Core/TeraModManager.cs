@@ -1,5 +1,6 @@
 ﻿using Detrav.TeraApi;
 using Detrav.TeraApi.Interfaces;
+using Detrav.TeraModLoader.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,31 +51,31 @@ namespace Detrav.TeraModLoader.Core
             }
             mods = ts.ToArray();
         }
-        public void loadConfig()
+        public MyConfig loadConfig(MyConfig cfg)
         {
             config.init();
-            SortedList<string, bool> modsConfig = new SortedList<string, bool>();
-            modsConfig = config.load(modsConfig.GetType()) as SortedList<string,bool>;
+            cfg = config.load(cfg.GetType()) as MyConfig;
             foreach (var mod in mods)
             {
                 bool enable;
-                if (modsConfig != null)
-                    if (modsConfig.TryGetValue(mod.name, out enable))
+                if (cfg.modEnable != null)
+                    if (cfg.modEnable.TryGetValue(mod.name, out enable))
                     {
                         mod.enable = enable;
                         continue;
                     }
                 mod.enable = true;
             }
+            return cfg;
         }
-        public void saveConfig()
+        public void saveConfig(MyConfig cfg)
         {
-            SortedList<string, bool> modsConfig = new SortedList<string, bool>();
+            cfg.modEnable.Clear();
             foreach (var mod in mods)
             {
-                modsConfig.Add(mod.name.ToString(),mod.enable);
+                cfg.modEnable.Add(mod.name.ToString(), mod.enable);
             }
-            config.save(modsConfig);
+            config.save(cfg);
         }
 
         internal void initializeMods(out ITeraMod[] resultMods, out Button[] resultButtons)

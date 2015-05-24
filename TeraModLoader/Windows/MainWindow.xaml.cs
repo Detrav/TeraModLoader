@@ -1,6 +1,7 @@
 ﻿using Detrav.TeraApi;
 using Detrav.TeraApi.Interfaces;
 using Detrav.TeraModLoader.Core;
+using Detrav.TeraModLoader.Core.Data;
 using Detrav.TeraModLoader.Sniffer;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace Detrav.TeraModLoader.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+        MyConfig myConfig = new MyConfig();
         public MainWindow()
         {
             InitializeComponent();
@@ -38,14 +40,20 @@ namespace Detrav.TeraModLoader.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            InitWindow window = new InitWindow();
+            if(window.ShowDialog() !=true)
+            {
+                Close();
+                return;
+            }
             //Запист пакетов
-            capture = new Capture(SharpPcap.CaptureDeviceList.Instance[1],"91.225.237.8");
+            capture = new Capture(window.device,window.server);
             capture.onNewConnectionSync += capture_onNewConnectionSync;
             capture.onEndConnectionSync += capture_onEndConnectionSync;
             capture.onPacketArrivalSync += capture_onPacketArrivalSync;
             //Работа с аддонами
             teraModManager = new TeraModManager();
-            teraModManager.loadConfig();
+            myConfig = teraModManager.loadConfig(myConfig);
             foreach(var mod in teraModManager.getModsCheckBox())
             {
                 modsStackPanel.Children.Add(mod);
@@ -124,7 +132,7 @@ namespace Detrav.TeraModLoader.Windows
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            teraModManager.saveConfig();
+            teraModManager.saveConfig(myConfig);
             MessageBox.Show("Saved!", "SaveWindow");
         }
     }
