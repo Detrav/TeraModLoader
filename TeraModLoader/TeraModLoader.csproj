@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Core\ConfigManager.cs" />
     <Compile Include="Core\Data\Mod.cs" />
     <Compile Include="Core\TeraModManager.cs" />
     <Compile Include="Crypt\Cryptor.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Sniffer\CaptureEvents.cs" />
     <Compile Include="Sniffer\Connection.cs" />
     <Compile Include="Sniffer\TcpClient.cs" />
+    <Compile Include="TeraApi\Interfaces\IConfigManager.cs" />
     <Compile Include="TeraApi\Interfaces\ITeraClient.cs" />
     <Compile Include="TeraApi\Interfaces\ITeraMod.cs" />
     <Compile Include="TeraApi\Logger.cs" />
