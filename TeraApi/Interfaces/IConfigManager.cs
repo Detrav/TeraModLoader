@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Detrav.TeraModLoader.TeraApi.Interfaces
+namespace Detrav.TeraApi.Interfaces
 {
-    interface IConfigManager
+    public interface IConfigManager
     {
         void init(string playerName);
         void save(object config);

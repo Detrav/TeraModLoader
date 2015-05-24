@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Detrav.TeraModLoader.TeraApi.Interfaces
+namespace Detrav.TeraApi.Interfaces
 {
-    class ITeraClient
+    public class ITeraClient
     {
     }
 }

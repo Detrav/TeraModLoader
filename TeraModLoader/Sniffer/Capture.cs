@@ -1,4 +1,4 @@
-﻿using Detrav.TeraModLoader.TeraApi;
+﻿using Detrav.TeraApi;
 using PacketDotNet;
 using SharpPcap;
 using System;

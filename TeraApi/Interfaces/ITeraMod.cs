@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Detrav.TeraModLoader.TeraApi.Interfaces
+namespace Detrav.TeraApi.Interfaces
 {
     public interface ITeraMod
     {

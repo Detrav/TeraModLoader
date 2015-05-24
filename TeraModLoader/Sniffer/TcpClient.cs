@@ -1,5 +1,5 @@
 ﻿using Detrav.TeraModLoader.Crypt;
-using Detrav.TeraModLoader.TeraApi;
+using Detrav.TeraApi;
 using System;
 using System.Collections;
 using System.Collections.Generic;

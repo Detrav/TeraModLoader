@@ -1,4 +1,4 @@
-﻿using Detrav.TeraModLoader.TeraApi.Interfaces;
+﻿using Detrav.TeraApi.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
