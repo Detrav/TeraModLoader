@@ -84,5 +84,11 @@ namespace Detrav.TeraModLoader.Windows
             capture.doEventSync();
             timer.Start();
         }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            teraModManager.saveConfig();
+            MessageBox.Show("Saved!", "SaveWindow");
+        }
     }
 }

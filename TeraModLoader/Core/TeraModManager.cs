@@ -35,7 +35,6 @@ namespace Detrav.TeraModLoader.Core
             }
             mods = ts.ToArray();
         }
-
         public void loadConfig()
         {
             SortedList<string, bool> modsConfig = new SortedList<string, bool>();

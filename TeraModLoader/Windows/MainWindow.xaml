@@ -5,9 +5,19 @@
     <Grid>
         <TabControl>
             <TabItem Header="Настройка загруженных плагинов">
-                <StackPanel x:Name="modsStackPanel">
-                    <Label>Список плагинов</Label>
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="24" />
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Name="modsStackPanel" Grid.Row="0">
+                        <Label>Список плагинов</Label>
+                    </StackPanel>
+                    <Button x:Name="saveButton"
+                        Content="Save" Grid.Row="1"
+                            HorizontalAlignment="Stretch"
+                            Click="saveButton_Click"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
