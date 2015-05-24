@@ -33,7 +33,7 @@ namespace Detrav.TeraModLoader.Core
                         bool containts = false;
                         foreach(var mod in ts)
                         {
-                            if(mod.guid == m.guid)
+                            if(mod.name == m.name)
                             {
                                 containts = true;
                                 break;
@@ -59,7 +59,7 @@ namespace Detrav.TeraModLoader.Core
             {
                 bool enable;
                 if (modsConfig != null)
-                    if (modsConfig.TryGetValue(mod.guid.ToString(), out enable))
+                    if (modsConfig.TryGetValue(mod.name, out enable))
                     {
                         mod.enable = enable;
                         continue;
@@ -72,7 +72,7 @@ namespace Detrav.TeraModLoader.Core
             SortedList<string, bool> modsConfig = new SortedList<string, bool>();
             foreach (var mod in mods)
             {
-                modsConfig.Add(mod.guid.ToString(),mod.enable);
+                modsConfig.Add(mod.name.ToString(),mod.enable);
             }
             config.save(modsConfig);
         }
@@ -87,7 +87,9 @@ namespace Detrav.TeraModLoader.Core
                 if (mod.enable)
                 {
                     ITeraMod m = mod.create();
-                    m.configManager(new ConfigManager(mod.name));
+                    var cm = new ConfigManager(mod.name);
+                    cm.init("unknown");
+                    m.configManager(cm);
                     teraMods.Add(m);
                     Button b = new Button();
                     StackPanel sp = new StackPanel();

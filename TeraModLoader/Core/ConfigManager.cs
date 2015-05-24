@@ -12,8 +12,8 @@ namespace Detrav.TeraModLoader.Core
 {
     class ConfigManager : IConfigManager
     {
-        bool Inited = false;
-        string file = "config";
+        string folder = "config";
+        string configFile;
         string modName;
 
         public ConfigManager(string modName = "unknown")
@@ -23,40 +23,38 @@ namespace Detrav.TeraModLoader.Core
 
         public void init(string playerName = null)
         {
-            if (Inited) return;
             if (playerName == null)
             {
-                file = Path.Combine(file, "config.json");
-                Logger.debug("Init configManager for {0}", file);
+                configFile = Path.Combine(folder, "config.json");
+                Logger.debug("Init configManager for {0}", configFile);
                 return;
             }
 
-            file = Path.Combine(file, playerName, String.Format("{0}.json", modName));
-            Inited = true;
+            configFile = Path.Combine(folder, playerName, String.Format("{0}.json", modName));
         }
 
         public void save(object config)
         {
-            Logger.debug("Started save for {0}", file);
-            if (!Directory.Exists(Path.GetDirectoryName(file))) Directory.CreateDirectory(Path.GetDirectoryName(file));
-            using(TextWriter tw = new StreamWriter(file))
+            Logger.debug("Started save for {0}", configFile);
+            if (!Directory.Exists(Path.GetDirectoryName(configFile))) Directory.CreateDirectory(Path.GetDirectoryName(configFile));
+            using(TextWriter tw = new StreamWriter(configFile))
             {
                 JsonSerializerSettings s = new JsonSerializerSettings();
                 tw.Write(JsonConvert.SerializeObject(config));
             }
-            Logger.debug("End save for {0}", file);
+            Logger.debug("End save for {0}", configFile);
         }
 
         public object load(Type t)
         {
-            Logger.debug("Started load for {0}", file);
-            if (File.Exists(file))
-                using (TextReader tr = new StreamReader(file))
+            Logger.debug("Started load for {0}", configFile);
+            if (File.Exists(configFile))
+                using (TextReader tr = new StreamReader(configFile))
                 {
-                    Logger.debug("End load for {0}", file);
+                    Logger.debug("End load for {0}", configFile);
                     return JsonConvert.DeserializeObject(tr.ReadToEnd(), t);
                 }
-            Logger.debug("Error on load for {0}", file);
+            Logger.debug("Error on load for {0}", configFile);
             return null;
         }
     }

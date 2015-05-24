@@ -15,7 +15,7 @@ namespace Detrav.TeraModLoader.Core.Data
         public string name { get; private set; }
         public Version version { get; private set; }
         public BitmapImage icon { get; private set; }
-        public Guid guid { get; private set; }
+        //public Guid guid { get; private set; }
         public bool enable { get; set; }
         private Type type;
 
@@ -26,7 +26,7 @@ namespace Detrav.TeraModLoader.Core.Data
             AssemblyTitleAttribute assemblyTitle = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0] as AssemblyTitleAttribute;
             name = assemblyTitle.Title;
             version = assembly.GetName().Version;
-            guid = assembly.GetType().GUID;
+            //guid = assembly.GetType().GUID;
             foreach (var v in assembly.GetTypes())
             {
                 if (v.GetInterfaces().Contains(typeof(ITeraMod)))

@@ -54,5 +54,14 @@ namespace Detrav.TeraApi.OpCodes
             }
             return null;
         }
+        public static System.Collections.IEnumerable getOpCodes()
+        {
+            switch (currentVersion)
+            {
+                case OpCodeVersion.P2805:
+                    return Enum.GetValues(typeof(OpCode2805)).Cast<OpCode2805>();
+            }
+            return null;
+        }
     }
 }
