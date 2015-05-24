@@ -12,9 +12,9 @@ namespace Detrav.TeraModLoader.Core
     class ConfigManager : IConfigManager
     {
         string file = "config";
-        string modName = "unknown";
+        string modName;
 
-        public ConfigManager(string modName)
+        public ConfigManager(string modName = "unknown")
         {
             this.modName = modName;
         }

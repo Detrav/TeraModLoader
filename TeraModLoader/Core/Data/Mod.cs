@@ -15,6 +15,7 @@ namespace Detrav.TeraModLoader.Core.Data
         public string name { get; private set; }
         public Version version { get; private set; }
         public BitmapImage icon { get; private set; }
+        public bool enable { get; set; }
         private Type type;
 
         public Mod(Assembly assembly)

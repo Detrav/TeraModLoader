@@ -11,7 +11,8 @@ namespace Detrav.TeraModLoader.Core
 {
     class TeraModManager
     {
-        Data.Mod[] mods;
+        public Data.Mod[] mods { get; private set; }
+        ConfigManager config = new ConfigManager();
         static string directory = "mods";
         public TeraModManager()
         {
@@ -33,6 +34,29 @@ namespace Detrav.TeraModLoader.Core
                 catch {  }
             }
             mods = ts.ToArray();
+        }
+
+        public void loadConfig()
+        {
+            SortedList<string, bool> modsConfig = new SortedList<string, bool>();
+            modsConfig = config.load(modsConfig.GetType()) as SortedList<string,bool>;
+            foreach (var mod in mods)
+            {
+                bool enable;
+                if (modsConfig.TryGetValue(mod.name, out enable))
+                    mod.enable = enable;
+                else
+                    mod.enable = true;
+            }
+        }
+        public void saveConfig()
+        {
+            SortedList<string, bool> modsConfig = new SortedList<string, bool>();
+            foreach (var mod in mods)
+            {
+                modsConfig.Add(mod.name,mod.enable);
+            }
+            config.save(modsConfig);
         }
     }
 }
