@@ -44,20 +44,9 @@ namespace Detrav.TeraModLoader.Windows
             //Работа с аддонами
             teraModManager = new TeraModManager();
             teraModManager.loadConfig();
-            foreach(var mod in teraModManager.mods)
+            foreach(var mod in teraModManager.getModsCheckBox())
             {
-                StackPanel sp = new StackPanel();
-                sp.Orientation = Orientation.Horizontal;
-                Image image = new Image();
-                image.Width = 32;
-                image.Height = 32;
-                image.Source = mod.icon;
-                sp.Children.Add(image);
-                CheckBox checkBox = new CheckBox();
-                checkBox.IsChecked = mod.enable;
-                checkBox.Content = mod;
-                sp.Children.Add(checkBox);
-                modsStackPanel.Children.Add(sp);
+                modsStackPanel.Children.Add(mod);
             }
 
             //Обработка данных
@@ -84,11 +73,19 @@ namespace Detrav.TeraModLoader.Windows
 
         void capture_onNewConnectionSync(object sender, ConnectionEventArgs e)
         {
-            ITeraClient teraClient= new TeraClient();
-            teraClient.load(teraModManager.initializeMods());
+            TeraClient teraClient= new TeraClient();
+            ITeraMod[] mods; Button[] buttons;
+            teraModManager.initializeMods(out mods,out buttons);
+            teraClient.load(mods);
             teraClients.Add(e.connection, teraClient);
             TabItem item = new TabItem();
             item.Header = e.connection.ToString();
+            var sp = new StackPanel();
+            foreach (Button plugin in buttons)
+            {
+                sp.Children.Add(plugin);
+            }
+            item.Content = sp;
             tabControl.Items.Add(item);
         }
 
@@ -101,16 +98,6 @@ namespace Detrav.TeraModLoader.Windows
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach(var sp in modsStackPanel.Children)
-            {
-                if (sp.GetType() == typeof(StackPanel))
-                {
-
-                    CheckBox cb = ((sp as StackPanel).Children[1] as CheckBox);
-                    var mod = (cb.Content as Core.Data.Mod);
-                    mod.enable = cb.IsChecked == true;
-                }
-            }
             teraModManager.saveConfig();
             MessageBox.Show("Saved!", "SaveWindow");
         }

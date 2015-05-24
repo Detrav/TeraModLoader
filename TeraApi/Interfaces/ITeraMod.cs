@@ -10,5 +10,6 @@ namespace Detrav.TeraApi.Interfaces
     {
         void load(ITeraClient parent, IConfigManager config);
         void unLoad();
+        void changeVisible();
     }
 }

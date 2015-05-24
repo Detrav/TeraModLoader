@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Detrav.TeraModLoader.Core
 {
@@ -75,15 +76,86 @@ namespace Detrav.TeraModLoader.Core
             config.save(modsConfig);
         }
 
-        internal ITeraMod[] initializeMods()
+        internal void initializeMods(out ITeraMod[] resultMods, out Button[] resultButtons)
         {
             List<ITeraMod> teraMods = new List<ITeraMod>();
+            List<Button> buttons = new List<Button>();
             foreach(var mod in mods)
             {
                 if (mod.enable)
-                    teraMods.Add(mod.create());
+                {
+                    ITeraMod m = mod.create();
+                    teraMods.Add(m);
+                    Button b = new Button();
+                    StackPanel sp = new StackPanel();
+                    sp.Orientation = Orientation.Horizontal;
+                    Image image = new Image();
+                    image.Width = 32;
+                    image.Height = 32;
+                    image.Source = mod.icon;
+                    sp.Children.Add(image);
+                    Label label = new Label();
+                    label.Content = new ButtonHidenValue() { iTeraMod = m, value = mod.ToString() };
+                    sp.Children.Add(label);
+                    b.Content = sp;
+                    b.Click += b_Click;
+                    buttons.Add(b);
+                }
             }
-            return teraMods.ToArray();
+            resultMods = teraMods.ToArray();
+            resultButtons = buttons.ToArray();
+        }
+
+        void b_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ((((sender as Button).Content as StackPanel).Children[1] as Label).Content as ButtonHidenValue).iTeraMod.changeVisible();
+        }
+
+        class ButtonHidenValue
+        {
+            internal ITeraMod iTeraMod;
+            internal string value;
+            public override string ToString()
+            {
+                return value;
+            }
+        }
+
+        internal StackPanel[] getModsCheckBox()
+        {
+            List<StackPanel> modsStackPanel = new List<StackPanel>();
+            foreach(var mod in mods)
+            {
+                StackPanel sp = new StackPanel();
+                sp.Orientation = Orientation.Horizontal;
+                Image image = new Image();
+                image.Width = 32;
+                image.Height = 32;
+                image.Source = mod.icon;
+                sp.Children.Add(image);
+                CheckBox checkBox = new CheckBox();
+                checkBox.IsChecked = mod.enable;
+                checkBox.Checked += checkBox_Checked;
+                checkBox.Unchecked += checkBox_Unchecked;
+                checkBox.Content = mod;
+                sp.Children.Add(checkBox);
+                modsStackPanel.Add(sp);
+            }
+            return modsStackPanel.ToArray();
+        }
+
+        void checkBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            CheckBox cb = (sender as CheckBox);
+            var mod = (cb.Content as Core.Data.Mod);
+            mod.enable = cb.IsChecked == true;
+        }
+
+        void checkBox_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            CheckBox cb = (sender as CheckBox);
+            var mod = (cb.Content as Core.Data.Mod);
+            mod.enable = cb.IsChecked == true;
         }
     }
 }

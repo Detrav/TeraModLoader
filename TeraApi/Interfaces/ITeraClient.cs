@@ -10,6 +10,5 @@ namespace Detrav.TeraApi.Interfaces
     {
         void unLoad();
         void load(ITeraMod[] p);
-        
     }
 }
