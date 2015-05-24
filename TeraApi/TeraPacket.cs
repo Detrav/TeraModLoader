@@ -17,5 +17,10 @@ namespace Detrav.TeraApi
             size = p.toUInt16(0);
             opCode = p.toUInt16(2);
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }
