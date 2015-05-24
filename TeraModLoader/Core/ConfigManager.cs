@@ -32,6 +32,7 @@ namespace Detrav.TeraModLoader.Core
 
         public void save(object config)
         {
+            if (!Directory.Exists(Path.GetDirectoryName(file))) Directory.CreateDirectory(Path.GetDirectoryName(file));
             using(TextWriter tw = new StreamWriter(file))
             {
                 tw.Write(JsonConvert.SerializeObject(config));

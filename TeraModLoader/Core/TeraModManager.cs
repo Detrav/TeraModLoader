@@ -43,10 +43,13 @@ namespace Detrav.TeraModLoader.Core
             foreach (var mod in mods)
             {
                 bool enable;
-                if (modsConfig.TryGetValue(mod.name, out enable))
-                    mod.enable = enable;
-                else
-                    mod.enable = true;
+                if (modsConfig != null)
+                    if (modsConfig.TryGetValue(mod.name, out enable))
+                    {
+                        mod.enable = enable;
+                        continue;
+                    }
+                mod.enable = true;
             }
         }
         public void saveConfig()
