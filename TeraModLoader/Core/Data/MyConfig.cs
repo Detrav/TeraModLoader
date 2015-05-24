@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Detrav.TeraApi.OpCodes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Detrav.TeraModLoader.Core.Data
         public List<ServerInfo> servers = new List<ServerInfo>();
         public int deviceIndex = 0;
         public int serverIndex = 0;
+        public OpCodeVersion version;
     }
 
     internal class ServerInfo

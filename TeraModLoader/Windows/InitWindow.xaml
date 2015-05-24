@@ -12,6 +12,9 @@
         <Label DockPanel.Dock="Top">Выбирите сервер:</Label>
         <ComboBox DockPanel.Dock="Top"
                   x:Name="listBoxServers"></ComboBox>
+        <Label DockPanel.Dock="Top">Выбирите версию:</Label>
+        <ComboBox DockPanel.Dock="Top"
+                  x:Name="listBoxVersion"></ComboBox>
         <DockPanel DockPanel.Dock="Bottom"
                    Height="24"
                    VerticalAlignment="Bottom">

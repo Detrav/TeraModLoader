@@ -1,4 +1,5 @@
-﻿using Detrav.TeraModLoader.Core;
+﻿using Detrav.TeraApi.OpCodes;
+using Detrav.TeraModLoader.Core;
 using Detrav.TeraModLoader.Core.Data;
 using SharpPcap;
 using System;
@@ -37,6 +38,10 @@ namespace Detrav.TeraModLoader.Windows
             foreach (var el in config.servers)
                 listBoxServers.Items.Add(el.name);
             listBoxServers.SelectedIndex = config.serverIndex;
+            foreach (var el in PacketCreator.getVerions())
+                listBoxVersion.Items.Add(el);
+            listBoxVersion.SelectedItem = config.version;
+            
         }
 
         private void buttonCansel_Click(object sender, RoutedEventArgs e)
@@ -56,10 +61,16 @@ namespace Detrav.TeraModLoader.Windows
                 System.Windows.MessageBox.Show("Нужно выбрать один из серверов!");
                 return;
             }
+            if (listBoxVersion.SelectedIndex < 0)
+            {
+                System.Windows.MessageBox.Show("Нужно выбрать версию!");
+                return;
+            }
             server = config.servers[listBoxServers.SelectedIndex].ip;
             device = CaptureDeviceList.Instance[listBoxDevices.SelectedIndex];
             config.deviceIndex = listBoxDevices.SelectedIndex;
             config.serverIndex = listBoxServers.SelectedIndex;
+            config.version = (OpCodeVersion)listBoxVersion.SelectedItem;
             ConfigManager cm = new ConfigManager();
             cm.init();
             cm.save(config);

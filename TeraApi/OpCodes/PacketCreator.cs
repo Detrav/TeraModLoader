@@ -63,5 +63,10 @@ namespace Detrav.TeraApi.OpCodes
             }
             return null;
         }
+
+        static public System.Collections.IEnumerable getVerions()
+        {
+            return Enum.GetValues(typeof(OpCodeVersion)).Cast<OpCodeVersion>();
+        }
     }
 }
