@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\PacketArrivalEventArgs.cs" />
+    <Compile Include="Events\TickEventArgs.cs" />
     <Compile Include="Interfaces\IConfigManager.cs" />
     <Compile Include="Interfaces\ITeraClient.cs" />
     <Compile Include="Interfaces\ITeraMod.cs" />

@@ -10,5 +10,6 @@ namespace Detrav.TeraApi.Interfaces
     public interface ITeraClient
     {
         event OnPacketArrival onPacketArrival;
+        event OnTick onTick;
     }
 }
