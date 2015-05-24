@@ -44,10 +44,14 @@
     <Compile Include="Interfaces\ITeraClient.cs" />
     <Compile Include="Interfaces\ITeraMod.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="OpCodes\OpCode2805.cs" />
     <Compile Include="OpCodes\OpCodeVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeraPacket.cs" />
     <Compile Include="TeraPacketWithData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OpCodes\P2805\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
