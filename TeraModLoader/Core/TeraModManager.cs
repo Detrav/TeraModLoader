@@ -27,8 +27,20 @@ namespace Detrav.TeraModLoader.Core
                     Data.Mod m = new Data.Mod(a);
                     if (m.ready)
                     {
-                        Logger.log("Loaded {0}", m);
-                        ts.Add(m);
+                        bool containts = false;
+                        foreach(var mod in ts)
+                        {
+                            if(mod.guid == m.guid)
+                            {
+                                containts = true;
+                                break;
+                            }
+                        }
+                        if (!containts)
+                        {
+                            Logger.log("Loaded {0}", m);
+                            ts.Add(m);
+                        }
                     }
                 }
                 catch {  }
@@ -37,13 +49,14 @@ namespace Detrav.TeraModLoader.Core
         }
         public void loadConfig()
         {
+            config.init();
             SortedList<string, bool> modsConfig = new SortedList<string, bool>();
             modsConfig = config.load(modsConfig.GetType()) as SortedList<string,bool>;
             foreach (var mod in mods)
             {
                 bool enable;
                 if (modsConfig != null)
-                    if (modsConfig.TryGetValue(mod.name, out enable))
+                    if (modsConfig.TryGetValue(mod.guid.ToString(), out enable))
                     {
                         mod.enable = enable;
                         continue;
@@ -56,7 +69,7 @@ namespace Detrav.TeraModLoader.Core
             SortedList<string, bool> modsConfig = new SortedList<string, bool>();
             foreach (var mod in mods)
             {
-                modsConfig.Add(mod.name,mod.enable);
+                modsConfig.Add(mod.guid.ToString(),mod.enable);
             }
             config.save(modsConfig);
         }
