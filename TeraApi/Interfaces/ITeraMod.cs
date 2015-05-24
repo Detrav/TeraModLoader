@@ -12,5 +12,7 @@ namespace Detrav.TeraApi.Interfaces
         void unLoad();
         void changeVisible();
         void configManager(IConfigManager configManager);
+        void show();
+        void hide();
     }
 }

@@ -34,7 +34,7 @@ namespace Detrav.TeraModLoader.Windows
         Capture capture;
         DispatcherTimer timer;
         TeraModManager teraModManager;
-        Dictionary<Connection, TeraClient> teraClients = new Dictionary<Connection,ITeraClient>();
+        Dictionary<Connection, TeraClient> teraClients = new Dictionary<Connection,TeraClient>();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

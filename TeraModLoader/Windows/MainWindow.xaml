@@ -4,7 +4,8 @@
         Title="TML - Tera Mod Manager"
         Height="350"
         Width="300"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Icon="/TeraModLoader;component/icon.ico">
     <Grid>
         <TabControl x:Name="tabControl">
             <TabItem Header="Настройка загруженных модов">
