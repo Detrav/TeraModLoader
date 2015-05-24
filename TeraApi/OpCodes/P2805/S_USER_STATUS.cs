@@ -16,7 +16,6 @@ namespace Detrav.TeraApi.OpCodes.P2805
         {
             id = packet.toUInt64(4);//     readUInt64(4, "id");
             status = packet.toByte(12);//     readByte(12, "status");
-            catch { }
         }
     }
 }
