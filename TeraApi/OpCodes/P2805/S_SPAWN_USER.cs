@@ -8,10 +8,13 @@ namespace Detrav.TeraApi.OpCodes.P2805
 {
     public class S_SPAWN_USER : TeraPacket
     {
+        public ulong id { get; set; }
+        public string name { get; set; }
+
         public S_SPAWN_USER(TeraPacketWithData packet)
             : base(packet)
         {
-            ushort name_start = readUInt16(8, "name start");
+            ushort name_start = packet.toUInt16(8);
             //ushort guild_start = readUInt16(10, "guild start");
             //ushort guild_rank_start = readUInt16(12, "guild rank start");
             //ushort guild_title_start = readUInt16(20, "guild title start");
@@ -24,7 +27,5 @@ namespace Detrav.TeraApi.OpCodes.P2805
             //readString(guild_rank_start, "guild rank");
             //readString(guild_title_start, "guild title");
         }
-        public ulong id { get; set; }
-        public string name { get; set; }
     }
 }

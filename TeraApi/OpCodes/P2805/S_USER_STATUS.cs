@@ -8,6 +8,9 @@ namespace Detrav.TeraApi.OpCodes.P2805
 {
     public class S_USER_STATUS : TeraPacket
     {
+        public ulong id { get; set; }
+        public byte status { get; set; }
+
         public S_USER_STATUS(TeraPacketWithData packet)
             : base(packet)
         {
@@ -15,9 +18,5 @@ namespace Detrav.TeraApi.OpCodes.P2805
             status = packet.toByte(12);//     readByte(12, "status");
             catch { }
         }
-
-        public ulong id { get; set; }
-
-        public byte status { get; set; }
     }
 }
