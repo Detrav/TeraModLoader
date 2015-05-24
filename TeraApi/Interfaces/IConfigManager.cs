@@ -10,6 +10,6 @@ namespace Detrav.TeraApi.Interfaces
     {
         void init(string playerName);
         void save(object config);
-        object load();
+        object load(Type t);
     }
 }

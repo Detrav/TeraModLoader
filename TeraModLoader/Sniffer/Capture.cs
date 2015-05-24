@@ -88,7 +88,7 @@ namespace Detrav.TeraModLoader.Sniffer
                 c = null;
                 lock (newConnections)
                 {
-                    if (newConnections.Count > 0) ;
+                    if (newConnections.Count > 0) 
                     c = newConnections.Dequeue();
                 }
                 if (onNewConnectionSync != null)
@@ -99,7 +99,7 @@ namespace Detrav.TeraModLoader.Sniffer
             {
                 lock (endConnections)
                 {
-                    if (endConnections.Count > 0) ;
+                    if (endConnections.Count > 0) 
                     c = endConnections.Dequeue();
                 }
                 if (onEndConnectionSync != null)

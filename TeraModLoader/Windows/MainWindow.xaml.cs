@@ -41,7 +41,7 @@ namespace Detrav.TeraModLoader.Windows
             capture.onPacketArrivalSync += capture_onPacketArrivalSync;
             //Работа с аддонами
             teraModManager = new TeraModManager();
-            
+            teraModManager.loadConfig();
             foreach(var mod in teraModManager.mods)
             {
                 StackPanel sp = new StackPanel();

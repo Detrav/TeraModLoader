@@ -41,10 +41,12 @@ namespace Detrav.TeraModLoader.Core
 
         public object load(Type t)
         {
+           if(File.Exists(file))
            using(TextReader tr = new StreamReader(file))
            {
                return JsonConvert.DeserializeObject(tr.ReadToEnd(), t);
            }
+           return null;
         }
     }
 }

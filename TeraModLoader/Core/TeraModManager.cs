@@ -16,7 +16,7 @@ namespace Detrav.TeraModLoader.Core
         static string directory = "mods";
         public TeraModManager()
         {
-            if (Directory.Exists(directory)) Directory.CreateDirectory(directory);
+            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
             List<Data.Mod> ts = new List<Data.Mod>();
             foreach (var file in Directory.GetFiles(directory, "*.dll"))
             {
