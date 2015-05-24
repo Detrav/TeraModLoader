@@ -51,7 +51,7 @@ namespace Detrav.TeraModLoader.Windows
                 sp.Children.Add(image);
                 CheckBox checkBox = new CheckBox();
                 checkBox.IsChecked = mod.enable;
-                checkBox.Content = String.Format("{0} {1}", mod.name, mod.version);
+                checkBox.Content = mod;
                 sp.Children.Add(checkBox);
                 modsStackPanel.Children.Add(sp);
             }
@@ -87,6 +87,16 @@ namespace Detrav.TeraModLoader.Windows
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
+            foreach(var sp in modsStackPanel.Children)
+            {
+                if (sp.GetType() == typeof(StackPanel))
+                {
+
+                    CheckBox cb = ((sp as StackPanel).Children[1] as CheckBox);
+                    var mod = (cb.Content as Core.Data.Mod);
+                    mod.enable = cb.IsChecked == true;
+                }
+            }
             teraModManager.saveConfig();
             MessageBox.Show("Saved!", "SaveWindow");
         }
