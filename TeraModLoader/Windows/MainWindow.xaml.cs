@@ -1,4 +1,5 @@
-﻿using Detrav.TeraModLoader.Core;
+﻿using Detrav.TeraApi.Interfaces;
+using Detrav.TeraModLoader.Core;
 using Detrav.TeraModLoader.Sniffer;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace Detrav.TeraModLoader.Windows
         Capture capture;
         DispatcherTimer timer;
         TeraModManager teraModManager;
+        Dictionary<Connection, ITeraClient> teraClients = new Dictionary<Connection,ITeraClient>();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -47,6 +49,8 @@ namespace Detrav.TeraModLoader.Windows
                 StackPanel sp = new StackPanel();
                 sp.Orientation = Orientation.Horizontal;
                 Image image = new Image();
+                image.Width = 32;
+                image.Height = 32;
                 image.Source = mod.icon;
                 sp.Children.Add(image);
                 CheckBox checkBox = new CheckBox();
@@ -70,12 +74,22 @@ namespace Detrav.TeraModLoader.Windows
 
         void capture_onEndConnectionSync(object sender, ConnectionEventArgs e)
         {
-            //throw new NotImplementedException();
+            ITeraClient teraClient;
+            if(teraClients.TryGetValue(e.connection,out teraClient))
+            {
+                teraClient.unLoad();
+                teraClients.Remove(e.connection);
+            }
         }
 
         void capture_onNewConnectionSync(object sender, ConnectionEventArgs e)
         {
-            //throw new NotImplementedException();
+            ITeraClient teraClient= new TeraClient();
+            teraClient.load(teraModManager.initializeMods());
+            teraClients.Add(e.connection, teraClient);
+            TabItem item = new TabItem();
+            item.Header = e.connection.ToString();
+            tabControl.Items.Add(item);
         }
 
         void timer_Tick(object sender, EventArgs e)

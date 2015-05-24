@@ -91,19 +91,22 @@ namespace Detrav.TeraModLoader.Sniffer
                     if (newConnections.Count > 0) 
                     c = newConnections.Dequeue();
                 }
-                if (onNewConnectionSync != null)
-                    onNewConnectionSync(this, new ConnectionEventArgs(c));
+                if(c!=null)
+                    if (onNewConnectionSync != null)
+                        onNewConnectionSync(this, new ConnectionEventArgs(c));
             } while (c != null);
 
             do
             {
+                c = null;
                 lock (endConnections)
                 {
                     if (endConnections.Count > 0) 
                     c = endConnections.Dequeue();
                 }
-                if (onEndConnectionSync != null)
-                    onEndConnectionSync(this, new ConnectionEventArgs(c));
+                if(c!=null)
+                    if (onEndConnectionSync != null)
+                        onEndConnectionSync(this, new ConnectionEventArgs(c));
             } while (c != null);
 
             TcpClient client;

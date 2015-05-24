@@ -1,4 +1,5 @@
 ﻿using Detrav.TeraApi;
+using Detrav.TeraApi.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -72,6 +73,17 @@ namespace Detrav.TeraModLoader.Core
                 modsConfig.Add(mod.guid.ToString(),mod.enable);
             }
             config.save(modsConfig);
+        }
+
+        internal ITeraMod[] initializeMods()
+        {
+            List<ITeraMod> teraMods = new List<ITeraMod>();
+            foreach(var mod in mods)
+            {
+                if (mod.enable)
+                    teraMods.Add(mod.create());
+            }
+            return teraMods.ToArray();
         }
     }
 }

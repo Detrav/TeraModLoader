@@ -13,8 +13,8 @@ namespace Detrav.TeraModLoader.Sniffer
 
     internal class PacketArrivalEventArgs : EventArgs
     {
-        Connection connection;
-        TeraPacketWithData packet;
+        public Connection connection { get; private set; }
+        public TeraPacketWithData packet { get; private set; }
         public PacketArrivalEventArgs(Connection c, TeraPacketWithData p)
         {
             connection = c;
@@ -24,7 +24,7 @@ namespace Detrav.TeraModLoader.Sniffer
 
     internal class ConnectionEventArgs : EventArgs
     {
-        Connection connection;
+        public Connection connection { get; private set; }
         public ConnectionEventArgs(Connection c)
         {
             connection = c;
