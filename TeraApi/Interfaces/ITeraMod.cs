@@ -8,7 +8,7 @@ namespace Detrav.TeraApi.Interfaces
 {
     public interface ITeraMod
     {
-        void load(ITeraClient parent);
+        void load(ITeraClient parent, IConfigManager config);
         void unLoad();
     }
 }

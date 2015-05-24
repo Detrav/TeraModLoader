@@ -1,4 +1,5 @@
 ﻿using Detrav.TeraApi.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,12 +32,19 @@ namespace Detrav.TeraModLoader.Core
 
         public void save(object config)
         {
-            
+            using(TextWriter tw = new StreamWriter(file))
+            {
+                tw.Write(JsonConvert.SerializeObject(config));
+            }
+
         }
 
-        public object load()
+        public object load(Type t)
         {
-            throw new NotImplementedException();
+           using(TextReader tr = new StreamReader(file))
+           {
+               return JsonConvert.DeserializeObject(tr.ReadToEnd(), t);
+           }
         }
     }
 }
