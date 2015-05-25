@@ -11,7 +11,7 @@ namespace Detrav.TeraApi.Interfaces
         void load(ITeraClient parent);
         void unLoad();
         void changeVisible();
-        void configManager(IConfigManager configManager);
+        void init(IConfigManager configManager, IAssetManager assetManager);
         void show();
         void hide();
     }

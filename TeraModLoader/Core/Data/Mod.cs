@@ -57,7 +57,9 @@ namespace Detrav.TeraModLoader.Core.Data
 
         public ITeraMod create()
         {
-            return (ITeraMod)Activator.CreateInstance(type);
+            ITeraMod mod = (ITeraMod)Activator.CreateInstance(type);
+            mod.init(new ConfigManager(name));
+            return mod;
         }
 
         public override string ToString()

@@ -87,9 +87,6 @@ namespace Detrav.TeraModLoader.Core
                 if (mod.enable)
                 {
                     ITeraMod m = mod.create();
-                    var cm = new ConfigManager(mod.name);
-                    cm.saveGlobal("unknown");
-                    m.configManager(cm);
                     teraMods.Add(m);
                     Button b = new Button();
                     StackPanel sp = new StackPanel();
