@@ -64,7 +64,7 @@ namespace Detrav.TeraApi
         }
         static public char toSingleChar(byte[] data, int b)
         {
-            return BitConverter.ToChar(data, b);
+            return Convert.ToChar(data[b]);
         }
         static public char toDoubleChar(byte[] data, int b)
         {
@@ -73,7 +73,7 @@ namespace Detrav.TeraApi
         static public string toSingleString(byte[] data, int b, int e)
         {
             StringBuilder result = new StringBuilder();
-            for (int i = b; i < e; i++)
+            for (int i = b; i < e && i < data.Length; i++)
             {
                 char c = toSingleChar(data, i);
                 if (char.IsControl(c)) result.Append('.');
@@ -84,7 +84,7 @@ namespace Detrav.TeraApi
         static public string toDoubleString(byte[] data, int b, int e)
         {
             StringBuilder result = new StringBuilder();
-            for (int i = b; i < e; i += 2)
+            for (int i = b; i < e && i < data.Length-1; i += 2)
             {
                 char c = toDoubleChar(data, i);
                 if (c == '\0') break;
@@ -99,7 +99,7 @@ namespace Detrav.TeraApi
         static public string toHex(byte[] data, int b, int e, string split = "")
         {
             StringBuilder result = new StringBuilder();
-            for (int i = b; i < e; i++)
+            for (int i = b; i < e && i < data.Length; i++)
             {
                 result.AppendFormat("{0:X2}", data[i]);
                 if (split.Length > 0)
