@@ -49,5 +49,26 @@ namespace Detrav.TeraModLoader.Core
             Logger.debug("Error on deSerialize for {0}", file);
             return null;
         }
+
+
+        public string[] getDirectories(string relativePath)
+        {
+            string file;
+            if (relativePath != null)
+                file = Path.Combine(assets, modName, relativePath);
+            else
+                file = Path.Combine(assets, modName, relativePath);
+            return Directory.GetDirectories(file);
+        }
+
+        public string[] getFiles(string relativePath,string patern)
+        {
+            string file;
+            if (relativePath != null)
+                file = Path.Combine(assets, modName, relativePath);
+            else
+                file = Path.Combine(assets, modName, relativePath);
+            return Directory.GetFiles(file, patern);
+        }
     }
 }

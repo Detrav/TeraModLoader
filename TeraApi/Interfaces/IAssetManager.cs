@@ -10,5 +10,7 @@ namespace Detrav.TeraApi.Interfaces
     {
         object deSerialize(string relativePath, Type t);
         void serialize(string relativePath, object f);
+        string[] getDirectories(string relativePath);
+        string[] getFiles(string relativePath, string patern);
     }
 }
