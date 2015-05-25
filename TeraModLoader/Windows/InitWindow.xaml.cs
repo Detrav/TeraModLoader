@@ -31,6 +31,7 @@ namespace Detrav.TeraModLoader.Windows
             InitializeComponent();
             ConfigManager cm = new ConfigManager();
             config = cm.loadGlobal(typeof(MyConfig)) as MyConfig;
+            if (config == null) config = new MyConfig();
             foreach (var el in CaptureDeviceList.Instance)
                 listBoxDevices.Items.Add(el.Description);
             listBoxDevices.SelectedIndex = config.deviceIndex;
