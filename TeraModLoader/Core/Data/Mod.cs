@@ -58,7 +58,7 @@ namespace Detrav.TeraModLoader.Core.Data
         public ITeraMod create()
         {
             ITeraMod mod = (ITeraMod)Activator.CreateInstance(type);
-            mod.init(new ConfigManager(name));
+            mod.init(new ConfigManager(name),new AssetManager(name));
             return mod;
         }
 
