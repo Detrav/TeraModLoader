@@ -30,8 +30,7 @@ namespace Detrav.TeraModLoader.Windows
         {
             InitializeComponent();
             ConfigManager cm = new ConfigManager();
-            cm.init();
-            config = cm.load(typeof(MyConfig)) as MyConfig;
+            config = cm.loadGlobal(typeof(MyConfig)) as MyConfig;
             foreach (var el in CaptureDeviceList.Instance)
                 listBoxDevices.Items.Add(el.Description);
             listBoxDevices.SelectedIndex = config.deviceIndex;
@@ -72,8 +71,7 @@ namespace Detrav.TeraModLoader.Windows
             config.serverIndex = listBoxServers.SelectedIndex;
             config.version = (OpCodeVersion)listBoxVersion.SelectedItem;
             ConfigManager cm = new ConfigManager();
-            cm.init();
-            cm.save(config);
+            cm.saveGlobal(config);
             DialogResult = true;
         }
 

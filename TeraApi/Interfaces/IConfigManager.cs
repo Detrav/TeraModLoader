@@ -8,8 +8,9 @@ namespace Detrav.TeraApi.Interfaces
 {
     public interface IConfigManager
     {
-        void init(string playerName);
-        void save(object config);
-        object load(Type t);
+        void savePlayer(string playerName, object config);
+        object loadPlayer(string playerName, Type t);
+        void saveGlobal(object config);
+        object loadGlobal(Type t);
     }
 }

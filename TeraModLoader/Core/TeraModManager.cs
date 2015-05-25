@@ -53,8 +53,7 @@ namespace Detrav.TeraModLoader.Core
         }
         public MyConfig loadConfig(MyConfig cfg)
         {
-            config.init();
-            cfg = config.load(cfg.GetType()) as MyConfig;
+            cfg = config.loadGlobal(cfg.GetType()) as MyConfig;
             foreach (var mod in mods)
             {
                 bool enable;
@@ -75,7 +74,7 @@ namespace Detrav.TeraModLoader.Core
             {
                 cfg.modEnable.Add(mod.name.ToString(), mod.enable);
             }
-            config.save(cfg);
+            config.saveGlobal(cfg);
         }
 
         internal void initializeMods(out ITeraMod[] resultMods, out Button[] resultButtons)
@@ -89,7 +88,7 @@ namespace Detrav.TeraModLoader.Core
                 {
                     ITeraMod m = mod.create();
                     var cm = new ConfigManager(mod.name);
-                    cm.init("unknown");
+                    cm.saveGlobal("unknown");
                     m.configManager(cm);
                     teraMods.Add(m);
                     Button b = new Button();
