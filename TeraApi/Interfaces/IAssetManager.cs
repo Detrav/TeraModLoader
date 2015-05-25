@@ -8,7 +8,7 @@ namespace Detrav.TeraApi.Interfaces
 {
     public interface IAssetManager
     {
-        void serialize(string relativePath);
-        void deSerialize(string relativePath);
+        object deSerialize(string relativePath, Type t);
+        void serialize(string relativePath, object f);
     }
 }
