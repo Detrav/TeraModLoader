@@ -71,6 +71,7 @@ namespace Detrav.TeraModLoader.Windows
             config.deviceIndex = listBoxDevices.SelectedIndex;
             config.serverIndex = listBoxServers.SelectedIndex;
             config.version = (OpCodeVersion)listBoxVersion.SelectedItem;
+            PacketCreator.setVersion(config.version);
             ConfigManager cm = new ConfigManager();
             cm.saveGlobal(config);
             DialogResult = true;
