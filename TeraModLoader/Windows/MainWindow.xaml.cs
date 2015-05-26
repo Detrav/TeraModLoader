@@ -65,7 +65,7 @@ namespace Detrav.TeraModLoader.Windows
             timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Start();
             Logger.debug("{0}", "Window started");
-            //TestVars
+            /*/TestVars
             capture_onNewConnectionSync(this, new ConnectionEventArgs(new Connection("0.0.0.0",0,"0.0.0.0",0)));
             Random r = new Random();
             for(int i =0;i<1000;i++)
@@ -73,7 +73,7 @@ namespace Detrav.TeraModLoader.Windows
                 byte[] bb = new byte[100];
                 r.NextBytes(bb);
                 capture_onPacketArrivalSync(this, new PacketArrivalEventArgs(new Connection("0.0.0.0", 0, "0.0.0.0", 0), new TeraPacketWithData(bb, PacketType.Any)));
-            }
+            }*/
         }
 
         void capture_onPacketArrivalSync(object sender, PacketArrivalEventArgs e)
