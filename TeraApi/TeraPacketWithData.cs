@@ -107,6 +107,15 @@ namespace Detrav.TeraApi
             }
             return result.ToString();
         }
+        static public string toHex(byte[] data)
+        {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.AppendFormat("{0:X2}", data[i]);
+            }
+            return result.ToString();
+        }
 
         public byte toByte(int b)
         {
