@@ -117,6 +117,26 @@ namespace Detrav.TeraApi
             return result.ToString();
         }
 
+        static public byte[] fromSingleString(string str)
+        {
+            List<byte> bb = new List<byte>();
+            foreach (var el in str)
+            {
+                bb.Add(Convert.ToByte(el));
+            }
+            return bb.ToArray();
+        }
+
+        static public byte[] fromDoubleString(string str)
+        {
+            List<byte> bb = new List<byte>();
+            foreach(var el in str)
+            {
+                bb.AddRange(BitConverter.GetBytes(Convert.ToUInt16(el)));
+            }
+            return bb.ToArray();
+        }
+
         public byte toByte(int b)
         {
             return toByte(data,b);
