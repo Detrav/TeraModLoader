@@ -22,7 +22,7 @@ namespace Detrav.TeraModLoader.Core
             Logger.debug("Start init for TeraModManager", "");
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
             List<Data.Mod> ts = new List<Data.Mod>();
-            foreach (var file in Directory.GetFiles(directory, "*.dll"))
+            foreach (var file in Directory.GetFiles(directory, "*.exe|*.dll"))
             {
                 Assembly a;
                 try
