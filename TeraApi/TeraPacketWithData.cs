@@ -202,11 +202,18 @@ namespace Detrav.TeraApi
             return toHex(data, b, e, split);
         }
 
-
-
         public override string ToString()
         {
             return String.Format("{0,6} {1,6} {2}", size, opCode, toHex(0, data.Length));
+        }
+
+        public byte[] fromHex(string hex)
+        {
+            int NumberChars = hex.Length;
+            byte[] bytes = new byte[NumberChars / 2];
+            for (int i = 0; i < NumberChars; i += 2)
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            return bytes;
         }
     }
 }
