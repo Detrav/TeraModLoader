@@ -207,7 +207,7 @@ namespace Detrav.TeraApi
             return String.Format("{0,6} {1,6} {2}", size, opCode, toHex(0, data.Length));
         }
 
-        public byte[] fromHex(string hex)
+        public static byte[] fromHex(string hex)
         {
             int NumberChars = hex.Length;
             byte[] bytes = new byte[NumberChars / 2];
