@@ -22,7 +22,7 @@ namespace Detrav.TeraModLoader.Core
             Logger.debug("Start init for TeraModManager", "");
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
             List<Data.Mod> ts = new List<Data.Mod>();
-            foreach (var file in Directory.GetFiles(directory, "*.exe|*.dll"))
+            foreach (var file in getFiles(directory, "*.exe|*.dll", SearchOption.TopDirectoryOnly))
             {
                 Assembly a;
                 try
@@ -159,6 +159,16 @@ namespace Detrav.TeraModLoader.Core
             CheckBox cb = (sender as CheckBox);
             var mod = (cb.Content as Core.Data.Mod);
             mod.enable = cb.IsChecked == true;
+        }
+
+        public static string[] getFiles(string path, string searchPattern, SearchOption searchOption)
+        {
+            string[] searchPatterns = searchPattern.Split('|');
+            List<string> files = new List<string>();
+            foreach (string sp in searchPatterns)
+                files.AddRange(System.IO.Directory.GetFiles(path, sp, searchOption));
+            files.Sort();
+            return files.ToArray();
         }
     }
 }
