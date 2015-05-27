@@ -47,6 +47,7 @@
     <Compile Include="Interfaces\ITeraMod.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="OpCodes\OpCode2805.cs" />
+    <Compile Include="OpCodes\OpCode2904.cs" />
     <Compile Include="OpCodes\OpCodeVersion.cs" />
     <Compile Include="OpCodes\P2805\C_CHECK_VERSION.cs" />
     <Compile Include="OpCodes\P2805\S_DESPAWN_PROJECTILE.cs" />
@@ -61,7 +62,9 @@
     <Compile Include="TeraPacket.cs" />
     <Compile Include="TeraPacketWithData.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="OpCodes\P2904\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

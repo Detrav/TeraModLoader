@@ -9,6 +9,7 @@ namespace Detrav.TeraApi.OpCodes
     public enum OpCodeVersion
     {
         Тестовая_версия,
-        P2805
+        P2805,
+        P2904
     }
 }
