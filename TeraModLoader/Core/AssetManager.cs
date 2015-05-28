@@ -88,5 +88,11 @@ namespace Detrav.TeraModLoader.Core
             sfd.InitialDirectory = root;
             return sfd;
         }
+
+
+        public string getMyFolder()
+        {
+            return Path.Combine(assets, modName);
+        }
     }
 }
