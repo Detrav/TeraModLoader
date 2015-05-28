@@ -27,6 +27,8 @@ namespace Detrav.TeraApi.OpCodes
                     creator.Add((ushort)OpCode2805.S_SPAWN_USER, typeof(P2805.S_SPAWN_USER));
                     creator.Add((ushort)OpCode2805.S_USER_STATUS, typeof(P2805.S_USER_STATUS));
                     break;
+                case OpCodeVersion.P2904:
+                    break;
             }
             currentVersion = version;
             return currentVersion;
@@ -34,10 +36,15 @@ namespace Detrav.TeraApi.OpCodes
 
         public static TeraPacket create(TeraPacketWithData packet)
         {
+            Type p;
             switch (currentVersion)
             {
                 case OpCodeVersion.P2805:
-                    Type p;
+                    
+                    if (creator.TryGetValue(packet.opCode, out p))
+                        return (TeraPacket)Activator.CreateInstance(p, packet);
+                    return new TeraPacket(packet);
+                case OpCodeVersion.P2904:
                     if (creator.TryGetValue(packet.opCode, out p))
                         return (TeraPacket)Activator.CreateInstance(p, packet);
                     return new TeraPacket(packet);
@@ -51,6 +58,8 @@ namespace Detrav.TeraApi.OpCodes
             {
                 case OpCodeVersion.P2805:
                     return (OpCode2805)opCode;
+                case OpCodeVersion.P2904:
+                    return (OpCode2904)opCode;
             }
             return null;
         }
@@ -66,6 +75,8 @@ namespace Detrav.TeraApi.OpCodes
             {
                 case OpCodeVersion.P2805:
                     return Enum.GetValues(typeof(OpCode2805)).Cast<OpCode2805>();
+                case OpCodeVersion.P2904:
+                    return Enum.GetValues(typeof(OpCode2904)).Cast<OpCode2904>();
             }
             return null;
         }
@@ -75,9 +86,15 @@ namespace Detrav.TeraApi.OpCodes
             switch (currentVersion)
             {
                 case OpCodeVersion.P2805:
-                    OpCode2805 ver;
-                    if (Enum.TryParse<OpCode2805>(opCode, out ver))
-                        return ver;
+                    OpCode2805 p2805;
+                    if (Enum.TryParse<OpCode2805>(opCode, out p2805))
+                        return p2805;
+                    else
+                        return null;
+                case OpCodeVersion.P2904:
+                    OpCode2904 p2904;
+                    if (Enum.TryParse<OpCode2904>(opCode, out p2904))
+                        return p2904;
                     else
                         return null;
             }
