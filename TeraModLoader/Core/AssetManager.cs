@@ -7,6 +7,7 @@ using Detrav.TeraApi.Interfaces;
 using Detrav.TeraApi;
 using System.IO;
 using Newtonsoft.Json;
+using Microsoft.Win32;
 
 namespace Detrav.TeraModLoader.Core
 {
@@ -69,6 +70,23 @@ namespace Detrav.TeraModLoader.Core
             else
                 file = Path.Combine(assets, modName, relativePath);
             return Directory.GetFiles(file, patern);
+        }
+
+
+        public object getOpenFileDialog()
+        {
+            string root = Path.Combine(assets, modName);
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = root;
+            return ofd;
+        }
+
+        public object getSaveFileDialog()
+        {
+            string root = Path.Combine(assets, modName);
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.InitialDirectory = root;
+            return sfd;
         }
     }
 }
