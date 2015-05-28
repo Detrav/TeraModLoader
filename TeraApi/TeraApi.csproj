@@ -57,14 +57,16 @@
     <Compile Include="OpCodes\P2805\S_SPAWN_PROJECTILE.cs" />
     <Compile Include="OpCodes\P2805\S_SPAWN_USER.cs" />
     <Compile Include="OpCodes\P2805\S_USER_STATUS.cs" />
+    <Compile Include="OpCodes\P2904\C_CHECK_VERSION.cs" />
+    <Compile Include="OpCodes\P2904\S_EACH_SKILL_RESULT.cs" />
+    <Compile Include="OpCodes\P2904\S_LOGIN.cs" />
+    <Compile Include="OpCodes\P2904\S_USER_STATUS.cs" />
     <Compile Include="OpCodes\PacketCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeraPacket.cs" />
     <Compile Include="TeraPacketWithData.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="OpCodes\P2904\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
