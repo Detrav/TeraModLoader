@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,13 @@ namespace Detrav.TeraApi.Interfaces
 {
     public interface IAssetManager
     {
-        object deSerialize(string relativePath, Type t);
-        void serialize(string relativePath, object f);
-        string[] getDirectories(string relativePath);
-        string[] getFiles(string relativePath, string patern);
-        string getMyFolder();
+        object deSerialize(string path, Type t,AssetType assetType = AssetType.relative);
+        void serialize(string path, object f, AssetType assetType = AssetType.relative);
+        string[] getDirectories(string path, AssetType assetType = AssetType.relative);
+        string[] getFiles(string path, string patern, AssetType assetType = AssetType.relative);
+        string openFileDialog(string filter);
+        string saveFileDialog(string filter);
     }
+
+    public enum AssetType { relative, global }
 }
