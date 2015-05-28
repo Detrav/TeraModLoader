@@ -14,5 +14,6 @@ namespace Detrav.TeraApi.Interfaces
         void init(IConfigManager configManager, IAssetManager assetManager);
         void show();
         void hide();
+        void debug();
     }
 }
