@@ -119,30 +119,5 @@ namespace Detrav.TeraModLoader.Core
         {
             return Path.Combine(assets, modName);
         }
-
-
-        public string openFileDialog(string filter)
-        {
-            string root = Path.Combine(assets, modName);
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.InitialDirectory = root;
-            if(ofd.ShowDialog()== true)
-            {
-                return ofd.FileName;
-            }
-            return null;
-        }
-
-        public string saveFileDialog(string filter)
-        {
-            string root = Path.Combine(assets, modName);
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialDirectory = root;
-            if(sfd.ShowDialog() == true)
-            {
-                return sfd.FileName;
-            }
-            return null;
-        }
     }
 }
