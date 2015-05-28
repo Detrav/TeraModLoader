@@ -8,7 +8,14 @@
         Icon="/TeraModLoader;component/icon.ico">
     <Grid>
         <TabControl x:Name="tabControl">
-            <TabItem Header="Настройка загруженных модов">
+            <TabItem>
+                <TabItem.Header>Настройка загруженных модов</TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Тестовое окно"
+                                  Click="menuItemTest_Click" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />

@@ -144,5 +144,17 @@ namespace Detrav.TeraModLoader.Windows
             teraModManager.saveConfig(myConfig);
             MessageBox.Show("Saved!", "SaveWindow");
         }
+
+        private void menuItemTest_Click(object sender, RoutedEventArgs e)
+        {
+            capture_onNewConnectionSync(this, new ConnectionEventArgs(new Connection("0.0.0.0", 0, "0.0.0.0", 0)));
+            Random r = new Random();
+            for (int i = 0; i < 1000; i++)
+            {
+                byte[] bb = new byte[100];
+                r.NextBytes(bb);
+                capture_onPacketArrivalSync(this, new PacketArrivalEventArgs(new Connection("0.0.0.0", 0, "0.0.0.0", 0), new TeraPacketWithData(bb, PacketType.Any)));
+            }
+        }
     }
 }

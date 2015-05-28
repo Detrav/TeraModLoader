@@ -117,7 +117,7 @@ namespace Detrav.TeraModLoader.Core
 
         public string getMyFolder()
         {
-            return Path.Combine(assets, modName);
+            return Path.GetFullPath(Path.Combine(assets, modName));
         }
     }
 }
