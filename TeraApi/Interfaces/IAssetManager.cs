@@ -13,8 +13,7 @@ namespace Detrav.TeraApi.Interfaces
         void serialize(string path, object f, AssetType assetType = AssetType.relative);
         string[] getDirectories(string path, AssetType assetType = AssetType.relative);
         string[] getFiles(string path, string patern, AssetType assetType = AssetType.relative);
-        string openFileDialog(string filter);
-        string saveFileDialog(string filter);
+        string getMyFolder();
     }
 
     public enum AssetType { relative, global }
