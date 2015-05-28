@@ -12,7 +12,6 @@ namespace Detrav.TeraApi.Interfaces
         void serialize(string relativePath, object f);
         string[] getDirectories(string relativePath);
         string[] getFiles(string relativePath, string patern);
-        object getOpenFileDialog();
-        object getSaveFileDialog();
+        string getMyFolder();
     }
 }
