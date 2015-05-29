@@ -46,6 +46,7 @@
     <Compile Include="Events\TickEventArgs.cs" />
     <Compile Include="Interfaces\IAssetManager.cs" />
     <Compile Include="Interfaces\IConfigManager.cs" />
+    <Compile Include="Interfaces\IModWindow.cs" />
     <Compile Include="Interfaces\ITeraClient.cs" />
     <Compile Include="Interfaces\ITeraMod.cs" />
     <Compile Include="Logger.cs" />
