@@ -13,7 +13,7 @@ namespace Detrav.TeraApi.OpCodes.P2904
         public S_SPAWN_NPC(TeraPacketWithData packet)
             : base(packet)
         {
-            id = packet.toUInt64(8);
+            id = packet.toUInt64(10);
             parentId = packet.toUInt64(85);
         }
     }
