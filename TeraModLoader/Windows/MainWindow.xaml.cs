@@ -62,7 +62,7 @@ namespace Detrav.TeraModLoader.Windows
             //Обработка данных
             timer = new DispatcherTimer();
             timer.Tick += timer_Tick;
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Start();
             Logger.debug("{0}", "Window started");
             /*/TestVars
