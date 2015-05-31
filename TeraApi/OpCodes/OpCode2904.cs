@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes
 {
-    enum OpCode2904 : ushort
+    public enum OpCode2904 : ushort
     {
         I_TELEPORT = 0,
         I_SPAWN_BARRACK_CHARACTER = 1,

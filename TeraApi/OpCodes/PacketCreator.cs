@@ -28,6 +28,17 @@ namespace Detrav.TeraApi.OpCodes
                     creator.Add((ushort)OpCode2805.S_USER_STATUS, typeof(P2805.S_USER_STATUS));
                     break;
                 case OpCodeVersion.P2904:
+                    creator = new Dictionary<ushort, Type>();
+                    creator.Add((ushort)OpCode2904.C_CHECK_VERSION,typeof(P2904.C_CHECK_VERSION));
+                    creator.Add((ushort)OpCode2904.S_DESPAWN_PROJECTILE, typeof(P2904.S_DESPAWN_PROJECTILE));
+                    creator.Add((ushort)OpCode2904.S_EACH_SKILL_RESULT, typeof(P2904.S_EACH_SKILL_RESULT));
+                    creator.Add((ushort)OpCode2904.S_LEAVE_PARTY, typeof(P2904.S_LEAVE_PARTY));
+                    creator.Add((ushort)OpCode2904.S_LEAVE_PARTY_MEMBER, typeof(P2904.S_LEAVE_PARTY_MEMBER));
+                    creator.Add((ushort)OpCode2904.S_LOGIN, typeof(P2904.S_LOGIN));
+                    creator.Add((ushort)OpCode2904.S_PARTY_MEMBER_LIST, typeof(P2904.S_PARTY_MEMBER_LIST));
+                    creator.Add((ushort)OpCode2904.S_SPAWN_PROJECTILE, typeof(P2904.S_SPAWN_PROJECTILE));
+                    creator.Add((ushort)OpCode2904.S_SPAWN_USER, typeof(P2904.S_SPAWN_USER));
+                    creator.Add((ushort)OpCode2904.S_USER_STATUS, typeof(P2904.S_USER_STATUS));
                     break;
             }
             currentVersion = version;
