@@ -39,6 +39,9 @@ namespace Detrav.TeraApi.OpCodes
                     creator.Add((ushort)OpCode2904.S_SPAWN_PROJECTILE, typeof(P2904.S_SPAWN_PROJECTILE));
                     creator.Add((ushort)OpCode2904.S_SPAWN_USER, typeof(P2904.S_SPAWN_USER));
                     creator.Add((ushort)OpCode2904.S_USER_STATUS, typeof(P2904.S_USER_STATUS));
+
+                    creator.Add((ushort)OpCode2904.S_SPAWN_NPC, typeof(P2904.S_SPAWN_NPC));
+                    creator.Add((ushort)OpCode2904.S_DESPAWN_NPC, typeof(P2904.S_DESPAWN_NPC));
                     break;
             }
             currentVersion = version;
