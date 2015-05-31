@@ -8,7 +8,7 @@ namespace Detrav.TeraApi.OpCodes.P2904
 {
     public class S_PARTY_MEMBER_LIST : TeraPacket
     {
-        Player[] players;
+        public Player[] players { get; set; }
         public S_PARTY_MEMBER_LIST(TeraPacketWithData packet)
             : base(packet)
         {
