@@ -12,7 +12,7 @@ namespace Detrav.TeraApi.OpCodes.P2904
         public ulong idTarget { get; set; }
         public uint idSkill { get; set; }
         public uint damage { get; set; }
-        public ushort type { get; set; }
+        public ushort dType { get; set; }
 
         public S_EACH_SKILL_RESULT(TeraPacketWithData packet)
             : base(packet)
@@ -32,7 +32,7 @@ namespace Detrav.TeraApi.OpCodes.P2904
                 //readUInt32("shift 2");//44
                 damage = packet.toUInt32(48);
                 //readUInt32(48, "damage");//48
-                type = packet.toUInt16(52);
+                dType = packet.toUInt16(52);
                 //readUInt16(52, "type");//52
                 //readByte(54, "crit");//54
                 //readByte(55, "електровсплеск");//55

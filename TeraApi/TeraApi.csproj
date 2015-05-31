@@ -61,8 +61,14 @@
     <Compile Include="OpCodes\P2805\S_SPAWN_USER.cs" />
     <Compile Include="OpCodes\P2805\S_USER_STATUS.cs" />
     <Compile Include="OpCodes\P2904\C_CHECK_VERSION.cs" />
+    <Compile Include="OpCodes\P2904\S_DESPAWN_PROJECTILE.cs" />
     <Compile Include="OpCodes\P2904\S_EACH_SKILL_RESULT.cs" />
+    <Compile Include="OpCodes\P2904\S_LEAVE_PARTY.cs" />
+    <Compile Include="OpCodes\P2904\S_LEAVE_PARTY_MEMBER.cs" />
     <Compile Include="OpCodes\P2904\S_LOGIN.cs" />
+    <Compile Include="OpCodes\P2904\S_PARTY_MEMBER_LIST.cs" />
+    <Compile Include="OpCodes\P2904\S_SPAWN_PROJECTILE.cs" />
+    <Compile Include="OpCodes\P2904\S_SPAWN_USER.cs" />
     <Compile Include="OpCodes\P2904\S_USER_STATUS.cs" />
     <Compile Include="OpCodes\PacketCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
