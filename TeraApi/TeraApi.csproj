@@ -67,6 +67,7 @@
     <Compile Include="OpCodes\P2904\S_LEAVE_PARTY_MEMBER.cs" />
     <Compile Include="OpCodes\P2904\S_LOGIN.cs" />
     <Compile Include="OpCodes\P2904\S_PARTY_MEMBER_LIST.cs" />
+    <Compile Include="OpCodes\P2904\S_SPAWN_NPC.cs" />
     <Compile Include="OpCodes\P2904\S_SPAWN_PROJECTILE.cs" />
     <Compile Include="OpCodes\P2904\S_SPAWN_USER.cs" />
     <Compile Include="OpCodes\P2904\S_USER_STATUS.cs" />
