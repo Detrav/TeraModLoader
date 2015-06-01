@@ -141,6 +141,8 @@ namespace Detrav.TeraModLoader.Core
                 checkBox.Checked += checkBox_Checked;
                 checkBox.Unchecked += checkBox_Unchecked;
                 checkBox.Content = mod;
+                checkBox.Height = 32;
+                checkBox.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
                 sp.Children.Add(checkBox);
                 modsStackPanel.Add(sp);
             }
