@@ -156,5 +156,10 @@ namespace Detrav.TeraModLoader.Windows
                 capture_onPacketArrivalSync(this, new PacketArrivalEventArgs(new Connection("0.0.0.0", 0, "0.0.0.0", 0), new TeraPacketWithData(bb, PacketType.Any)));
             }
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            capture.Dispose();
+        }
     }
 }

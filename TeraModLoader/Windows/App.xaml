@@ -1,8 +1,7 @@
 ﻿<Application x:Class="Detrav.TeraModLoader.Windows.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="Windows/MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+             StartupUri="Windows/MainWindow.xaml"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException">
+    <Application.Resources></Application.Resources>
 </Application>

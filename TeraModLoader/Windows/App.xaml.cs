@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Detrav.TeraApi;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,9 @@ namespace Detrav.TeraModLoader.Windows
     /// </summary>
     public partial class App : Application
     {
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            Logger.debug("{0}",e.Exception);
+        }
     }
 }
