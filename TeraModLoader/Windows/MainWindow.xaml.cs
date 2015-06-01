@@ -159,6 +159,11 @@ namespace Detrav.TeraModLoader.Windows
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (MessageBox.Show("Вы действительно хотите закрыть?", "Закрытие", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            {
+                e.Cancel = true;
+                return;
+            }
             capture.Dispose();
             foreach(var tc in teraClients)
             {
