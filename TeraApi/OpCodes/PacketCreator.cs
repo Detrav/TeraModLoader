@@ -17,6 +17,7 @@ namespace Detrav.TeraApi.OpCodes
             switch(version)
             {
                 case OpCodeVersion.P2805:
+                    Logger.debug("Created OpCodeVersion.P2805");
                     creator = new Dictionary<ushort, Type>();
                     creator.Add((ushort)OpCode2805.C_CHECK_VERSION, typeof(P2805.C_CHECK_VERSION));
                     creator.Add((ushort)OpCode2805.S_DESPAWN_PROJECTILE, typeof(P2805.S_DESPAWN_PROJECTILE));
@@ -28,6 +29,7 @@ namespace Detrav.TeraApi.OpCodes
                     creator.Add((ushort)OpCode2805.S_USER_STATUS, typeof(P2805.S_USER_STATUS));
                     break;
                 case OpCodeVersion.P2904:
+                    Logger.debug("Created OpCodeVersion.P2904");
                     creator = new Dictionary<ushort, Type>();
                     creator.Add((ushort)OpCode2904.C_CHECK_VERSION,typeof(P2904.C_CHECK_VERSION));
                     creator.Add((ushort)OpCode2904.S_DESPAWN_PROJECTILE, typeof(P2904.S_DESPAWN_PROJECTILE));
@@ -54,7 +56,6 @@ namespace Detrav.TeraApi.OpCodes
             switch (currentVersion)
             {
                 case OpCodeVersion.P2805:
-                    
                     if (creator.TryGetValue(packet.opCode, out p))
                         return (TeraPacket)Activator.CreateInstance(p, packet);
                     return new TeraPacket(packet);
