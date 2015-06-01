@@ -160,6 +160,10 @@ namespace Detrav.TeraModLoader.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             capture.Dispose();
+            foreach(var tc in teraClients)
+            {
+                tc.Value.unLoad();
+            }
         }
     }
 }
