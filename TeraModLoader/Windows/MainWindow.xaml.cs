@@ -147,6 +147,7 @@ namespace Detrav.TeraModLoader.Windows
 
         private void menuItemTest_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Тестовое соединение может вызывать ошибки!" + Environment.NewLine + "Вы действительно хотите создать тестовое соединение?", "Тестовое соединение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             capture_onNewConnectionSync(this, new ConnectionEventArgs(new Connection("0.0.0.0", 0, "0.0.0.0", 0)));
             Random r = new Random();
             for (int i = 0; i < 1000; i++)
@@ -159,7 +160,7 @@ namespace Detrav.TeraModLoader.Windows
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("Вы действительно хотите закрыть?", "Закрытие", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            if (MessageBox.Show("Вы действительно хотите выйти?", "Закрытие", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
             {
                 e.Cancel = true;
                 return;
