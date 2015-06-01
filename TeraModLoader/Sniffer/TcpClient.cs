@@ -91,7 +91,7 @@ namespace Detrav.TeraModLoader.Sniffer
                 //Если пакет оказался меньше чем нужно то выкидваем его
                 if (sequence + length <= seq[src_index])
                 {
-                    Logger.debug("Лишний пакет от {0} с номером {1} и длиной {2}", srcport, sequence, length);
+                    //Logger.debug("Лишний пакет от {0} с номером {1} и длиной {2}", srcport, sequence, length);
                     return;
                 }
                 //иначе вычислваем длину перекрывающегося куска
