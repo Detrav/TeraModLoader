@@ -21,6 +21,7 @@ namespace Detrav.TeraModLoader.Core
         {
             if (modName != null)
                 this.modName = modName;
+            Logger.debug("new AssetManager for {0}", this.modName);
         }
 
 
@@ -117,6 +118,7 @@ namespace Detrav.TeraModLoader.Core
 
         public string getMyFolder()
         {
+            Logger.debug("getMyFolder {0}", Path.GetFullPath(Path.Combine(assets, modName)));
             return Path.GetFullPath(Path.Combine(assets, modName));
         }
     }

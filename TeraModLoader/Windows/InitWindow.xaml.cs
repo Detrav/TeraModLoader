@@ -1,4 +1,5 @@
-﻿using Detrav.TeraApi.OpCodes;
+﻿using Detrav.TeraApi;
+using Detrav.TeraApi.OpCodes;
 using Detrav.TeraModLoader.Core;
 using Detrav.TeraModLoader.Core.Data;
 using SharpPcap;
@@ -29,6 +30,7 @@ namespace Detrav.TeraModLoader.Windows
         public InitWindow()
         {
             InitializeComponent();
+            Logger.debug("new InitWindow");
             ConfigManager cm = new ConfigManager();
             config = cm.loadGlobal(typeof(MyConfig)) as MyConfig;
             if (config == null) config = new MyConfig();
@@ -41,11 +43,12 @@ namespace Detrav.TeraModLoader.Windows
             foreach (var el in PacketCreator.getVerions())
                 listBoxVersion.Items.Add(el);
             listBoxVersion.SelectedItem = config.version;
-            
+            Logger.debug("end InitWindow");
         }
 
         private void buttonCansel_Click(object sender, RoutedEventArgs e)
         {
+            Logger.debug("canseled InitWindow");
             DialogResult = false;
         }
 
@@ -53,16 +56,19 @@ namespace Detrav.TeraModLoader.Windows
         {
             if (listBoxDevices.SelectedIndex < 0)
             {
+                Logger.debug("Нужно выбрать одно из устройств!");
                 System.Windows.MessageBox.Show("Нужно выбрать одно из устройств!");
                 return;
             }
             if (listBoxServers.SelectedIndex < 0)
             {
+                Logger.debug("Нужно выбрать один из серверов!");
                 System.Windows.MessageBox.Show("Нужно выбрать один из серверов!");
                 return;
             }
             if (listBoxVersion.SelectedIndex < 0)
             {
+                Logger.debug("Нужно выбрать версию!");
                 System.Windows.MessageBox.Show("Нужно выбрать версию!");
                 return;
             }
@@ -74,6 +80,7 @@ namespace Detrav.TeraModLoader.Windows
             PacketCreator.setVersion(config.version);
             ConfigManager cm = new ConfigManager();
             cm.saveGlobal(config);
+            Logger.debug("Ok InitWindow");
             DialogResult = true;
         }
 

@@ -20,6 +20,7 @@ namespace Detrav.TeraModLoader.Core
         {
             if (modName != null)
                 configMod = modName;
+            Logger.debug("new ConfigManager for {0}", this.configMod);
         }
 
         private void save(string file,object config)
@@ -50,24 +51,28 @@ namespace Detrav.TeraModLoader.Core
         public void savePlayer(string playerName, object config)
         {
             string file = Path.Combine(configFolder, playerName, configMod + ".json");
+            Logger.debug("SavePlayer {0}", file);
             save(file, config);
         }
 
         public object loadPlayer(string playerName, Type t)
         {
             string file = Path.Combine(configFolder, playerName, configMod + ".json");
+            Logger.debug("loadPlayer {0}", file);
             return load(file, t);
         }
 
         public void saveGlobal(object config)
         {
             string file = Path.Combine(configFolder, configMod + ".json");
+            Logger.debug("SaveGlobal {0}", file);
             save(file, config);
         }
 
         public object loadGlobal(Type t)
         {
             string file = Path.Combine(configFolder, configMod + ".json");
+            Logger.debug("LoadGlobal {0}", file);
             return load(file, t);
         }
     }

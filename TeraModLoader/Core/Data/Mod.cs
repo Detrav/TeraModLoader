@@ -1,4 +1,5 @@
-﻿using Detrav.TeraApi.Interfaces;
+﻿using Detrav.TeraApi;
+using Detrav.TeraApi.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Detrav.TeraModLoader.Core.Data
 
         public Mod(Assembly assembly)
         {
+            Logger.debug("Started mod creator");
             ready = false;
             this.assembly = assembly;
             AssemblyTitleAttribute assemblyTitle = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0] as AssemblyTitleAttribute;
@@ -32,12 +34,16 @@ namespace Detrav.TeraModLoader.Core.Data
                 if (v.GetInterfaces().Contains(typeof(ITeraMod)))
                 {
                     if (v.GetMethod("getModIcon") != null)
+                    {
                         icon = ToImage((byte[])v.GetMethod("getModIcon").Invoke(null, null));
+                        Logger.debug("ModHasIcon");
+                    }
                     type = v;
                     ready = true;
                     break;
                 }
             }
+            Logger.debug("End mod creator, detected {0}",name);
         }
 
         public BitmapImage ToImage(byte[] array)
@@ -57,6 +63,7 @@ namespace Detrav.TeraModLoader.Core.Data
 
         public ITeraMod create()
         {
+            Logger.debug("Construct mod {0}", name);
             ITeraMod mod = (ITeraMod)Activator.CreateInstance(type);
             mod.init(new ConfigManager(name),new AssetManager(name));
             return mod;

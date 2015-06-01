@@ -24,6 +24,7 @@ namespace Detrav.TeraModLoader.Core
             List<Data.Mod> ts = new List<Data.Mod>();
             foreach (var file in getFiles(directory, "*.exe|*.dll", SearchOption.TopDirectoryOnly))
             {
+                Logger.debug("try load {0}", file);
                 Assembly a;
                 try
                 {
@@ -53,6 +54,7 @@ namespace Detrav.TeraModLoader.Core
         }
         public MyConfig loadConfig(MyConfig cfg)
         {
+            Logger.debug("loadConfig {0}", this);
             cfg = config.loadGlobal(cfg.GetType()) as MyConfig;
             foreach (var mod in mods)
             {
@@ -60,21 +62,25 @@ namespace Detrav.TeraModLoader.Core
                 if (cfg.modEnable != null)
                     if (cfg.modEnable.TryGetValue(mod.name, out enable))
                     {
+                        Logger.debug("mod enable? {0} {1}",enable , mod.name);
                         mod.enable = enable;
                         continue;
                     }
                 mod.enable = true;
+                Logger.debug("mod enable {0}", mod.name);
             }
             return cfg;
         }
         public void saveConfig(MyConfig cfg)
         {
+            Logger.debug("saveConfig start {0}", this);
             cfg.modEnable.Clear();
             foreach (var mod in mods)
             {
                 cfg.modEnable.Add(mod.name.ToString(), mod.enable);
             }
             config.saveGlobal(cfg);
+            Logger.debug("saveConfig end {0}", this);
         }
 
         internal void initializeMods(out ITeraMod[] resultMods, out Button[] resultButtons)
@@ -86,6 +92,7 @@ namespace Detrav.TeraModLoader.Core
             {
                 if (mod.enable)
                 {
+                    Logger.debug("Create mod control for {0}", mod.name);
                     ITeraMod m = mod.create();
                     teraMods.Add(m);
                     Button b = new Button();
@@ -102,6 +109,7 @@ namespace Detrav.TeraModLoader.Core
                     b.Content = sp;
                     b.Click += b_Click;
                     buttons.Add(b);
+                    Logger.debug("Create mod control for {0} End", mod.name);
                 }
             }
             resultMods = teraMods.ToArray();
@@ -129,6 +137,7 @@ namespace Detrav.TeraModLoader.Core
             List<StackPanel> modsStackPanel = new List<StackPanel>();
             foreach(var mod in mods)
             {
+                Logger.log("Start Mod CheckBox {0}",mod.name);
                 StackPanel sp = new StackPanel();
                 sp.Orientation = Orientation.Horizontal;
                 Image image = new Image();
@@ -145,6 +154,7 @@ namespace Detrav.TeraModLoader.Core
                 checkBox.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
                 sp.Children.Add(checkBox);
                 modsStackPanel.Add(sp);
+                Logger.log("Stop Mod CheckBox {0}", mod.name);
             }
             return modsStackPanel.ToArray();
         }

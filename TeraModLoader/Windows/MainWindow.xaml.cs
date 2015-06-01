@@ -30,7 +30,7 @@ namespace Detrav.TeraModLoader.Windows
         public MainWindow()
         {
             InitializeComponent();
-            Logger.debug("{0}", "InitializeComponent");
+            Logger.debug("InitializeComponent");
         }
 
         Capture capture;
@@ -64,7 +64,7 @@ namespace Detrav.TeraModLoader.Windows
             timer.Tick += timer_Tick;
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Start();
-            Logger.debug("{0}", "Window started");
+            Logger.debug("Window started");
             /*/TestVars
             capture_onNewConnectionSync(this, new ConnectionEventArgs(new Connection("0.0.0.0",0,"0.0.0.0",0)));
             Random r = new Random();

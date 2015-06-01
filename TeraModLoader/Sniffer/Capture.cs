@@ -22,11 +22,14 @@ namespace Detrav.TeraModLoader.Sniffer
 
         public Capture(ICaptureDevice captureDevice, string host)
         {
+            Logger.debug("new Caputer with {0}", host);
             device = captureDevice;
             captureDevice.OnPacketArrival += captureDevice_OnPacketArrival;
             captureDevice.Open(DeviceMode.Promiscuous, 1000);
             captureDevice.Filter = String.Format("tcp and host {0}", host);
+            Logger.debug("tcp and host {0}", host);
             captureDevice.StartCapture();
+            Logger.debug("StartCapture");
         }
 
         void captureDevice_OnPacketArrival(object sender, CaptureEventArgs e)
@@ -152,7 +155,7 @@ namespace Detrav.TeraModLoader.Sniffer
         {
             if (disposed)
                 return;
-
+            Logger.debug("Dispose Capture");
             if (disposing)
             {
                 device.StopCapture();
