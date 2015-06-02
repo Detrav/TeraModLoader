@@ -12,6 +12,11 @@ namespace Detrav.TeraApi.OpCodes.P2904
         public ulong idTarget { get; set; }
         public uint idSkill { get; set; }
         public uint damage { get; set; }
+        /// <summary>
+        /// 0 - block
+        /// 1 - attack
+        /// 2 - heal
+        /// </summary>
         public ushort dType { get; set; }
 
         public S_EACH_SKILL_RESULT(TeraPacketWithData packet)
