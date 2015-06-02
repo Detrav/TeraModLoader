@@ -17,6 +17,7 @@ namespace Detrav.TeraApi.Enums
         Archer = 5,
         Priest = 6,
         Mystic = 7,
-        Reaper = 8
+        Reaper = 8,
+        Gunner = 9//Так ли это?
     }
 }
