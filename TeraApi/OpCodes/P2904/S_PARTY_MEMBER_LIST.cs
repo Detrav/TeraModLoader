@@ -20,9 +20,11 @@ namespace Detrav.TeraApi.OpCodes.P2904
             {
                 ushort nameStart = packet.toUInt16(current);
                 ulong _id = packet.toUInt64(current + 19);
+                ushort _level = packet.toUInt16(current + 10);
+                PlayerClass _playerClass = (PlayerClass)packet.toByte(current + 14);
                 string _name = packet.toDoubleString(nameStart, nameStart + 100);
                 current = nameStart + (_name.Length + 1) * 2 + 4;
-                list.Add(new Player() { id = _id, name = _name });
+                list.Add(new Player() { id = _id, name = _name,level = _level, playerClass= _playerClass });
             }
             players = list.ToArray();
         }
@@ -31,6 +33,7 @@ namespace Detrav.TeraApi.OpCodes.P2904
         {
             public ulong id { get; set; }
             public string name { get; set; }
+            public ushort level { get; set; }
             public PlayerClass playerClass { get; set; }
         }
     }

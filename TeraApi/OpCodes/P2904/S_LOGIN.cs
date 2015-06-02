@@ -21,6 +21,9 @@ namespace Detrav.TeraApi.OpCodes.P2904
                 //readUInt16(8, "visual len");//8
                 //readUInt32(10, "sex race class");//10
                 //readUInt32(14, "model");//14
+            ushort sexRaceClass = packet.toUInt16(14);
+            sexRaceClass -= 10101;
+            playerClass = (PlayerClass)(sexRaceClass % 100);
             id = packet.toUInt64(18);
                 //readUInt64(18, "player id");//18
                 //readUInt64(26, "unique id");//26
