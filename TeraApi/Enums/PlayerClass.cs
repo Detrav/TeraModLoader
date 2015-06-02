@@ -8,6 +8,7 @@ namespace Detrav.TeraApi.Enums
 {
     public enum PlayerClass
     {
+        Empty  = -1,
         Warrior = 0,
         Lancer = 1,
         Slayer = 2,
