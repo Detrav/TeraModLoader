@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBase\NpcDataBase.cs" />
     <Compile Include="Enums\PlayerClass.cs" />
     <Compile Include="Enums\Race.cs" />
     <Compile Include="Events\PacketArrivalEventArgs.cs" />
