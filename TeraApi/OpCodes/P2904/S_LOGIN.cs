@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Detrav.TeraApi.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Detrav.TeraApi.OpCodes.P2904
         public ulong id { get; set; }
         public ushort level { get; set; }
         public string name { get; set; }
+        public PlayerClass playerClass { get; set; }
         public S_LOGIN(TeraPacketWithData packet)
             : base(packet)
         {

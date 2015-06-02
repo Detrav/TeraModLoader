@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Detrav.TeraApi.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,8 +29,9 @@ namespace Detrav.TeraApi.OpCodes.P2904
 
         public class Player
         {
-            public ulong id;
-            public string name;
+            public ulong id { get; set; }
+            public string name { get; set; }
+            public PlayerClass playerClass { get; set; }
         }
     }
 }
