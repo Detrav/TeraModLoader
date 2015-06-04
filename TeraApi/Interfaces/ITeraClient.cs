@@ -11,5 +11,9 @@ namespace Detrav.TeraApi.Interfaces
     {
         event OnPacketArrival onPacketArrival;
         event OnTick onTick;
+        
+        /*
+        Думаю тут сделаю больше событий, может обработанные события??
+        */
     }
 }
