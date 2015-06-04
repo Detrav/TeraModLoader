@@ -51,6 +51,7 @@
     <Compile Include="Events\Party\NewPartyListEventArgs.cs" />
     <Compile Include="Events\Player\UpdateCharacteristicEventArgs.cs" />
     <Compile Include="Events\Self\LoginEventArgs.cs" />
+    <Compile Include="Events\SkillResultEventArgs.cs" />
     <Compile Include="Events\TickEventArgs.cs" />
     <Compile Include="Interfaces\IAssetManager.cs" />
     <Compile Include="Interfaces\IConfigManager.cs" />

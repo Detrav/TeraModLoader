@@ -87,7 +87,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                     if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                     break;
                 case OpCode2904.S_LEAVE_PARTY_MEMBER:
-                    var s_leave_member = (S_LEAVE_PARTY_MEMBER)PacketCreator.create(e.packet);
+                    var s_leave_member = (S_LEAVE_PARTY_MEMBER)PacketCreator.create(teraPacketWithData);
                     Logger.debug("S_LEAVE_PARTY_MEMBER {0}", s_leave_member.name);
                     ulong remId = 0;
                     foreach (var pair in party)
@@ -112,19 +112,19 @@ namespace Detrav.TeraModLoader.Core.P2904
                     break;
                 case OpCode2904.S_SPAWN_NPC:
                     Logger.debug("S_SPAWN_NPC");
-                    var s_spawn_npc = (S_SPAWN_NPC)PacketCreator.create(e.packet);
+                    var s_spawn_npc = (S_SPAWN_NPC)PacketCreator.create(teraPacketWithData);
                     if (party.ContainsKey(s_spawn_npc.parentId))
                         npcs.Add(s_spawn_npc.id, s_spawn_npc.parentId);
                     break;
                 case OpCode2904.S_DESPAWN_NPC:
                     Logger.debug("S_DESPAWN_NPC");
-                    var s_despawn_npc = (S_DESPAWN_NPC)PacketCreator.create(e.packet);
-                    if (npcs.ContainsKey(s_despawn_proj.id))
-                        npcs.Remove(s_despawn_proj.id);
+                    var s_despawn_npc = (S_DESPAWN_NPC)PacketCreator.create(teraPacketWithData);
+                    if (npcs.ContainsKey(s_despawn_npc.id))
+                        npcs.Remove(s_despawn_npc.id);
                     break;
                 case OpCode2904.S_EACH_SKILL_RESULT:
                     {
-                        var skill = (S_EACH_SKILL_RESULT)PacketCreator.create(e.packet);
+                        var skill = (S_EACH_SKILL_RESULT)PacketCreator.create(teraPacketWithData);
                         /*
              * Проверяем если есть такой игрок с ай ди, то делаем что нужно и выходим
              * Проверяем если есть такой ловушк с ай ди, то ищем НПС или игрока
