@@ -14,6 +14,7 @@ namespace Detrav.TeraApi.Interfaces
         
         /*
         Думаю тут сделаю больше событий, может обработанные события??
+        event OnPartyList
         */
     }
 }
