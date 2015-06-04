@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Получаем каждый раз, как используется скилл, наноситься урон или блокируется
     public class S_EACH_SKILL_RESULT : TeraPacket
     {
         public ulong idWho { get; set; }

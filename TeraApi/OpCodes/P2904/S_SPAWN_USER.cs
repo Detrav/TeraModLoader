@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Получаем когда рядом появляется игрок
     public class S_SPAWN_USER : TeraPacket
     {
         public ulong id { get; set; }

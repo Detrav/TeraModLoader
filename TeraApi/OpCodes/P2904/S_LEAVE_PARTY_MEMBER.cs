@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Получаем пакет, когда кто то выходит из пати
     public class S_LEAVE_PARTY_MEMBER : TeraPacket
     {
         public string name;

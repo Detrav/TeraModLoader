@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //получаем пакет когда у игрокв в пати меняется HP
     public class S_PARTY_MEMBER_CHANGE_HP : TeraPacket
     {
         ulong partyId;

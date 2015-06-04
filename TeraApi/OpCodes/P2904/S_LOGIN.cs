@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Получаем пакет, когда игрок входит в игру
     public class S_LOGIN :TeraPacket
     {
         public ulong id { get; set; }

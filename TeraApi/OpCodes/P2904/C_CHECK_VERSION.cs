@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Пакет посылает клиент когда происходит подключение
     public class C_CHECK_VERSION : TeraPacket
     {
         public uint count { get; set; }

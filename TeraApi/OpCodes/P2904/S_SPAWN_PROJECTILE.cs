@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Получем, когда рядом кто то использует ловушку
     public class S_SPAWN_PROJECTILE :TeraPacket
     {
         public ulong id { get; set; }

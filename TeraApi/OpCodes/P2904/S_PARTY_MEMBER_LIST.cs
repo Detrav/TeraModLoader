@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Получаем когда в пати добавляется игрок
     public class S_PARTY_MEMBER_LIST : TeraPacket
     {
         public Player[] players { get; set; }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Пакет от сервера, когда пропадает рядом ловушка или что то в этом роде
     public class S_DESPAWN_PROJECTILE : TeraPacket
     {
         public ulong id { get; set; }

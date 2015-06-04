@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+   //Получаем когда рядом появляется npc
     public class S_SPAWN_NPC : TeraPacket
     {
         public ulong id { get; set; }

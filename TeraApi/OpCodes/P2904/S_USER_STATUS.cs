@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Получаем когда игрок входит или выходит из боя
     public class S_USER_STATUS : TeraPacket
     {
         public ulong id { get; set; }

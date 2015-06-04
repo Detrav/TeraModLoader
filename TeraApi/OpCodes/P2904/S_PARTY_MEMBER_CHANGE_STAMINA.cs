@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Получаем пакет когда у игрока в пати меняется стамина
     public class S_PARTY_MEMBER_CHANGE_STAMINA :TeraPacket
     {
         ulong partyId;

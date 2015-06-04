@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.OpCodes.P2904
 {
+    //Пакет от сервера, когда рядом пропадает NPC
     public class S_DESPAWN_NPC : TeraPacket
     {
         public ulong id { get; set; }
