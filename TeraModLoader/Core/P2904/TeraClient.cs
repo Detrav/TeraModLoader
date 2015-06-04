@@ -116,7 +116,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                     Logger.debug("S_SPAWN_NPC");
                     var s_spawn_npc = (S_SPAWN_NPC)PacketCreator.create(teraPacketWithData);
                     if (party.ContainsKey(s_spawn_npc.parentId))
-                        npcs.Add(s_spawn_npc.id, s_spawn_npc.parentId);
+                        npcs[s_spawn_npc.id] = s_spawn_npc.parentId;
                     break;
                 case OpCode2904.S_DESPAWN_NPC:
                     Logger.debug("S_DESPAWN_NPC");
