@@ -2,20 +2,22 @@ namespace Detrav.TeraApi.Core
 {
     public class TeraPlayer
     {
-        ulong id { get; set; }
-        string name { get; set; }
-        ulong partyId { get; set; }
-        uint hp { get; set; }
-        uint maxHp { get; set; }
-        uint mp { get; set; }
-        uint maxMp { get; set; }
-        uint stamina { get; set; }
-        uint maxStamina { get; set; }
+        public ulong id { get; set; }
+        public string name { get; set; }
+        public ushort level { get; set; }
+        public ulong partyId { get; set; }
+        public uint hp { get; set; }
+        public uint maxHp { get; set; }
+        public uint mp { get; set; }
+        public uint maxMp { get; set; }
+        public uint stamina { get; set; }
+        public uint maxStamina { get; set; }
 
-        public TeraPlayer(ulong id, string name)
+        public TeraPlayer(ulong id, string name, ushort level)
         {
             this.id = id;
             this.name = name;
+            this.level = level;
         }
     }
 }

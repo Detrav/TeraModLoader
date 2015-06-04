@@ -5,6 +5,8 @@ using Detrav.TeraApi.Events.Party;
 using Detrav.TeraApi.Events.Player;
 using Detrav.TeraApi.Events.Self;
 using Detrav.TeraApi.Interfaces;
+using Detrav.TeraApi.OpCodes;
+using Detrav.TeraApi.OpCodes.P2904;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +25,8 @@ namespace Detrav.TeraModLoader.Core.P2904
         public event OnNewPartyList onNewPartyList;
         public event OnLeaveFromParty onLeaveFromParty;
 
-        public Dictionary<ulong, TeraPlayer> party = new Dictionary<ulong, TeraPlayer>();
-        public TeraPlayer self = null;
+        private Dictionary<ulong, TeraPlayer> party = new Dictionary<ulong, TeraPlayer>();
+        private TeraPlayer self = null;
 
         private ITeraMod[] mods;
 
@@ -47,7 +49,13 @@ namespace Detrav.TeraModLoader.Core.P2904
 
         public void PacketArrival(TeraPacketWithData teraPacketWithData)
         {
-            //switch()
+            switch((OpCode2904)teraPacketWithData.opCode)
+            {
+                case OpCode2904.S_LOGIN:
+                    var s_login = (S_LOGIN)PacketCreator.create(teraPacketWithData);
+                    self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
+                    break;
+            }
             if (onPacketArrival != null)
                 onPacketArrival(this, new PacketArrivalEventArgs(teraPacketWithData));
         }
