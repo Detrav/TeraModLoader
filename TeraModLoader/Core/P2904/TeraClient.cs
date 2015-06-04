@@ -1,4 +1,5 @@
 ﻿using Detrav.TeraApi;
+using Detrav.TeraApi.Core;
 using Detrav.TeraApi.Events;
 using Detrav.TeraApi.Events.Party;
 using Detrav.TeraApi.Events.Player;
@@ -13,7 +14,7 @@ using System.Windows.Controls;
 
 namespace Detrav.TeraModLoader.Core.P2904
 {
-    class TeraClient : ITeraClient
+    internal class TeraClient : ITeraClientWithLoader
     {
         public event OnPacketArrival onPacketArrival;
         public event OnTick onTick;
@@ -21,6 +22,9 @@ namespace Detrav.TeraModLoader.Core.P2904
         public event OnUpdateCharacteristic onUpdateCharacteristic;
         public event OnNewPartyList onNewPartyList;
         public event OnLeaveFromParty onLeaveFromParty;
+
+        public Dictionary<ulong, TeraPlayer> party = new Dictionary<ulong, TeraPlayer>();
+        public TeraPlayer self = null;
 
         private ITeraMod[] mods;
 
@@ -41,21 +45,28 @@ namespace Detrav.TeraModLoader.Core.P2904
             }
         }
 
-        internal void PacketArrival(TeraPacketWithData teraPacketWithData)
+        public void PacketArrival(TeraPacketWithData teraPacketWithData)
         {
+            //switch()
             if (onPacketArrival != null)
                 onPacketArrival(this, new PacketArrivalEventArgs(teraPacketWithData));
         }
 
-        internal void doEvents()
+        public void doEvents()
         {
             if (onTick != null)
                 onTick(this, EventArgs.Empty);
         }
 
-        public TeraApi.Core.TeraPlayer getPlayerById(ulong id)
+        public TeraPlayer getPlayerById(ulong id)
         {
-            throw new NotImplementedException();
+            return self;
+        }
+
+
+        public TeraPlayer getPlayerSelf()
+        {
+            return self;
         }
     }
 }

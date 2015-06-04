@@ -36,7 +36,7 @@ namespace Detrav.TeraModLoader.Windows
         Capture capture;
         DispatcherTimer timer;
         TeraModManager teraModManager;
-        Dictionary<Connection, ITeraClient> teraClients = new Dictionary<Connection,ITeraClient>();
+        Dictionary<Connection, ITeraClientWithLoader> teraClients = new Dictionary<Connection, ITeraClientWithLoader>();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -78,7 +78,7 @@ namespace Detrav.TeraModLoader.Windows
 
         void capture_onPacketArrivalSync(object sender, PacketArrivalEventArgs e)
         {
-            ITeraClient client;
+            ITeraClientWithLoader client;
             if(teraClients.TryGetValue(e.connection,out client))
             {
                 client.PacketArrival(e.packet);
@@ -88,8 +88,8 @@ namespace Detrav.TeraModLoader.Windows
 
         void capture_onEndConnectionSync(object sender, ConnectionEventArgs e)
         {
-            
-            ITeraClient teraClient;
+
+            ITeraClientWithLoader teraClient;
             if (teraClients.TryGetValue(e.connection, out teraClient))
             {
                 teraClient.unLoad();
@@ -113,7 +113,7 @@ namespace Detrav.TeraModLoader.Windows
 
         void capture_onNewConnectionSync(object sender, ConnectionEventArgs e)
         {
-            ITeraClient teraClient = TeraModManager.createTeraClient();
+            ITeraClientWithLoader teraClient = TeraModManager.createTeraClient();
             ITeraMod[] mods; Button[] buttons;
             teraModManager.initializeMods(out mods,out buttons);
             teraClient.load(mods);

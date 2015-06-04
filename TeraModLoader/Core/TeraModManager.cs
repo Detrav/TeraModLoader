@@ -184,7 +184,7 @@ namespace Detrav.TeraModLoader.Core
             return files.ToArray();
         }
 
-        public static ITeraClient createTeraClient()
+        public static ITeraClientWithLoader createTeraClient()
         {
             switch(PacketCreator.getCurrentVersion())
             {
