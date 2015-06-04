@@ -7,6 +7,7 @@ using Detrav.TeraApi.Events;
 using Detrav.TeraApi.Events.Self;
 using Detrav.TeraApi.Events.Player;
 using Detrav.TeraApi.Events.Party;
+using Detrav.TeraApi.Core;
 
 namespace Detrav.TeraApi.Interfaces
 {
@@ -19,7 +20,6 @@ namespace Detrav.TeraApi.Interfaces
         event OnNewPartyList onNewPartyList;
         event OnLeaveFromParty onLeaveFromParty;
         TeraPlayer getPlayerById(ulong id);
-        
         /*
         Думаю тут сделаю больше событий, может обработанные события??
         event OnLogin(ссылка на своего игрока)
@@ -31,5 +31,9 @@ namespace Detrav.TeraApi.Interfaces
         event OnPartyUpdateStamina()
         .......
         */
+
+        void unLoad();
+        void doEvents();
+        void PacketArrival(TeraPacketWithData teraPacketWithData);
     }
 }

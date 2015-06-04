@@ -100,7 +100,7 @@
     <Compile Include="Core\ConfigManager.cs" />
     <Compile Include="Core\Data\Mod.cs" />
     <Compile Include="Core\Data\MyConfig.cs" />
-    <Compile Include="Core\TeraClient.cs" />
+    <Compile Include="Core\P2904\TeraClient.cs" />
     <Compile Include="Core\TeraModManager.cs" />
     <Compile Include="Crypt\Cryptor.cs" />
     <Compile Include="Crypt\CryptorKey.cs" />

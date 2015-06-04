@@ -1,5 +1,6 @@
 ﻿using Detrav.TeraApi;
 using Detrav.TeraApi.Interfaces;
+using Detrav.TeraApi.OpCodes;
 using Detrav.TeraModLoader.Core.Data;
 using System;
 using System.Collections.Generic;
@@ -181,6 +182,16 @@ namespace Detrav.TeraModLoader.Core
                 files.AddRange(System.IO.Directory.GetFiles(path, sp, searchOption));
             files.Sort();
             return files.ToArray();
+        }
+
+        public static ITeraClient createTeraClient()
+        {
+            switch(PacketCreator.getCurrentVersion())
+            {
+                case OpCodeVersion.P2904:
+                    return new P2904.TeraClient();
+            }
+            return null;
         }
     }
 }
