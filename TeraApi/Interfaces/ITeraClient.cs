@@ -18,7 +18,6 @@ namespace Detrav.TeraApi.Interfaces
         event OnLogin onLogin;
         event OnUpdateCharacteristic onUpdateCharacteristic;
         event OnNewPartyList onNewPartyList;
-        event OnLeaveFromParty onLeaveFromParty;
         TeraPlayer getPlayerById(ulong id);
         TeraPlayer getPlayerSelf();
         /*

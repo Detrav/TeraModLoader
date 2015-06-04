@@ -48,7 +48,6 @@
     <Compile Include="Enums\PlayerClass.cs" />
     <Compile Include="Enums\Race.cs" />
     <Compile Include="Events\PacketArrivalEventArgs.cs" />
-    <Compile Include="Events\Party\LeaveMemberFromPartyEventArgs.cs" />
     <Compile Include="Events\Party\NewPartyListEventArgs.cs" />
     <Compile Include="Events\Player\UpdateCharacteristicEventArgs.cs" />
     <Compile Include="Events\Self\LoginEventArgs.cs" />
