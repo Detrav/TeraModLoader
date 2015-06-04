@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Detrav.TeraApi.Events;
+using Detrav.TeraApi.Events.Self;
+using Detrav.TeraApi.Events.Player;
+using Detrav.TeraApi.Events.Party;
 
 namespace Detrav.TeraApi.Interfaces
 {
@@ -11,6 +14,11 @@ namespace Detrav.TeraApi.Interfaces
     {
         event OnPacketArrival onPacketArrival;
         event OnTick onTick;
+        event OnLogin onLogin;
+        event OnUpdateCharacteristic onUpdateCharacteristic;
+        event OnNewPartyList onNewPartyList;
+        event OnLeaveFromParty onLeaveFromParty;
+        TeraPlayer getPlayerById(ulong id);
         
         /*
         Думаю тут сделаю больше событий, может обработанные события??
