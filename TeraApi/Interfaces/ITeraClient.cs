@@ -14,7 +14,14 @@ namespace Detrav.TeraApi.Interfaces
         
         /*
         Думаю тут сделаю больше событий, может обработанные события??
-        event OnPartyList
+        event OnLogin(ссылка на своего игрока)
+        event OnPartyList(TeraPlayer[])
+        event OnPartyLeave()
+        event OnPartyMemberLeave()
+        event OnPartyUpdateHp()
+        event OnPartyUpdateMp()
+        event OnPartyUpdateStamina()
+        .......
         */
     }
 }
