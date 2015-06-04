@@ -70,6 +70,9 @@
     <Compile Include="OpCodes\P2904\S_LEAVE_PARTY.cs" />
     <Compile Include="OpCodes\P2904\S_LEAVE_PARTY_MEMBER.cs" />
     <Compile Include="OpCodes\P2904\S_LOGIN.cs" />
+    <Compile Include="OpCodes\P2904\S_PARTY_MEMBER_CHANGE_HP.cs" />
+    <Compile Include="OpCodes\P2904\S_PARTY_MEMBER_CHANGE_MP.cs" />
+    <Compile Include="OpCodes\P2904\S_PARTY_MEMBER_CHANGE_STAMINA.cs" />
     <Compile Include="OpCodes\P2904\S_PARTY_MEMBER_LIST.cs" />
     <Compile Include="OpCodes\P2904\S_SPAWN_NPC.cs" />
     <Compile Include="OpCodes\P2904\S_SPAWN_PROJECTILE.cs" />
