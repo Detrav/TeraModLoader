@@ -23,6 +23,8 @@ namespace Detrav.TeraModLoader.Core.P2904
         public event OnLogin onLogin;
         public event OnUpdateCharacteristic onUpdateCharacteristic;
         public event OnNewPartyList onNewPartyList;
+        public event OnMakeSkillResult onMakeSkillResult;
+        public event OnTakeSkillResult onTakeSkillResult;
 
         private Dictionary<ulong, TeraPlayer> party = new Dictionary<ulong, TeraPlayer>();
         private TeraPlayer self = null;
@@ -136,12 +138,16 @@ namespace Detrav.TeraModLoader.Core.P2904
                         {
                             if (npcs.TryGetValue(projectile, out npc))
                             {
-                                if (party.TryGetValue(npc, out p)) { }
+                                if (party.TryGetValue(npc, out p))
+                                    if (onMakeSkillResult != null)
+                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
                                 //p.makeSkill(damage, type);
                             }
                             else
                             {
-                                if (party.TryGetValue(projectile, out p)) { }
+                                if (party.TryGetValue(projectile, out p))
+                                    if (onMakeSkillResult != null)
+                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
                                 //p.makeSkill(damage, type);
                             }
                         }
@@ -149,17 +155,23 @@ namespace Detrav.TeraModLoader.Core.P2904
                         {
                             if (npcs.TryGetValue(skill.idWho, out npc))
                             {
-                                if (party.TryGetValue(npc, out p)) { }
+                                if (party.TryGetValue(npc, out p))
+                                    if (onMakeSkillResult != null)
+                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
                                 //p.makeSkill(damage, type);
                             }
                             else
                             {
-                                if (party.TryGetValue(skill.idWho, out p)) { }
+                                if (party.TryGetValue(skill.idWho, out p))
+                                    if (onMakeSkillResult != null)
+                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
                                 //p.makeSkill(damage, type);
                             }
                         }
 
-                        if (party.TryGetValue(skill.idTarget, out p)) { }
+                        if (party.TryGetValue(skill.idTarget, out p))
+                            if (onTakeSkillResult != null)
+                                onTakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
                         //p.takeSkill(damage, type);
                     }
                     break;
