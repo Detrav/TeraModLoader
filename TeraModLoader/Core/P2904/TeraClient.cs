@@ -175,6 +175,11 @@ namespace Detrav.TeraModLoader.Core.P2904
                         //p.takeSkill(damage, type);
                     }
                     break;
+                case OpCode2904.S_PARTY_MEMBER_CHANGE_HP:
+                    {
+
+                    }
+                    break;
             }
             if (onPacketArrival != null)
                 onPacketArrival(this, new PacketArrivalEventArgs(teraPacketWithData));
