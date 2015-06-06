@@ -23,4 +23,4 @@ function addToResult() {
     if (ii1 < 116) setTimeout(addToResult, 100);
 }
 addToResult()
-$("body").text(result);
+$("body").text(JSON.stringify(result));

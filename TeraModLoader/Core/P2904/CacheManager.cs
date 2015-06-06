@@ -12,14 +12,14 @@ namespace Detrav.TeraModLoader.Core.P2904
     class CacheManager : ICacheManager
     {
         AssetManager assetManager = new AssetManager();
-        string version = "P2904";
+        string version = "P2904\\npcs.json";
         Dictionary<ulong, NpcDataBase> teraNpcs;
 
         public NpcDataBase getNpc(ushort header, uint id)
         {
             if (teraNpcs == null)
             {
-                NpcDataBase[] db = (NpcDataBase[])assetManager.deSerialize(version, typeof(TeraNpc[]));
+                NpcDataBase[] db = (NpcDataBase[])assetManager.deSerialize(version, typeof(NpcDataBase[]));
                 if(db==null) return null;
                 teraNpcs = new Dictionary<ulong, NpcDataBase>(db.Length);
                 foreach (var npc in db)

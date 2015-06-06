@@ -54,7 +54,9 @@ namespace Detrav.TeraModLoader.Core
                 using (TextReader tr = new StreamReader(file))
                 {
                     Logger.debug("End deSerialize for {0}", file);
-                    return JsonConvert.DeserializeObject(tr.ReadToEnd(), t);
+                    JsonSerializerSettings jss = new JsonSerializerSettings();
+                    jss.NullValueHandling = NullValueHandling.Ignore;
+                    return JsonConvert.DeserializeObject(tr.ReadToEnd(), t, jss);
                 }
             Logger.debug("Error on deSerialize for {0}", file);
             return null;

@@ -168,6 +168,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="assets\TeraModLoader\P2904\npcs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="config\TeraModLoader.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
