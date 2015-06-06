@@ -2,6 +2,7 @@
 using Detrav.TeraApi.OpCodes;
 using Detrav.TeraModLoader.Core;
 using Detrav.TeraModLoader.Core.Data;
+using Detrav.TeraModLoader.Sniffer;
 using SharpPcap;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,7 @@ namespace Detrav.TeraModLoader.Windows
     /// </summary>
     public partial class InitWindow : Window
     {
-        public ICaptureDevice device { get; private set; }
-        public string server { get; private set; }
+        internal ICapture device { get; private set; }
         MyConfig config;
         public InitWindow()
         {
@@ -52,6 +52,12 @@ namespace Detrav.TeraModLoader.Windows
 
         private void buttonOk_Click(object sender, RoutedEventArgs e)
         {
+            if(comboBoxDriver.SelectedIndex<1)
+            {
+                Logger.debug("Нужно выбрать драйвер!");
+                System.Windows.MessageBox.Show("Нужно выбрать драйвер!");
+                return;
+            }
             if (listBoxDevices.SelectedIndex < 0)
             {
                 Logger.debug("Нужно выбрать одно из устройств!");
@@ -70,8 +76,18 @@ namespace Detrav.TeraModLoader.Windows
                 System.Windows.MessageBox.Show("Нужно выбрать версию!");
                 return;
             }
-            server = config.servers[listBoxServers.SelectedIndex].ip;
-            device = CaptureDeviceList.Instance[listBoxDevices.SelectedIndex];
+            string server = config.servers[listBoxServers.SelectedIndex].ip;
+            config.driverType = comboBoxDriver.SelectedIndex;
+            switch(comboBoxDriver.SelectedIndex)
+            {
+                case 1:
+                    device = new CapturePcap(CaptureDeviceList.Instance[listBoxDevices.SelectedIndex], server);
+                    if (tcpFilter != null) tcpFilter.Dispose();
+                    break;
+                case 2:
+                    device = new CaptureWinpkFilter(tcpFilter, listBoxDevices.SelectedIndex, server);
+                    break;
+            }
             config.deviceIndex = listBoxDevices.SelectedIndex;
             config.serverIndex = listBoxServers.SelectedIndex;
             config.version = (OpCodeVersion)listBoxVersion.SelectedItem;
@@ -81,6 +97,7 @@ namespace Detrav.TeraModLoader.Windows
             Logger.debug("Ok InitWindow");
             DialogResult = true;
         }
+        Detrav.WinpkFilterWrapper.TcpFilter tcpFilter;
 
         private void comboBoxDriver_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -93,13 +110,12 @@ namespace Detrav.TeraModLoader.Windows
                     listBoxDevices.SelectedIndex = config.deviceIndex;
                     break;
                 case 2:
-                    foreach (var el in Detrav.WinpkFilterWrapper.TcpFilter.create().deviceList)
+                    if(tcpFilter == null) tcpFilter = Detrav.WinpkFilterWrapper.TcpFilter.create();
+                    foreach (var el in tcpFilter.deviceList)
                         listBoxDevices.Items.Add(el);
                     listBoxDevices.SelectedIndex = config.deviceIndex;
                     break;
             }
         }
-
-
     }
 }

@@ -48,7 +48,7 @@ namespace Detrav.TeraModLoader.Windows
                 return;
             }
             //Запист пакетов
-            capture = new CapturePcap(window.device,window.server);
+            capture = window.device;
             capture.onNewConnectionSync += capture_onNewConnectionSync;
             capture.onEndConnectionSync += capture_onEndConnectionSync;
             capture.onPacketArrivalSync += capture_onPacketArrivalSync;
