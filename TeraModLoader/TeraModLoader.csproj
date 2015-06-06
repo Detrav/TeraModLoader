@@ -82,6 +82,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WinpkFilterWrapper">
+      <HintPath>..\WinpkFilterWrapper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="Windows\App.xaml">
@@ -108,9 +111,11 @@
     <Compile Include="Crypt\Session.cs" />
     <Compile Include="Crypt\Sha.cs" />
     <Compile Include="Crypt\Utils.cs" />
-    <Compile Include="Sniffer\Capture.cs" />
+    <Compile Include="Sniffer\CaptureWinpkFilter.cs" />
+    <Compile Include="Sniffer\CapturePcap.cs" />
     <Compile Include="Sniffer\CaptureEvents.cs" />
     <Compile Include="Sniffer\Connection.cs" />
+    <Compile Include="Sniffer\ICapture.cs" />
     <Compile Include="Sniffer\TcpClient.cs" />
     <Compile Include="Windows\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

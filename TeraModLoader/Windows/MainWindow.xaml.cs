@@ -33,7 +33,7 @@ namespace Detrav.TeraModLoader.Windows
             Logger.debug("InitializeComponent");
         }
 
-        Capture capture;
+        ICapture capture;
         DispatcherTimer timer;
         TeraModManager teraModManager;
         Dictionary<Connection, ITeraClientWithLoader> teraClients = new Dictionary<Connection, ITeraClientWithLoader>();
@@ -47,7 +47,7 @@ namespace Detrav.TeraModLoader.Windows
                 return;
             }
             //Запист пакетов
-            capture = new Capture(window.device,window.server);
+            capture = new CapturePcap(window.device,window.server);
             capture.onNewConnectionSync += capture_onNewConnectionSync;
             capture.onEndConnectionSync += capture_onEndConnectionSync;
             capture.onPacketArrivalSync += capture_onPacketArrivalSync;

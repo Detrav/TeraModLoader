@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraModLoader.Sniffer
 {
-    internal class Capture : IDisposable
+    internal class CapturePcap : ICapture
     {
-        internal event OnPacketArrival onPacketArrivalSync;
-        internal event OnNewConnection onNewConnectionSync;
-        internal event OnEndConnection onEndConnectionSync;
+        public event OnPacketArrival onPacketArrivalSync;
+        public event OnNewConnection onNewConnectionSync;
+        public event OnEndConnection onEndConnectionSync;
 
         ICaptureDevice device;
         private Dictionary<Connection, TcpClient> tcpClients = new Dictionary<Connection,TcpClient>();
         private Queue<Connection> newConnections = new Queue<Connection>();
         private Queue<Connection> endConnections = new Queue<Connection>();
 
-        public Capture(ICaptureDevice captureDevice, string host)
+        public CapturePcap(ICaptureDevice captureDevice, string host)
         {
             Logger.debug("new Caputer with {0}", host);
             device = captureDevice;
@@ -82,7 +82,7 @@ namespace Detrav.TeraModLoader.Sniffer
             }
         }
 
-        internal void doEventSync()
+        public void doEventSync()
         {
             
             Connection c;
@@ -162,7 +162,7 @@ namespace Detrav.TeraModLoader.Sniffer
             }
             disposed = true;
         }
-        ~Capture()
+        ~CapturePcap()
         {
             Dispose();
         }        
