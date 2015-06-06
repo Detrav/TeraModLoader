@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\TeraNpc.cs" />
     <Compile Include="Core\TeraPlayer.cs" />
     <Compile Include="DataBase\NpcDataBase.cs" />
+    <Compile Include="Enums\NpcType.cs" />
     <Compile Include="Enums\PlayerCharacteristic.cs" />
     <Compile Include="Enums\PlayerClass.cs" />
     <Compile Include="Enums\Race.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="Events\SkillResultEventArgs.cs" />
     <Compile Include="Events\TickEventArgs.cs" />
     <Compile Include="Interfaces\IAssetManager.cs" />
+    <Compile Include="Interfaces\ICacheManager.cs" />
     <Compile Include="Interfaces\IConfigManager.cs" />
     <Compile Include="Interfaces\ITeraClient.cs" />
     <Compile Include="Interfaces\ITeraMod.cs" />

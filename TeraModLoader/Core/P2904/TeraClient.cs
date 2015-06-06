@@ -29,8 +29,9 @@ namespace Detrav.TeraModLoader.Core.P2904
         private Dictionary<ulong, TeraPlayer> party = new Dictionary<ulong, TeraPlayer>();
         private TeraPlayer self = null;
         Dictionary<ulong, ulong> projectiles = new Dictionary<ulong, ulong>();
-        Dictionary<ulong, ulong> npcs = new Dictionary<ulong, ulong>();
+        Dictionary<ulong, TeraNpc> npcs = new Dictionary<ulong, TeraNpc>();
 
+        CacheManager cacheManager = new CacheManager();
 
 
         private ITeraMod[] mods;
@@ -115,8 +116,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                 case OpCode2904.S_SPAWN_NPC:
                     Logger.debug("S_SPAWN_NPC");
                     var s_spawn_npc = (S_SPAWN_NPC)PacketCreator.create(teraPacketWithData);
-                    if (party.ContainsKey(s_spawn_npc.parentId))
-                        npcs[s_spawn_npc.id] = s_spawn_npc.parentId;
+                    npcs[s_spawn_npc.id] = new TeraNpc(s_spawn_npc.id, cacheManager.getNpc(s_spawn_npc.header,s_spawn_npc.template), s_spawn_npc.parentId);
                     break;
                 case OpCode2904.S_DESPAWN_NPC:
                     Logger.debug("S_DESPAWN_NPC");
@@ -133,12 +133,12 @@ namespace Detrav.TeraModLoader.Core.P2904
              * Проверяем если находим НПС ищем игрока
              */
                         TeraPlayer p;
-                        ulong projectile; ulong npc;
+                        ulong projectile; TeraNpc npc;
                         if (projectiles.TryGetValue(skill.idWho, out projectile))
                         {
                             if (npcs.TryGetValue(projectile, out npc))
                             {
-                                if (party.TryGetValue(npc, out p))
+                                if (party.TryGetValue(npc.id, out p))
                                     if (onMakeSkillResult != null)
                                         onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
                                 //p.makeSkill(damage, type);
@@ -155,7 +155,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                         {
                             if (npcs.TryGetValue(skill.idWho, out npc))
                             {
-                                if (party.TryGetValue(npc, out p))
+                                if (party.TryGetValue(npc.id, out p))
                                     if (onMakeSkillResult != null)
                                         onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
                                 //p.makeSkill(damage, type);

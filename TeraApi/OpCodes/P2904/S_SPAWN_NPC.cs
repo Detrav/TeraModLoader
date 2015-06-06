@@ -11,11 +11,15 @@ namespace Detrav.TeraApi.OpCodes.P2904
     {
         public ulong id { get; set; }
         public ulong parentId { get; set; }
+        public uint template { get; set; }
+        public ushort header { get; set; }
         public S_SPAWN_NPC(TeraPacketWithData packet)
             : base(packet)
         {
             id = packet.toUInt64(10);
             parentId = packet.toUInt64(85);
+            template = packet.toUInt32(44);
+            header = packet.toUInt16(48);
         }
     }
 }
