@@ -8,6 +8,6 @@ namespace Detrav.TeraApi.Enums
 {
     public enum NpcType
     {
-        Elite, Normal
+        None, Elite, Normal
     }
 }
