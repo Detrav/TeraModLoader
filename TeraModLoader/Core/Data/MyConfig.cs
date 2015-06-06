@@ -14,6 +14,7 @@ namespace Detrav.TeraModLoader.Core.Data
         public int deviceIndex = 0;
         public int serverIndex = 0;
         public OpCodeVersion version;
+        public int driverType;
     }
 
     internal class ServerInfo

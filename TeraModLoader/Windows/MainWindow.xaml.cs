@@ -37,12 +37,13 @@ namespace Detrav.TeraModLoader.Windows
         DispatcherTimer timer;
         TeraModManager teraModManager;
         Dictionary<Connection, ITeraClientWithLoader> teraClients = new Dictionary<Connection, ITeraClientWithLoader>();
-
+        bool forceClose = false;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             InitWindow window = new InitWindow();
             if(window.ShowDialog() !=true)
             {
+                forceClose = true;
                 Close();
                 return;
             }
@@ -160,6 +161,7 @@ namespace Detrav.TeraModLoader.Windows
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (forceClose) return;
             if (MessageBox.Show("Вы действительно хотите выйти?", "Закрытие", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
             {
                 e.Cancel = true;

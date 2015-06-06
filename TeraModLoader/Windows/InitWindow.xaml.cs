@@ -34,9 +34,7 @@ namespace Detrav.TeraModLoader.Windows
             ConfigManager cm = new ConfigManager();
             config = cm.loadGlobal(typeof(MyConfig)) as MyConfig;
             if (config == null) config = new MyConfig();
-            foreach (var el in CaptureDeviceList.Instance)
-                listBoxDevices.Items.Add(el.Description);
-            listBoxDevices.SelectedIndex = config.deviceIndex;
+            comboBoxDriver.SelectedIndex = config.driverType;
             foreach (var el in config.servers)
                 listBoxServers.Items.Add(el.name);
             listBoxServers.SelectedIndex = config.serverIndex;
@@ -82,6 +80,24 @@ namespace Detrav.TeraModLoader.Windows
             cm.saveGlobal(config);
             Logger.debug("Ok InitWindow");
             DialogResult = true;
+        }
+
+        private void comboBoxDriver_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listBoxDevices.Items.Clear();
+            switch (comboBoxDriver.SelectedIndex)
+            {
+                case 1:
+                    foreach (var el in CaptureDeviceList.Instance)
+                        listBoxDevices.Items.Add(el.Description);
+                    listBoxDevices.SelectedIndex = config.deviceIndex;
+                    break;
+                case 2:
+                    foreach (var el in Detrav.WinpkFilterWrapper.TcpFilter.create().deviceList)
+                        listBoxDevices.Items.Add(el);
+                    listBoxDevices.SelectedIndex = config.deviceIndex;
+                    break;
+            }
         }
 
 
