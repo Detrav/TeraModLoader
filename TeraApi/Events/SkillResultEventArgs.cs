@@ -12,12 +12,14 @@ namespace Detrav.TeraApi.Events
         public uint damage;
         public ushort type;
         public TeraPlayer player;
+        public TeraNpc targetNpc;
 
-        public SkillResultEventArgs(uint damage, ushort type,TeraPlayer player)
+        public SkillResultEventArgs(uint damage, ushort type,TeraPlayer player,TeraNpc targetNpc = null)
         {
             this.damage = damage;
             this.type = type;
             this.player = player;
+            this.targetNpc = targetNpc;
         }
     }
 

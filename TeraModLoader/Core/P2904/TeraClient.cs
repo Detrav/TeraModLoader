@@ -132,6 +132,11 @@ namespace Detrav.TeraModLoader.Core.P2904
              * Проверяем если есть такой ловушк с ай ди, то ищем НПС или игрока
              * Проверяем если находим НПС ищем игрока
              */
+                        #region Получение таргета
+                        TeraNpc target = null;
+                        npcs.TryGetValue(skill.idTarget,out target);
+                        #endregion Получение таргета
+
                         TeraPlayer p;
                         ulong projectile; TeraNpc npc;
                         if (projectiles.TryGetValue(skill.idWho, out projectile))
@@ -140,14 +145,14 @@ namespace Detrav.TeraModLoader.Core.P2904
                             {
                                 if (party.TryGetValue(npc.id, out p))
                                     if (onMakeSkillResult != null)
-                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
+                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
                                 //p.makeSkill(damage, type);
                             }
                             else
                             {
                                 if (party.TryGetValue(projectile, out p))
                                     if (onMakeSkillResult != null)
-                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
+                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
                                 //p.makeSkill(damage, type);
                             }
                         }
@@ -157,14 +162,14 @@ namespace Detrav.TeraModLoader.Core.P2904
                             {
                                 if (party.TryGetValue(npc.id, out p))
                                     if (onMakeSkillResult != null)
-                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
+                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
                                 //p.makeSkill(damage, type);
                             }
                             else
                             {
                                 if (party.TryGetValue(skill.idWho, out p))
                                     if (onMakeSkillResult != null)
-                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
+                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
                                 //p.makeSkill(damage, type);
                             }
                         }
