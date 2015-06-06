@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeraModLoader", "TeraModLoa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeraApi", "TeraApi\TeraApi.csproj", "{1DFDD807-24B8-4D2A-968A-F0951E9E492F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMLTests", "TMLTests\TMLTests.csproj", "{A59DA77E-F2A9-425B-A77F-7CC9B1056C07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,12 @@ Global
 		{1DFDD807-24B8-4D2A-968A-F0951E9E492F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DFDD807-24B8-4D2A-968A-F0951E9E492F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1DFDD807-24B8-4D2A-968A-F0951E9E492F}.Release|x64.ActiveCfg = Release|Any CPU
+		{A59DA77E-F2A9-425B-A77F-7CC9B1056C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59DA77E-F2A9-425B-A77F-7CC9B1056C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59DA77E-F2A9-425B-A77F-7CC9B1056C07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A59DA77E-F2A9-425B-A77F-7CC9B1056C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59DA77E-F2A9-425B-A77F-7CC9B1056C07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59DA77E-F2A9-425B-A77F-7CC9B1056C07}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
