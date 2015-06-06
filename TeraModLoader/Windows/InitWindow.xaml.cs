@@ -105,15 +105,32 @@ namespace Detrav.TeraModLoader.Windows
             switch (comboBoxDriver.SelectedIndex)
             {
                 case 1:
-                    foreach (var el in CaptureDeviceList.Instance)
-                        listBoxDevices.Items.Add(el.Description);
-                    listBoxDevices.SelectedIndex = config.deviceIndex;
+                    try
+                    {
+                        foreach (var el in CaptureDeviceList.Instance)
+                            listBoxDevices.Items.Add(el.Description);
+                        listBoxDevices.SelectedIndex = config.deviceIndex;
+                        if (listBoxDevices.Items.Count == 0)
+                        {
+                            MessageBox.Show("У вас не установлен драйвер pcap, или нету соединений!");
+                            comboBoxDriver.SelectedIndex = 0;
+                        }
+                    }
+                    catch { MessageBox.Show("У вас не установлен драйвер pcap, или нету соединений!"); comboBoxDriver.SelectedIndex = 0; }
                     break;
                 case 2:
-                    if(tcpFilter == null) tcpFilter = Detrav.WinpkFilterWrapper.TcpFilter.create();
-                    foreach (var el in tcpFilter.deviceList)
-                        listBoxDevices.Items.Add(el);
-                    listBoxDevices.SelectedIndex = config.deviceIndex;
+                    try
+                    {
+                        if (tcpFilter == null) tcpFilter = Detrav.WinpkFilterWrapper.TcpFilter.create();
+                        foreach (var el in tcpFilter.deviceList)
+                            listBoxDevices.Items.Add(el);
+                        listBoxDevices.SelectedIndex = config.deviceIndex;
+                        if (listBoxDevices.Items.Count == 0)
+                        {
+                            MessageBox.Show("У вас не установлен драйвер WinpkFilter, или нету соединений!"); comboBoxDriver.SelectedIndex = 0;
+                        }
+                    }
+                    catch { MessageBox.Show("У вас не установлен драйвер WinpkFilter, или нету соединений!"); comboBoxDriver.SelectedIndex = 0; }
                     break;
             }
         }
