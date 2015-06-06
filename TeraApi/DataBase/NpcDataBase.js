@@ -13,7 +13,7 @@ function addToResult() {
             el.header = parseInt(temp_str.substr(0, 5));
             el.id = parseInt(temp_str.substr(5));
             el.level = parseInt($($(this).find(" .dt-level")[0]).text());
-            el.type = ($($(this).find(" .grade")).text() =="Элитный" ? "Elite" : "Normal");
+            el.type = ($($(this).find(" .dt-grade")).text() == "Элитный" ? "Elite" : "Normal");
             el.hp = parseInt($($(this).find(" .dt-level")[1]).text());
             el.location = $($(this).find(" .dt-reward")).text();
             result.push(el);
