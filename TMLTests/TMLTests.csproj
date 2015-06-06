@@ -50,8 +50,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="CacheManagetP2904Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TeraApi\TeraApi.csproj">
+      <Project>{1dfdd807-24b8-4d2a-968a-f0951e9e492f}</Project>
+      <Name>TeraApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeraModLoader\TeraModLoader.csproj">
+      <Project>{a945d9f1-be16-4567-a502-12a97428c765}</Project>
+      <Name>TeraModLoader</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

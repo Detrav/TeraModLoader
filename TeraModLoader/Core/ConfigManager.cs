@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraModLoader.Core
 {
+
     class ConfigManager : IConfigManager
     {
         string configFolder = "config";

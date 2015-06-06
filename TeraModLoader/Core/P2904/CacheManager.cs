@@ -13,7 +13,7 @@ namespace Detrav.TeraModLoader.Core.P2904
     {
         AssetManager assetManager = new AssetManager();
         string version = "P2904\\npcs.json";
-        Dictionary<ulong, NpcDataBase> teraNpcs;
+        internal Dictionary<ulong, NpcDataBase> teraNpcs;
 
         public NpcDataBase getNpc(ushort header, uint id)
         {
@@ -24,7 +24,8 @@ namespace Detrav.TeraModLoader.Core.P2904
                 teraNpcs = new Dictionary<ulong, NpcDataBase>(db.Length);
                 foreach (var npc in db)
                 {
-                    teraNpcs.Add(((ulong)header << 32) + id, npc);
+                    //if (teraNpcs.ContainsKey(((ulong)npc.header << 32) + npc.id)) throw new ArgumentException((((ulong)header << 32) + id).ToString());
+                    teraNpcs.Add(((ulong)npc.header << 32) + npc.id, npc);
                     //teraNpcs.Add(String.Format(""));
                 }
             }
