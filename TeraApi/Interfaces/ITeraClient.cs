@@ -8,6 +8,7 @@ using Detrav.TeraApi.Events.Self;
 using Detrav.TeraApi.Events.Player;
 using Detrav.TeraApi.Events.Party;
 using Detrav.TeraApi.Core;
+using Detrav.TeraApi.DataBase;
 
 namespace Detrav.TeraApi.Interfaces
 {
@@ -22,6 +23,7 @@ namespace Detrav.TeraApi.Interfaces
         event OnTakeSkillResult onTakeSkillResult;
         TeraPlayer getPlayerById(ulong id);
         TeraPlayer getPlayerSelf();
+        NpcDataBase getNpcDataBaseByUlongId(ulong id);
         /*
         Думаю тут сделаю больше событий, может обработанные события??
         event OnLogin(ссылка на своего игрока)

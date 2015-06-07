@@ -1,5 +1,6 @@
 ﻿using Detrav.TeraApi;
 using Detrav.TeraApi.Core;
+using Detrav.TeraApi.DataBase;
 using Detrav.TeraApi.Events;
 using Detrav.TeraApi.Events.Party;
 using Detrav.TeraApi.Events.Player;
@@ -211,6 +212,11 @@ namespace Detrav.TeraModLoader.Core.P2904
         public TeraPlayer getPlayerSelf()
         {
             return self;
+        }
+
+        public NpcDataBase getNpcDataBaseByUlongId(ulong id)
+        {
+            return cacheManager.getNpc(id);
         }
     }
 }
