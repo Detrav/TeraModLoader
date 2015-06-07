@@ -16,7 +16,7 @@ namespace Detrav.TeraModLoader.Windows
     {
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            Logger.debug("{0}",e.Exception);
+            Logger.debug("{0}", Core.Data.ExceptionExtended.GetExceptionDetails(e.Exception));
         }
     }
 }
