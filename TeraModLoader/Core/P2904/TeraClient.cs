@@ -191,6 +191,16 @@ namespace Detrav.TeraModLoader.Core.P2904
                     npcs.Clear();
                     projectiles.Clear();
                     break;
+                case OpCode2904.S_NPC_STATUS:
+                    {
+                        var npc_status = PacketCreator.create(teraPacketWithData) as S_NPC_STATUS;
+                        TeraNpc npc;
+                        if (npcs.TryGetValue(npc_status.npcId, out npc))
+                        {
+                            npc.target = npc_status.playerId;
+                        }
+                    }
+                    break;
             }
             if (onPacketArrival != null)
                 onPacketArrival(this, new PacketArrivalEventArgs(teraPacketWithData));

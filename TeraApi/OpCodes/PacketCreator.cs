@@ -48,6 +48,7 @@ namespace Detrav.TeraApi.OpCodes
                     creator.Add((ushort)OpCode2904.S_PARTY_MEMBER_CHANGE_STAMINA, typeof(P2904.S_PARTY_MEMBER_CHANGE_STAMINA));
                     creator.Add((ushort)OpCode2904.S_PARTY_MEMBER_CHANGE_HP, typeof(P2904.S_PARTY_MEMBER_CHANGE_HP));
                     creator.Add((ushort)OpCode2904.S_PARTY_MEMBER_CHANGE_MP, typeof(P2904.S_PARTY_MEMBER_CHANGE_MP));
+                    creator.Add((ushort)OpCode2904.S_NPC_STATUS, typeof(P2904.S_NPC_STATUS));
                     break;
             }
             currentVersion = version;

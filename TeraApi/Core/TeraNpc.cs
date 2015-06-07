@@ -12,7 +12,7 @@ namespace Detrav.TeraApi.Core
         public ulong id;
         public ulong parentId;
         public NpcDataBase npc;
-
+        public ulong target;
         public TeraNpc(ulong id, NpcDataBase npc,ulong parentId = 0)
         {
             this.id = id;
