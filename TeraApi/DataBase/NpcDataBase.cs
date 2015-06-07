@@ -17,6 +17,7 @@ namespace Detrav.TeraApi.DataBase
         public NpcType type;
         public uint hp;
         public string location;
+        public ulong ulongId { get { return ((ulong)header << 32) + id; } }
         /*
          * На сайте выложили базу, зачем напрягаться с дешифровкой игры когда можно взять у них:
          * http://teradatabase.net/

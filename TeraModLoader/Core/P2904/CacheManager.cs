@@ -25,7 +25,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                 foreach (var npc in db)
                 {
                     //if (teraNpcs.ContainsKey(((ulong)npc.header << 32) + npc.id)) throw new ArgumentException((((ulong)header << 32) + id).ToString());
-                    teraNpcs.Add(((ulong)npc.header << 32) + npc.id, npc);
+                    teraNpcs.Add(npc.ulongId, npc);
                     //teraNpcs.Add(String.Format(""));
                 }
             }
