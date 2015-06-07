@@ -202,7 +202,9 @@ namespace Detrav.TeraModLoader.Core.P2904
 
         public TeraPlayer getPlayerById(ulong id)
         {
-            return self;
+            TeraPlayer result;
+            if (party.TryGetValue(id, out result)) return result;
+            return null;
         }
 
 
