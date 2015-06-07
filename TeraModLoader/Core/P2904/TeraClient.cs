@@ -64,6 +64,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                     self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
                     party.Clear();
                     party[self.id] = self;
+                    self.partyId = ulong.MaxValue;
                     if (onLogin != null) onLogin(this, new LoginEventArgs(self));
                     if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                     break;
@@ -144,7 +145,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                         {
                             if (npcs.TryGetValue(projectile, out npc))
                             {
-                                if (party.TryGetValue(npc.id, out p))
+                                if (party.TryGetValue(npc.parentId, out p))
                                     if (onMakeSkillResult != null)
                                         onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
                                 //p.makeSkill(damage, type);
@@ -161,7 +162,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                         {
                             if (npcs.TryGetValue(skill.idWho, out npc))
                             {
-                                if (party.TryGetValue(npc.id, out p))
+                                if (party.TryGetValue(npc.parentId, out p))
                                     if (onMakeSkillResult != null)
                                         onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
                                 //p.makeSkill(damage, type);
