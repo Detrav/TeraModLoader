@@ -216,7 +216,7 @@ namespace Detrav.TeraModLoader.Core.P2904
         {
             TeraPlayer result;
             if (party.TryGetValue(id, out result)) return result;
-            return null;
+            return new TeraPlayer(id,"unknown");
         }
 
 
