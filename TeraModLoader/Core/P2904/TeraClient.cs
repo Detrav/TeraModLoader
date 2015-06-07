@@ -185,6 +185,10 @@ namespace Detrav.TeraModLoader.Core.P2904
 
                     }
                     break;
+                case OpCode2904.S_SPAWN_ME:
+                    npcs.Clear();
+                    projectiles.Clear();
+                    break;
             }
             if (onPacketArrival != null)
                 onPacketArrival(this, new PacketArrivalEventArgs(teraPacketWithData));
