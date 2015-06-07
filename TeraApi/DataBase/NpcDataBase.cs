@@ -17,7 +17,15 @@ namespace Detrav.TeraApi.DataBase
         public NpcType type;
         public uint hp;
         public string location;
-        public ulong ulongId { get { return ((ulong)header << 32) + id; } }
+        public ulong ulongId
+        {
+            get { return ((ulong)header << 32) + id; }
+            set
+            {
+                header = Convert.ToUInt16(value >> 32);
+                id = Convert.ToUInt32(value - ((ulong)header << 32));
+            }
+        }
         /*
          * На сайте выложили базу, зачем напрягаться с дешифровкой игры когда можно взять у них:
          * http://teradatabase.net/

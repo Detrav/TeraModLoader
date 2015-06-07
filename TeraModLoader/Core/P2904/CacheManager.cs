@@ -26,7 +26,7 @@ namespace Detrav.TeraModLoader.Core.P2904
             {
                 NpcDataBase[] db = (NpcDataBase[])assetManager.deSerialize(version, typeof(NpcDataBase[]));
                 if (db == null) return null;
-                teraNpcs = new Dictionary<ulong, NpcDataBase>(db.Length);
+                teraNpcs = new Dictionary<ulong, NpcDataBase>(db.Length + 1000);
                 foreach (var npc in db)
                 {
                     //if (teraNpcs.ContainsKey(((ulong)npc.header << 32) + npc.id)) throw new ArgumentException((((ulong)header << 32) + id).ToString());
@@ -35,7 +35,12 @@ namespace Detrav.TeraModLoader.Core.P2904
                 }
             }
             NpcDataBase result = null;
-            teraNpcs.TryGetValue(id, out result);
+            if (!teraNpcs.TryGetValue(id, out result))
+            {
+                result = new NpcDataBase() { name = id.ToString() };
+                result.ulongId = id;
+                teraNpcs[id] = result;
+            }
             return result;
             //throw new NotImplementedException();
         }
