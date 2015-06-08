@@ -157,6 +157,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                     if (entities.ContainsKey(s_despawn_npc.id)) entities.Remove(s_despawn_npc.id);
                     break;
                 case OpCode2904.S_EACH_SKILL_RESULT:
+                    if (onSkillResult != null)
                     {
                         var skill = (S_EACH_SKILL_RESULT)PacketCreator.create(teraPacketWithData);
                         /*
@@ -164,11 +165,9 @@ namespace Detrav.TeraModLoader.Core.P2904
              * Проверяем если есть такой ловушк с ай ди, то ищем НПС или игрока
              * Проверяем если находим НПС ищем игрока
              */
-                        if(entities.ContainsKey(skill.idWho))
+                        if (entities.ContainsKey(skill.idWho))
                         {
                             TeraEntity te = entities[skill.idWho];
-                            while(te.parent!=null)
-                                te = te.parent;
                             if (entities.ContainsKey(skill.idTarget))
                                 onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, entities[skill.idTarget]));
                             else onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, null));
