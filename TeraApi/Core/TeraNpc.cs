@@ -10,7 +10,7 @@ namespace Detrav.TeraApi.Core
     public class TeraNpc : TeraEntity
     {
         public NpcDataBase npc;
-        public ulong target;
+        public TeraEntity target;
         public TeraNpc(ulong id, NpcDataBase npc, TeraEntity parent = null)
             : base(id, parent)
         {

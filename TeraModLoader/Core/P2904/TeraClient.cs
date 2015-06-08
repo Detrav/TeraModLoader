@@ -110,27 +110,41 @@ namespace Detrav.TeraModLoader.Core.P2904
                         if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                     }
                     break;
+                case OpCode2904.S_SPAWN_ME:
+                    {
+                        entities.Clear();
+                        entities[self.id] = self;
+                    }
+                    break;
                 case OpCode2904.S_SPAWN_PROJECTILE:
-                    Logger.debug("S_SPAWN_PROJECTILE");
-                    var s_spawn_proj = (S_SPAWN_PROJECTILE)PacketCreator.create(teraPacketWithData);
-                    projectiles[s_spawn_proj.id] = s_spawn_proj.idPlayer;
+                    {
+                        Logger.debug("S_SPAWN_PROJECTILE");
+                        var s_spawn_proj = (S_SPAWN_PROJECTILE)PacketCreator.create(teraPacketWithData);
+                        if (entities.ContainsKey(s_spawn_proj.idPlayer))
+                            entities[s_spawn_proj.id] = new TeraEntity(s_spawn_proj.id, entities[s_spawn_proj.idPlayer]);
+                    }
                     break;
                 case OpCode2904.S_DESPAWN_PROJECTILE:
-                    Logger.debug("S_DESPAWN_PROJECTILE");
-                    var s_despawn_proj = (S_DESPAWN_PROJECTILE)PacketCreator.create(teraPacketWithData);
-                    if (projectiles.ContainsKey(s_despawn_proj.id))
-                        projectiles.Remove(s_despawn_proj.id);
+                    {
+                        Logger.debug("S_DESPAWN_PROJECTILE");
+                        var s_despawn_proj = (S_DESPAWN_PROJECTILE)PacketCreator.create(teraPacketWithData);
+                        if (entities.ContainsKey(s_despawn_proj.id)) entities.Remove(s_despawn_proj.id);
+                    }
                     break;
                 case OpCode2904.S_SPAWN_NPC:
-                    Logger.debug("S_SPAWN_NPC");
-                    var s_spawn_npc = (S_SPAWN_NPC)PacketCreator.create(teraPacketWithData);
-                    npcs[s_spawn_npc.id] = new TeraNpc(s_spawn_npc.id, cacheManager.getNpc(s_spawn_npc.header,s_spawn_npc.template), s_spawn_npc.parentId);
+                    {
+                        Logger.debug("S_SPAWN_NPC");
+                        var s_spawn_npc = (S_SPAWN_NPC)PacketCreator.create(teraPacketWithData);
+                        TeraEntity te = null;
+                        if (s_spawn_npc.parentId != 0)
+                            entities.TryGetValue(s_spawn_npc.parentId, out te);
+                        entities[s_spawn_npc.id] = new TeraNpc(s_spawn_npc.id, cacheManager.getNpc(s_spawn_npc.header, s_spawn_npc.template), te);
+                    }
                     break;
                 case OpCode2904.S_DESPAWN_NPC:
                     Logger.debug("S_DESPAWN_NPC");
                     var s_despawn_npc = (S_DESPAWN_NPC)PacketCreator.create(teraPacketWithData);
-                    if (npcs.ContainsKey(s_despawn_npc.id))
-                        npcs.Remove(s_despawn_npc.id);
+                    if (entities.ContainsKey(s_despawn_npc.id)) entities.Remove(s_despawn_npc.id);
                     break;
                 case OpCode2904.S_EACH_SKILL_RESULT:
                     {
@@ -140,52 +154,15 @@ namespace Detrav.TeraModLoader.Core.P2904
              * Проверяем если есть такой ловушк с ай ди, то ищем НПС или игрока
              * Проверяем если находим НПС ищем игрока
              */
-                        #region Получение таргета
-                        TeraNpc target = null;
-                        npcs.TryGetValue(skill.idTarget,out target);
-                        #endregion Получение таргета
-
-                        TeraPlayer p;
-                        ulong projectile; TeraNpc npc;
-                        if (projectiles.TryGetValue(skill.idWho, out projectile))
+                        if(entities.ContainsKey(skill.idWho))
                         {
-                            if (npcs.TryGetValue(projectile, out npc))
-                            {
-                                if (party.TryGetValue(npc.parentId, out p))
-                                    if (onMakeSkillResult != null)
-                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
-                                //p.makeSkill(damage, type);
-                            }
-                            else
-                            {
-                                if (party.TryGetValue(projectile, out p))
-                                    if (onMakeSkillResult != null)
-                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
-                                //p.makeSkill(damage, type);
-                            }
+                            TeraEntity te = entities[skill.idWho];
+                            while(te.parent!=null)
+                                te = te.parent;
+                            if (entities.ContainsKey(skill.idTarget))
+                                onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, entities[skill.idTarget]));
+                            else onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, null));
                         }
-                        else
-                        {
-                            if (npcs.TryGetValue(skill.idWho, out npc))
-                            {
-                                if (party.TryGetValue(npc.parentId, out p))
-                                    if (onMakeSkillResult != null)
-                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
-                                //p.makeSkill(damage, type);
-                            }
-                            else
-                            {
-                                if (party.TryGetValue(skill.idWho, out p))
-                                    if (onMakeSkillResult != null)
-                                        onMakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p, target));
-                                //p.makeSkill(damage, type);
-                            }
-                        }
-
-                        if (party.TryGetValue(skill.idTarget, out p))
-                            if (onTakeSkillResult != null)
-                                onTakeSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, p));
-                        //p.takeSkill(damage, type);
                     }
                     break;
                 case OpCode2904.S_PARTY_MEMBER_CHANGE_HP:
@@ -193,17 +170,21 @@ namespace Detrav.TeraModLoader.Core.P2904
 
                     }
                     break;
-                case OpCode2904.S_SPAWN_ME:
-                    entities.Clear();
-                    break;
                 case OpCode2904.S_NPC_STATUS:
                     {
                         var npc_status = PacketCreator.create(teraPacketWithData) as S_NPC_STATUS;
-                        TeraEntity npc;
-                        if (entities.TryGetValue(npc_status.npcId, out npc))
+                        
+                        if(entities.ContainsKey(npc_status.npcId))
                         {
-                            //if(npc is TeraNpc)
-                            //(npc as TeraNpc).target = en
+                            TeraEntity npc = entities[npc_status.npcId];
+                            if(npc is TeraNpc)
+                            {
+                                if(entities.ContainsKey(npc_status.playerId))
+                                    (npc as TeraNpc).target = entities[npc_status.playerId];
+                                else
+                                    (npc as TeraNpc).target = null;
+                            }
+
                         }
                     }
                     break;
