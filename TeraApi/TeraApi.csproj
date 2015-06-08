@@ -74,6 +74,7 @@
     <Compile Include="OpCodes\P2805\S_SPAWN_USER.cs" />
     <Compile Include="OpCodes\P2805\S_USER_STATUS.cs" />
     <Compile Include="OpCodes\P2904\C_CHECK_VERSION.cs" />
+    <None Include="OpCodes\P2904\examples\S_LEAVE_PARTY_MEMBER.txt" />
     <Compile Include="OpCodes\P2904\S_DESPAWN_NPC.cs" />
     <Compile Include="OpCodes\P2904\S_DESPAWN_PROJECTILE.cs" />
     <Compile Include="OpCodes\P2904\S_DESPAWN_USER.cs" />
@@ -97,6 +98,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DataBase\NpcDataBase.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="OpCodes\P2904\examples\C_CHECK_VERSION.txt" />
+    <None Include="OpCodes\P2904\examples\S_DESPAWN_NPC.txt" />
+    <None Include="OpCodes\P2904\examples\S_DESPAWN_PROJECTILE.txt" />
+    <None Include="OpCodes\P2904\examples\S_DESPAWN_USER.txt" />
+    <None Include="OpCodes\P2904\examples\S_EACH_SKILL_RESULT.txt" />
+    <None Include="OpCodes\P2904\examples\S_LEAVE_PARTY.txt" />
+    <None Include="OpCodes\P2904\examples\S_LOGIN.txt" />
+    <None Include="OpCodes\P2904\examples\S_NPC_STATUS.txt" />
+    <None Include="OpCodes\P2904\examples\S_PARTY_MEMBER_CHANGE_HP.txt" />
+    <None Include="OpCodes\P2904\examples\S_PARTY_MEMBER_CHANGE_MP.txt" />
+    <None Include="OpCodes\P2904\examples\S_PARTY_MEMBER_CHANGE_STAMINA.txt" />
+    <None Include="OpCodes\P2904\examples\S_PARTY_MEMBER_LIST.txt" />
+    <None Include="OpCodes\P2904\examples\S_SPAWN_NPC.txt" />
+    <None Include="OpCodes\P2904\examples\S_SPAWN_PROJECTILE.txt" />
+    <None Include="OpCodes\P2904\examples\S_SPAWN_USER.txt" />
+    <None Include="OpCodes\P2904\examples\S_USER_STATUS.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
