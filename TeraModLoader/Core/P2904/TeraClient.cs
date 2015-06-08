@@ -24,13 +24,11 @@ namespace Detrav.TeraModLoader.Core.P2904
         public event OnLogin onLogin;
         public event OnUpdateCharacteristic onUpdateCharacteristic;
         public event OnNewPartyList onNewPartyList;
-        public event OnMakeSkillResult onMakeSkillResult;
-        public event OnTakeSkillResult onTakeSkillResult;
+        public event OnSkillResult onSkillResult;
 
         private Dictionary<ulong, TeraPlayer> party = new Dictionary<ulong, TeraPlayer>();
         private TeraPlayer self = null;
-        Dictionary<ulong, ulong> projectiles = new Dictionary<ulong, ulong>();
-        Dictionary<ulong, TeraNpc> npcs = new Dictionary<ulong, TeraNpc>();
+        Dictionary<ulong, TeraEntity> entities = new Dictionary<ulong,TeraEntity>();
 
         CacheManager cacheManager = new CacheManager();
 
@@ -59,50 +57,58 @@ namespace Detrav.TeraModLoader.Core.P2904
             switch ((OpCode2904)teraPacketWithData.opCode)
             {
                 case OpCode2904.S_LOGIN:
-                    Logger.debug("S_LOGIN");
-                    var s_login = (S_LOGIN)PacketCreator.create(teraPacketWithData);
-                    self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
-                    party.Clear();
-                    party[self.id] = self;
-                    self.partyId = ulong.MaxValue;
-                    if (onLogin != null) onLogin(this, new LoginEventArgs(self));
-                    if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                    {
+                        Logger.debug("S_LOGIN");
+                        var s_login = (S_LOGIN)PacketCreator.create(teraPacketWithData);
+                        self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
+                        party.Clear();
+                        party[self.id] = self;
+                        self.partyId = ulong.MaxValue;
+                        if (onLogin != null) onLogin(this, new LoginEventArgs(self));
+                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                    }
                     break;
                 case OpCode2904.S_PARTY_MEMBER_LIST:
-                    Logger.debug("S_PARTY_MEMBER_LIST");
-                    var s_party_list = (S_PARTY_MEMBER_LIST)PacketCreator.create(teraPacketWithData);
-                    party.Clear();
-                    foreach (var p in s_party_list.players)
                     {
-                        if (p.id == self.id)
+                        Logger.debug("S_PARTY_MEMBER_LIST");
+                        var s_party_list = (S_PARTY_MEMBER_LIST)PacketCreator.create(teraPacketWithData);
+                        party.Clear();
+                        foreach (var p in s_party_list.players)
                         {
-                            self.level = p.level;
-                            self.playerClass = p.playerClass;
-                            self.partyId = p.partyId;
-                            party[self.id] = self;
+                            if (p.id == self.id)
+                            {
+                                self.level = p.level;
+                                self.playerClass = p.playerClass;
+                                self.partyId = p.partyId;
+                                party[self.id] = self;
+                            }
+                            else party[p.id] = new TeraPlayer(p.id, p.name, p.level, p.playerClass, p.partyId);
                         }
-                        else party[p.id] = new TeraPlayer(p.id, p.name, p.level, p.playerClass, p.partyId);
+                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                     }
-                    if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                     break;
                 case OpCode2904.S_LEAVE_PARTY:
-                    Logger.debug("S_LEAVE_PARTY");
-                    party.Clear();
-                    party[self.id] = self;
-                    if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
-                    break;
+                    {
+                        Logger.debug("S_LEAVE_PARTY");
+                        party.Clear();
+                        party[self.id] = self;
+                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                        break;
+                    }
                 case OpCode2904.S_LEAVE_PARTY_MEMBER:
-                    var s_leave_member = (S_LEAVE_PARTY_MEMBER)PacketCreator.create(teraPacketWithData);
-                    Logger.debug("S_LEAVE_PARTY_MEMBER {0}", s_leave_member.name);
-                    ulong remId = 0;
-                    foreach (var pair in party)
-                        if (pair.Value.partyId == s_leave_member.partyId)
-                        {
-                            remId = pair.Key;
-                            break;
-                        }
-                    if (remId != 0) party.Remove(remId);
-                    if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                    {
+                        var s_leave_member = (S_LEAVE_PARTY_MEMBER)PacketCreator.create(teraPacketWithData);
+                        Logger.debug("S_LEAVE_PARTY_MEMBER {0}", s_leave_member.name);
+                        ulong remId = 0;
+                        foreach (var pair in party)
+                            if (pair.Value.partyId == s_leave_member.partyId)
+                            {
+                                remId = pair.Key;
+                                break;
+                            }
+                        if (remId != 0) party.Remove(remId);
+                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                    }
                     break;
                 case OpCode2904.S_SPAWN_PROJECTILE:
                     Logger.debug("S_SPAWN_PROJECTILE");
@@ -188,16 +194,16 @@ namespace Detrav.TeraModLoader.Core.P2904
                     }
                     break;
                 case OpCode2904.S_SPAWN_ME:
-                    npcs.Clear();
-                    projectiles.Clear();
+                    entities.Clear();
                     break;
                 case OpCode2904.S_NPC_STATUS:
                     {
                         var npc_status = PacketCreator.create(teraPacketWithData) as S_NPC_STATUS;
-                        TeraNpc npc;
-                        if (npcs.TryGetValue(npc_status.npcId, out npc))
+                        TeraEntity npc;
+                        if (entities.TryGetValue(npc_status.npcId, out npc))
                         {
-                            npc.target = npc_status.playerId;
+                            //if(npc is TeraNpc)
+                            //(npc as TeraNpc).target = en
                         }
                     }
                     break;
