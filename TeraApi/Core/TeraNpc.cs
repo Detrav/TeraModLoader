@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.Core
 {
-    public class TeraNpc
+    public class TeraNpc : TeraEntity
     {
-        public ulong id;
-        public ulong parentId;
         public NpcDataBase npc;
         public ulong target;
-        public TeraNpc(ulong id, NpcDataBase npc,ulong parentId = 0)
+        public TeraNpc(ulong id, NpcDataBase npc, TeraEntity parent = null)
+            : base(id, parent)
         {
-            this.id = id;
             this.npc = npc;
-            this.parentId = parentId;
+            this.name = npc.saveName;
         }
     }
 }

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\TeraEntity.cs" />
     <Compile Include="Core\TeraNpc.cs" />
     <Compile Include="Core\TeraPlayer.cs" />
     <Compile Include="DataBase\NpcDataBase.cs" />

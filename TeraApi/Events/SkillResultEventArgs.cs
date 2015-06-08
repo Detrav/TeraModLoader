@@ -11,18 +11,17 @@ namespace Detrav.TeraApi.Events
     {
         public uint damage;
         public ushort type;
-        public TeraPlayer player;
-        public TeraNpc targetNpc;
+        public TeraEntity who;
+        public TeraEntity target;
 
-        public SkillResultEventArgs(uint damage, ushort type,TeraPlayer player,TeraNpc targetNpc = null)
+        public SkillResultEventArgs(uint damage, ushort type,TeraEntity who,TeraEntity target)
         {
             this.damage = damage;
             this.type = type;
-            this.player = player;
-            this.targetNpc = targetNpc;
+            this.who = who;
+            this.target = target;
         }
     }
 
-    public delegate void OnMakeSkillResult(object sender, SkillResultEventArgs e);
-    public delegate void OnTakeSkillResult(object sender, SkillResultEventArgs e);
+    public delegate void OnSkillResult(object sender, SkillResultEventArgs e);
 }

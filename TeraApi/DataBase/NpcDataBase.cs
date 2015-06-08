@@ -12,6 +12,7 @@ namespace Detrav.TeraApi.DataBase
 
         public ushort header;
         public uint id;
+        public string saveName { get { if (name == null) return ulongId.ToString(); return name; } set { name = value; } }
         public string name;
         public ushort level;
         public NpcType type;
