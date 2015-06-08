@@ -1,6 +1,7 @@
 ﻿using Detrav.TeraApi;
 using Detrav.TeraApi.Core;
 using Detrav.TeraApi.DataBase;
+using Detrav.TeraApi.Enums;
 using Detrav.TeraApi.Events;
 using Detrav.TeraApi.Events.Party;
 using Detrav.TeraApi.Events.Player;
@@ -61,7 +62,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                         Logger.debug("S_LOGIN");
                         var s_login = (S_LOGIN)PacketCreator.create(teraPacketWithData);
                         self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
-                        party.Clear();
+                        clearParty();
                         party[self.id] = self;
                         self.partyId = ulong.MaxValue;
                         if (onLogin != null) onLogin(this, new LoginEventArgs(self));
@@ -72,17 +73,22 @@ namespace Detrav.TeraModLoader.Core.P2904
                     {
                         Logger.debug("S_PARTY_MEMBER_LIST");
                         var s_party_list = (S_PARTY_MEMBER_LIST)PacketCreator.create(teraPacketWithData);
-                        party.Clear();
+                        clearParty();
                         foreach (var p in s_party_list.players)
                         {
-                            if (p.id == self.id)
+                            TeraPlayer pl = getPlayer(p.id);
+                            if(pl==null)
                             {
-                                self.level = p.level;
-                                self.playerClass = p.playerClass;
-                                self.partyId = p.partyId;
-                                party[self.id] = self;
+                                pl = new TeraPlayer(p.id, p.name, p.level, p.playerClass, p.partyId);
+                                party[p.id] = pl;
                             }
-                            else party[p.id] = new TeraPlayer(p.id, p.name, p.level, p.playerClass, p.partyId);
+                            else
+                            {
+                                //pl.name = p.name;
+                                pl.partyId = p.partyId;
+                                pl.playerClass = p.playerClass;
+                                pl.level = p.level;
+                            }
                         }
                         if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                     }
@@ -90,8 +96,8 @@ namespace Detrav.TeraModLoader.Core.P2904
                 case OpCode2904.S_LEAVE_PARTY:
                     {
                         Logger.debug("S_LEAVE_PARTY");
-                        party.Clear();
-                        party[self.id] = self;
+                        clearParty();
+                        party[self.partyId] = self;
                         if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                         break;
                     }
@@ -106,7 +112,11 @@ namespace Detrav.TeraModLoader.Core.P2904
                                 remId = pair.Key;
                                 break;
                             }
-                        if (remId != 0) party.Remove(remId);
+                        if (remId != 0)
+                        {
+                            party[remId].partyId = 0;
+                            party.Remove(remId);
+                        }
                         if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                     }
                     break;
@@ -188,6 +198,21 @@ namespace Detrav.TeraModLoader.Core.P2904
                         }
                     }
                     break;
+                case OpCode2904.S_SPAWN_USER:
+                    {
+                        var s_spawn_user = PacketCreator.create(teraPacketWithData) as S_SPAWN_USER;
+                        var player = getPlayer(s_spawn_user.id);
+                        if (player == null) player = new TeraPlayer(s_spawn_user.id, s_spawn_user.name);
+                        entities[s_spawn_user.id] = player;
+                    }
+                    break;
+                case OpCode2904.S_DESPAWN_USER:
+                    {
+                        var s_despawn_user = PacketCreator.create(teraPacketWithData) as S_DESPAWN_USER;
+                        if (entities.ContainsKey(s_despawn_user.id))
+                            entities.Remove(s_despawn_user.id);
+                    }
+                    break;
             }
             if (onPacketArrival != null)
                 onPacketArrival(this, new PacketArrivalEventArgs(teraPacketWithData));
@@ -199,14 +224,6 @@ namespace Detrav.TeraModLoader.Core.P2904
                 onTick(this, EventArgs.Empty);
         }
 
-        public TeraPlayer getPlayerById(ulong id)
-        {
-            TeraPlayer result;
-            if (party.TryGetValue(id, out result)) return result;
-            return null;
-        }
-
-
         public TeraPlayer getPlayerSelf()
         {
             return self;
@@ -215,6 +232,25 @@ namespace Detrav.TeraModLoader.Core.P2904
         public NpcDataBase getNpcDataBaseByUlongId(ulong id)
         {
             return cacheManager.getNpc(id);
+        }
+
+        private void clearParty()
+        {
+            foreach(var pair in party)
+            {
+                pair.Value.partyId = 0;
+            }
+            party.Clear();
+        }
+
+        public TeraPlayer getPlayer(ulong id)
+        {
+            if(id == self.id) return self;
+            if (party.ContainsKey(id)) return party[id];
+            if (entities.ContainsKey(id))
+                if (entities[id] is TeraPlayer)
+                    return entities[id] as TeraPlayer;
+            return null;
         }
     }
 }

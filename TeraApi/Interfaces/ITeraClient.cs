@@ -20,7 +20,7 @@ namespace Detrav.TeraApi.Interfaces
         event OnUpdateCharacteristic onUpdateCharacteristic;
         event OnNewPartyList onNewPartyList;
         event OnSkillResult onSkillResult;
-        TeraPlayer getPlayerById(ulong id);
+        TeraPlayer getPlayer(ulong id);
         TeraPlayer getPlayerSelf();
         NpcDataBase getNpcDataBaseByUlongId(ulong id);
         /*
