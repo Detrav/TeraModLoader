@@ -15,7 +15,7 @@ namespace Detrav.TeraApi.Core
             : base(id, parent)
         {
             this.npc = npc;
-            this.name = npc.saveName;
+            this.name = npc.safeName;
         }
     }
 }

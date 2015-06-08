@@ -10,8 +10,9 @@ namespace TMLTests
         public void TestДляПравильнойЗагрузкиБазыНИПов()
         {
             CacheManager cacheManager = new CacheManager();
-            Assert.IsTrue(11510 == cacheManager.teraNpcs.Count,"Количество как на сайте");
-            Assert.IsTrue(cacheManager.getNpc(0, 1).ulongId.ToString() == cacheManager.getNpc(0, 1).saveName, "Такого нас не должно быть");
+            Assert.IsNull(cacheManager.teraNpcs, "Должно быть нулём, пока не вызвали поиск НПЦ");
+            Assert.IsTrue(cacheManager.getNpc(0, 1).ulongId.ToString() == cacheManager.getNpc(0, 1).safeName, "Такого нас не должно быть");
+            Assert.IsTrue(11510+1 == cacheManager.teraNpcs.Count, "Количество как на сайте");
             bool test = false;
             foreach (var pair in cacheManager.teraNpcs)
             {
