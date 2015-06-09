@@ -16,5 +16,5 @@ namespace Detrav.TeraApi.Interfaces
         string getMyFolder();
     }
 
-    public enum AssetType { relative, global }
+    public enum AssetType { local, relative, global }
 }
