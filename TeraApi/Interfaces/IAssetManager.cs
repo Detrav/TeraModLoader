@@ -14,6 +14,8 @@ namespace Detrav.TeraApi.Interfaces
         string[] getDirectories(string path, AssetType assetType = AssetType.relative);
         string[] getFiles(string path, string patern, AssetType assetType = AssetType.relative);
         string getMyFolder();
+        byte[] openFile(string path, AssetType assetType = AssetType.relative);
+        void saveFile(string path, byte[] file, AssetType assetType = AssetType.relative);
     }
 
     public enum AssetType { local, relative, global }
