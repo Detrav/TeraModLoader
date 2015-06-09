@@ -58,7 +58,8 @@ namespace Detrav.TeraModLoader.Core
                     if (!File.Exists(zipFile)) return null;
                     using (ZipArchive zip = ZipFile.OpenRead(zipFile))
                     {
-                        var e = zip.GetEntry(Path.Combine(path));
+                        path = path.Replace("\\", "/");
+                        var e = zip.GetEntry(path);
                         if (e == null) return null;
                         using (TextReader tr = new StreamReader(e.Open()))
                         {
@@ -142,7 +143,8 @@ namespace Detrav.TeraModLoader.Core
                     if (!File.Exists(zipFile)) return;
                     using (ZipArchive zip = ZipFile.OpenRead(zipFile))
                     {
-                        var e = zip.GetEntry(Path.Combine(path));
+                        path = path.Replace("\\", "/");
+                        var e = zip.GetEntry(path);
                         if (e == null) return;
                         using (StreamReader tr = new StreamReader(e.Open()))
                         {
