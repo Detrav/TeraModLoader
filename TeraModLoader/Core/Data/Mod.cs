@@ -2,6 +2,7 @@
 using Detrav.TeraApi.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
@@ -14,8 +15,9 @@ namespace Detrav.TeraModLoader.Core.Data
     internal class Mod
     {
         private Assembly assembly;
-        public string name { get; private set; }
-        public Version version { get; private set; }
+        public ModInfo modInfo { get; private set; }
+        public string name { get { return modInfo.Title; } }
+        public string version { get { return modInfo.Version; } }
         public BitmapImage icon { get; private set; }
         //public Guid guid { get; private set; }
         public bool enable { get; set; }
@@ -26,43 +28,45 @@ namespace Detrav.TeraModLoader.Core.Data
         public Mod(string file)
         {
             zipFile = file;
-            /*
-            Logger.debug("Started mod creator");
             ready = false;
-            this.assembly = assembly;
-            AssemblyTitleAttribute assemblyTitle = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0] as AssemblyTitleAttribute;
-            name = assemblyTitle.Title;
-            version = assembly.GetName().Version;
-            //guid = assembly.GetType().GUID;
-            foreach (var v in assembly.GetTypes())
+            AssetManager asset = new AssetManager(null, zipFile);
+            var obj = asset.deSerialize("mod.info", typeof(ModInfo), AssetType.local);
+            if (obj == null) return;
+            modInfo = obj as ModInfo;
+            if (modInfo.Title == null) return;
+            if (modInfo.Mod == null) return;
+            if (modInfo.Version == null) modInfo.Version = "unk";
+            if (!modInfo.inVersion(Assembly.GetExecutingAssembly().GetName().Version)) return;
+            using (var zip = ZipFile.OpenRead(zipFile))
             {
-                if (v.GetInterfaces().Contains(typeof(ITeraMod)))
+                using(BinaryReader stream = new BinaryReader(zip.GetEntry(modInfo.Mod).Open()))
                 {
-                    if (v.GetMethod("getModIcon") != null)
+                    try
                     {
-                        icon = ToImage((byte[])v.GetMethod("getModIcon").Invoke(null, null));
-                        Logger.debug("ModHasIcon");
+                        assembly = Assembly.Load(stream.ReadBytes((int)stream.BaseStream.Length));
                     }
-                    type = v;
-                    ready = true;
-                    break;
+                    catch { return; }
                 }
+                if(modInfo.Icon!=null)
+                {
+                    using (var stream = zip.GetEntry(modInfo.Mod).Open())
+                    {
+                        icon = ToImage(stream);
+                    }
+                }
+                ready = true;
             }
-            Logger.debug("End mod creator, detected {0}",name);*/
         }
-        /*
-        public BitmapImage ToImage(byte[] array)
+
+        public BitmapImage ToImage(Stream stream)
         {
-            using (var ms = new System.IO.MemoryStream(array))
-            {
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad; // here
-                image.StreamSource = ms;
-                image.EndInit();
-                return image;
-            }
-        }*/
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad; // here
+            image.StreamSource = stream;
+            image.EndInit();
+            return image;
+        }
 
         public bool ready { get; private set; }
 
@@ -70,7 +74,7 @@ namespace Detrav.TeraModLoader.Core.Data
         {
             Logger.debug("Construct mod {0}", fullName);
             ITeraMod mod = (ITeraMod)Activator.CreateInstance(type);
-            mod.init(new ConfigManager(fullName),new AssetManager(fullName,zipFile));
+            mod.init(new ConfigManager(fullName), new AssetManager(fullName, zipFile));
             return mod;
         }
 
