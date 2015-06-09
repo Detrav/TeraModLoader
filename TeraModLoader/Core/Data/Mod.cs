@@ -49,7 +49,7 @@ namespace Detrav.TeraModLoader.Core.Data
                 }
                 if(modInfo.Icon!=null)
                 {
-                    using (var stream = zip.GetEntry(modInfo.Mod).Open())
+                    using (var stream = zip.GetEntry(modInfo.Icon).Open())
                     {
                         icon = ToImage(stream);
                     }
@@ -60,13 +60,20 @@ namespace Detrav.TeraModLoader.Core.Data
 
         public BitmapImage ToImage(Stream stream)
         {
-            var image = new BitmapImage();
-            image.BeginInit();
-            image.CacheOption = BitmapCacheOption.OnLoad; // here
-            image.StreamSource = stream;
-            image.EndInit();
-            return image;
+            using (MemoryStream ms = new MemoryStream((int)stream.Length))
+            {
+                stream.CopyTo(ms);
+                ms.Seek(0, SeekOrigin.Begin);
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad; // here
+                image.StreamSource = ms;
+                image.EndInit();
+                return image;
+            }
         }
+
+
 
         public bool ready { get; private set; }
 
