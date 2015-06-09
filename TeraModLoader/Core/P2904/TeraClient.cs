@@ -169,8 +169,8 @@ namespace Detrav.TeraModLoader.Core.P2904
                         {
                             TeraEntity te = entities[skill.idWho];
                             if (entities.ContainsKey(skill.idTarget))
-                                onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, entities[skill.idTarget]));
-                            else onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, null));
+                                onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, entities[skill.idTarget],skill.crit));
+                            else onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, null,skill.crit));
                         }
                     }
                     break;

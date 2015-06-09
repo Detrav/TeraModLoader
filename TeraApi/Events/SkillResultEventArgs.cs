@@ -13,13 +13,15 @@ namespace Detrav.TeraApi.Events
         public ushort type;
         public TeraEntity who;
         public TeraEntity target;
+        public bool crit;
 
-        public SkillResultEventArgs(uint damage, ushort type,TeraEntity who,TeraEntity target)
+        public SkillResultEventArgs(uint damage, ushort type,TeraEntity who,TeraEntity target,bool crit)
         {
             this.damage = damage;
             this.type = type;
             this.who = who;
             this.target = target;
+            this.crit = crit;
         }
     }
 
