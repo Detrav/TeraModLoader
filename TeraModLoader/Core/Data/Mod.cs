@@ -44,6 +44,15 @@ namespace Detrav.TeraModLoader.Core.Data
                     try
                     {
                         assembly = Assembly.Load(stream.ReadBytes((int)stream.BaseStream.Length));
+                        foreach(var t in assembly.GetTypes())
+                        {
+                            if(t.GetInterfaces().Contains(typeof(ITeraMod)))
+                            {
+                                type = t;
+                                break;
+                            }
+                        }
+                        if (type == null) return;
                     }
                     catch { return; }
                 }
