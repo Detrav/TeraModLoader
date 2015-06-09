@@ -23,36 +23,16 @@ namespace Detrav.TeraModLoader.Core
             Logger.debug("Start init for TeraModManager", "");
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
             List<Data.Mod> ts = new List<Data.Mod>();
-            foreach (var file in getFiles(directory, "*.exe|*.dll", SearchOption.TopDirectoryOnly))
+            foreach (var file in getFiles(directory, "*.zip", SearchOption.TopDirectoryOnly))
             {
                 Logger.debug("try load {0}", file);
-                Assembly a;
-                try
-                {
-                    a = Assembly.LoadFrom(file);
-                    Data.Mod m = new Data.Mod(a);
-                    if (m.ready)
-                    {
-                        bool containts = false;
-                        foreach(var mod in ts)
-                        {
-                            if(mod.name == m.name)
-                            {
-                                containts = true;
-                                break;
-                            }
-                        }
-                        if (!containts)
-                        {
-                            Logger.log("Loaded {0}", m);
-                            ts.Add(m);
-                        }
-                    }
-                }
-                catch (Exception e) { Logger.debug("{0}", e); }
+                Mod m = new Mod(file);
+                if (m.ready)
+                    ts.Add(m);
             }
             mods = ts.ToArray();
         }
+
         public MyConfig loadConfig(MyConfig cfg)
         {
             Logger.debug("loadConfig {0}", this);
@@ -61,9 +41,9 @@ namespace Detrav.TeraModLoader.Core
             {
                 bool enable;
                 if (cfg.modEnable != null)
-                    if (cfg.modEnable.TryGetValue(mod.name, out enable))
+                    if (cfg.modEnable.TryGetValue(mod.fullName, out enable))
                     {
-                        Logger.debug("mod enable? {0} {1}",enable , mod.name);
+                        Logger.debug("mod enable? {0} {1}",enable , mod.fullName);
                         mod.enable = enable;
                         continue;
                     }
@@ -72,13 +52,14 @@ namespace Detrav.TeraModLoader.Core
             }
             return cfg;
         }
+        
         public void saveConfig(MyConfig cfg)
         {
             Logger.debug("saveConfig start {0}", this);
             cfg.modEnable.Clear();
             foreach (var mod in mods)
             {
-                cfg.modEnable.Add(mod.name.ToString(), mod.enable);
+                cfg.modEnable.Add(mod.fullName, mod.enable);
             }
             config.saveGlobal(cfg);
             Logger.debug("saveConfig end {0}", this);

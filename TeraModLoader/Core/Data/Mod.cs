@@ -19,9 +19,10 @@ namespace Detrav.TeraModLoader.Core.Data
         //public Guid guid { get; private set; }
         public bool enable { get; set; }
         private Type type;
-
-        public Mod(Assembly assembly)
+        public string fullName { get { return String.Format("{0}.{1}", name, version); } }
+        public Mod(string file)
         {
+            /*
             Logger.debug("Started mod creator");
             ready = false;
             this.assembly = assembly;
@@ -43,9 +44,9 @@ namespace Detrav.TeraModLoader.Core.Data
                     break;
                 }
             }
-            Logger.debug("End mod creator, detected {0}",name);
+            Logger.debug("End mod creator, detected {0}",name);*/
         }
-
+        /*
         public BitmapImage ToImage(byte[] array)
         {
             using (var ms = new System.IO.MemoryStream(array))
@@ -57,21 +58,21 @@ namespace Detrav.TeraModLoader.Core.Data
                 image.EndInit();
                 return image;
             }
-        }
+        }*/
 
         public bool ready { get; private set; }
 
         public ITeraMod create()
         {
-            Logger.debug("Construct mod {0}", name);
+            Logger.debug("Construct mod {0}", fullName);
             ITeraMod mod = (ITeraMod)Activator.CreateInstance(type);
-            mod.init(new ConfigManager(name),new AssetManager(name));
+            mod.init(new ConfigManager(fullName),new AssetManager(fullName));
             return mod;
         }
 
         public override string ToString()
         {
-            return String.Format("Mod {0} - Version {1}", name, version);
+            return fullName;
         }
     }
 }

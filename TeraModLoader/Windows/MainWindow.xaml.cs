@@ -66,15 +66,6 @@ namespace Detrav.TeraModLoader.Windows
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Start();
             Logger.debug("Window started");
-            /*/TestVars
-            capture_onNewConnectionSync(this, new ConnectionEventArgs(new Connection("0.0.0.0",0,"0.0.0.0",0)));
-            Random r = new Random();
-            for(int i =0;i<1000;i++)
-            {
-                byte[] bb = new byte[100];
-                r.NextBytes(bb);
-                capture_onPacketArrivalSync(this, new PacketArrivalEventArgs(new Connection("0.0.0.0", 0, "0.0.0.0", 0), new TeraPacketWithData(bb, PacketType.Any)));
-            }*/
         }
 
         void capture_onPacketArrivalSync(object sender, PacketArrivalEventArgs e)
@@ -150,13 +141,6 @@ namespace Detrav.TeraModLoader.Windows
         {
             if (MessageBox.Show("Тестовое соединение может вызывать ошибки!" + Environment.NewLine + "Вы действительно хотите создать тестовое соединение?", "Тестовое соединение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             capture_onNewConnectionSync(this, new ConnectionEventArgs(new Connection("0.0.0.0", 0, "0.0.0.0", 0)));
-            Random r = new Random();
-            for (int i = 0; i < 1000; i++)
-            {
-                byte[] bb = new byte[100];
-                r.NextBytes(bb);
-                capture_onPacketArrivalSync(this, new PacketArrivalEventArgs(new Connection("0.0.0.0", 0, "0.0.0.0", 0), new TeraPacketWithData(bb, PacketType.Any)));
-            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

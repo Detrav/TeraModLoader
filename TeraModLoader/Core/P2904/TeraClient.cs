@@ -193,7 +193,6 @@ namespace Detrav.TeraModLoader.Core.P2904
                                 else
                                     (npc as TeraNpc).target = null;
                             }
-
                         }
                     }
                     break;
