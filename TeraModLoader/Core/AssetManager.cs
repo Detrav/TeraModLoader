@@ -55,13 +55,15 @@ namespace Detrav.TeraModLoader.Core
             {
                 case AssetType.local:
                     if (!File.Exists(zipFile)) return null;
-                    ZipArchive zip = ZipFile.OpenRead(zipFile);
-                    var e = zip.GetEntry(Path.Combine(assets,path));
-                    using (TextReader tr = new StreamReader(e.Open()))
+                    using (ZipArchive zip = ZipFile.OpenRead(zipFile))
                     {
-                        JsonSerializerSettings jss = new JsonSerializerSettings();
-                        jss.NullValueHandling = NullValueHandling.Ignore;
-                        return JsonConvert.DeserializeObject(tr.ReadToEnd(), t, jss);
+                        var e = zip.GetEntry(Path.Combine(assets, path));
+                        using (TextReader tr = new StreamReader(e.Open()))
+                        {
+                            JsonSerializerSettings jss = new JsonSerializerSettings();
+                            jss.NullValueHandling = NullValueHandling.Ignore;
+                            return JsonConvert.DeserializeObject(tr.ReadToEnd(), t, jss);
+                        }
                     }
                 case AssetType.global:
                     file = path;
