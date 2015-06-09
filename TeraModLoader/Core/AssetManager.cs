@@ -58,7 +58,7 @@ namespace Detrav.TeraModLoader.Core
                     if (!File.Exists(zipFile)) return null;
                     using (ZipArchive zip = ZipFile.OpenRead(zipFile))
                     {
-                        var e = zip.GetEntry(Path.Combine(assets, path));
+                        var e = zip.GetEntry(Path.Combine(path));
                         using (TextReader tr = new StreamReader(e.Open()))
                         {
                             JsonSerializerSettings jss = new JsonSerializerSettings();
@@ -141,7 +141,7 @@ namespace Detrav.TeraModLoader.Core
                     if (!File.Exists(zipFile)) return;
                     using (ZipArchive zip = ZipFile.OpenRead(zipFile))
                     {
-                        var e = zip.GetEntry(Path.Combine(assets, path));
+                        var e = zip.GetEntry(Path.Combine(path));
                         using (StreamReader tr = new StreamReader(e.Open()))
                         {
                             if (s != null)
