@@ -2,6 +2,7 @@
 using Detrav.TeraApi.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,8 +21,11 @@ namespace Detrav.TeraModLoader.Core.Data
         public bool enable { get; set; }
         private Type type;
         public string fullName { get { return String.Format("{0}.{1}", name, version); } }
+        private string zipFile;
+
         public Mod(string file)
         {
+            zipFile = file;
             /*
             Logger.debug("Started mod creator");
             ready = false;
@@ -66,7 +70,7 @@ namespace Detrav.TeraModLoader.Core.Data
         {
             Logger.debug("Construct mod {0}", fullName);
             ITeraMod mod = (ITeraMod)Activator.CreateInstance(type);
-            mod.init(new ConfigManager(fullName),new AssetManager(fullName));
+            mod.init(new ConfigManager(fullName),new AssetManager(fullName,zipFile));
             return mod;
         }
 
