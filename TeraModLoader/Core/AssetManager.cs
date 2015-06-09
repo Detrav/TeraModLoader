@@ -33,6 +33,7 @@ namespace Detrav.TeraModLoader.Core
             string file = "";
             switch (assetType)
             {
+                case AssetType.local: return;
                 case AssetType.global:
                     file = path;
                     break;
@@ -129,6 +130,59 @@ namespace Detrav.TeraModLoader.Core
         {
             Logger.debug("getMyFolder {0}", Path.GetFullPath(Path.Combine(assets, modName)));
             return Path.GetFullPath(Path.Combine(assets, modName));
+        }
+
+        public void openFile(string path, OnOpenFile s, AssetType assetType = AssetType.relative)
+        {
+            string file = "";
+            switch (assetType)
+            {
+                case AssetType.local:
+                    if (!File.Exists(zipFile)) return;
+                    using (ZipArchive zip = ZipFile.OpenRead(zipFile))
+                    {
+                        var e = zip.GetEntry(Path.Combine(assets, path));
+                        using (StreamReader tr = new StreamReader(e.Open()))
+                        {
+                            if (s != null)
+                                s(tr);
+                            return;
+                        }
+                    }
+                case AssetType.global:
+                    file = path;
+                    break;
+                case AssetType.relative:
+                    file = Path.Combine(assets, modName, path);
+                    break;
+            }
+            if (File.Exists(file))
+                using (StreamReader tr = new StreamReader(file))
+                {
+                    if (s != null)
+                        s(tr);
+                }
+        }
+
+        public void saveFile(string path, OnSaveFile s, AssetType assetType = AssetType.relative)
+        {
+            string file = "";
+            switch (assetType)
+            {
+                case AssetType.local: return;
+                case AssetType.global:
+                    file = path;
+                    break;
+                case AssetType.relative:
+                    file = Path.Combine(assets, modName, path);
+                    break;
+            }
+            if (!Directory.Exists(Path.GetDirectoryName(file))) Directory.CreateDirectory(Path.GetDirectoryName(file));
+            using (StreamWriter stream = new StreamWriter(file))
+            {
+                if (s != null)
+                    s(stream);
+            }
         }
     }
 }
