@@ -128,6 +128,7 @@
     <Compile Include="Core\Data\Mod.cs" />
     <Compile Include="Core\Data\ModInfo.cs" />
     <Compile Include="Core\Data\MyConfig.cs" />
+    <Compile Include="Core\Data\ServerInfo.cs" />
     <Compile Include="Core\ITeraClientWithLoader.cs" />
     <Compile Include="Core\P2904\CacheManager.cs" />
     <Compile Include="Core\P2904\TeraClient.cs" />
@@ -137,6 +138,9 @@
     <Compile Include="Crypt\Session.cs" />
     <Compile Include="Crypt\Sha.cs" />
     <Compile Include="Crypt\Utils.cs" />
+    <None Include="assets\TeraModLoader\servers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\AssemblyInfo.git.cs" />
     <Compile Include="Sniffer\CaptureWinpkFilter.cs" />
     <Compile Include="Sniffer\CapturePcap.cs" />

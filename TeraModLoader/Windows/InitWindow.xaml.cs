@@ -27,15 +27,20 @@ namespace Detrav.TeraModLoader.Windows
     {
         internal ICapture device { get; private set; }
         MyConfig config;
+        ServerInfo[] servers;
         public InitWindow()
         {
             InitializeComponent();
             Logger.debug("new InitWindow");
+
+            AssetManager ass = new AssetManager();
+            servers = (ServerInfo[])ass.deSerialize("servers.json",typeof(ServerInfo[]));
             ConfigManager cm = new ConfigManager();
             config = cm.loadGlobal(typeof(MyConfig)) as MyConfig;
             if (config == null) config = new MyConfig();
             comboBoxDriver.SelectedIndex = config.driverType;
-            foreach (var el in config.servers)
+            if(servers!=null)
+            foreach (var el in servers)
                 listBoxServers.Items.Add(el.name);
             listBoxServers.SelectedIndex = config.serverIndex;
             foreach (var el in PacketCreator.getVerions())
@@ -77,7 +82,7 @@ namespace Detrav.TeraModLoader.Windows
                 System.Windows.MessageBox.Show("Нужно выбрать версию!");
                 return;
             }
-            string server = config.servers[listBoxServers.SelectedIndex].ip;
+            string server = servers[listBoxServers.SelectedIndex].ip;
             config.driverType = comboBoxDriver.SelectedIndex;
             switch(comboBoxDriver.SelectedIndex)
             {
