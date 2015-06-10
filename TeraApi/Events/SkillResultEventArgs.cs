@@ -9,11 +9,12 @@ namespace Detrav.TeraApi.Events
 {
     public class SkillResultEventArgs :EventArgs
     {
-        public uint damage;
-        public ushort type;
-        public TeraEntity who;
-        public TeraEntity target;
-        public bool crit;
+        public uint damage { get; private set; }
+        public ushort type { get; private set; }
+        public TeraEntity who { get; private set; }
+        public TeraEntity target { get; private set; }
+        public bool crit { get; private set; }
+        public DateTime time { get; private set; }
 
         public SkillResultEventArgs(uint damage, ushort type,TeraEntity who,TeraEntity target,bool crit)
         {
@@ -22,6 +23,7 @@ namespace Detrav.TeraApi.Events
             this.who = who;
             this.target = target;
             this.crit = crit;
+            this.time = DateTime.Now;
         }
     }
 
