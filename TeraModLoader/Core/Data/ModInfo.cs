@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Detrav.TeraApi.OpCodes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Detrav.TeraModLoader.Core.Data
         public string URL;
         public string Company;
         public string Mod;
+        public OpCodeVersion[] RequiredOpCodeVersions;
 
         internal bool inVersion(System.Version version)
         {
@@ -103,6 +105,17 @@ namespace Detrav.TeraModLoader.Core.Data
                 }
             }
             return true;
+        }
+
+        internal bool inOpCodeVersions(OpCodeVersion opCodes)
+        {
+            if(RequiredOpCodeVersions==null) return false;
+            foreach(var el in RequiredOpCodeVersions)
+            {
+                if (el == OpCodeVersion.Any) return true;
+                if (el == opCodes) return true;
+            }
+            return false;
         }
     }
 }
