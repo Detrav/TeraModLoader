@@ -14,6 +14,7 @@ namespace Detrav.TeraModLoader.Core.Data
         public object e { get; private set; }
         public ComboBoxEnumWithDescription(object e)
         {
+            this.e = e;
             FieldInfo fi = e.GetType().GetField(e.ToString());
 
             if (null != fi)

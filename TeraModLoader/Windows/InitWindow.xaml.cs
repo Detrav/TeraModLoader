@@ -71,7 +71,7 @@ namespace Detrav.TeraModLoader.Windows
                 System.Windows.MessageBox.Show("Нужно выбрать один из серверов!");
                 return;
             }
-            if(listBoxDevices.SelectedItem is ComboBoxEnumWithDescription)
+            if(!(listBoxVersion.SelectedItem is ComboBoxEnumWithDescription))
             {
                 Logger.debug("Нужно выбрать версию!");
                 System.Windows.MessageBox.Show("Нужно выбрать версию!");
@@ -91,7 +91,7 @@ namespace Detrav.TeraModLoader.Windows
             }
             config.deviceIndex = listBoxDevices.SelectedIndex;
             config.serverIndex = listBoxServers.SelectedIndex;
-            config.version = (OpCodeVersion)(listBoxDevices.SelectedItem as ComboBoxEnumWithDescription).e;
+            config.version = (OpCodeVersion)(listBoxVersion.SelectedItem as ComboBoxEnumWithDescription).e;
             PacketCreator.setVersion(config.version);
             ConfigManager cm = new ConfigManager();
             cm.saveGlobal(config);
