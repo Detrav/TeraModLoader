@@ -46,7 +46,7 @@ namespace Detrav.TeraModLoader.Core.Data
                 {
                     try
                     {
-                        assembly = Assembly.Load(stream.ReadBytes((int)stream.BaseStream.Length));
+                        assembly = Assembly.Load(ReadAllBytes(stream));
                         foreach(var t in assembly.GetTypes())
                         {
                             if(t.GetInterfaces().Contains(typeof(ITeraMod)))
@@ -57,7 +57,7 @@ namespace Detrav.TeraModLoader.Core.Data
                         }
                         if (type == null) return;
                     }
-                    catch { return; }
+                    catch(Exception me) { return; }
                 }
                 if(modInfo.Icon!=null)
                 {
@@ -72,7 +72,7 @@ namespace Detrav.TeraModLoader.Core.Data
 
         public BitmapImage ToImage(Stream stream)
         {
-            using (MemoryStream ms = new MemoryStream((int)stream.Length))
+            using (MemoryStream ms = new MemoryStream())
             {
                 stream.CopyTo(ms);
                 ms.Seek(0, SeekOrigin.Begin);
@@ -83,6 +83,20 @@ namespace Detrav.TeraModLoader.Core.Data
                 image.EndInit();
                 return image;
             }
+        }
+
+        public static byte[] ReadAllBytes(BinaryReader reader)
+        {
+            const int bufferSize = 4096;
+            using (var ms = new MemoryStream())
+            {
+                byte[] buffer = new byte[bufferSize];
+                int count;
+                while ((count = reader.Read(buffer, 0, buffer.Length)) != 0)
+                    ms.Write(buffer, 0, count);
+                return ms.ToArray();
+            }
+
         }
 
 
