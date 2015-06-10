@@ -37,7 +37,7 @@ namespace Detrav.TeraModLoader.Core.Data
             if (modInfo.Mod == null) return;
             if (modInfo.Version == null) modInfo.Version = "unk";
             if (!modInfo.inVersion(Assembly.GetExecutingAssembly().GetName().Version)) return;
-            if (!modInfo.inOpCodeVersions(Detrav.TeraApi.OpCodes.PacketCreator.getCurrentVersion())) ;
+            if (!modInfo.inOpCodeVersions(Detrav.TeraApi.OpCodes.PacketCreator.getCurrentVersion())) return;
             using (var zip = ZipFile.OpenRead(zipFile))
             {
                 using(BinaryReader stream = new BinaryReader(zip.GetEntry(modInfo.Mod).Open()))
