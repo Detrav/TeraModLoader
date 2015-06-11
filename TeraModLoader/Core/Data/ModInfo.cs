@@ -22,8 +22,8 @@ namespace Detrav.TeraModLoader.Core.Data
 
         internal bool inVersion(System.Version version)
         {
-            if (Version == null) return false;
-            var ver = Version.Split('.');
+            if (RequiredVersion == null) return false;
+            var ver = RequiredVersion.Split('.');
             if(ver.Length>0)
             {
                 switch(ver[0].Trim()[0])
