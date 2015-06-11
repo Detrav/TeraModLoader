@@ -120,12 +120,6 @@ namespace Detrav.TeraModLoader.Core.P2904
                         if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                     }
                     break;
-                case OpCode2904.S_SPAWN_ME:
-                    {
-                        entities.Clear();
-                        entities[self.id] = self;
-                    }
-                    break;
                 case OpCode2904.S_SPAWN_PROJECTILE:
                     {
                         Logger.debug("S_SPAWN_PROJECTILE");
