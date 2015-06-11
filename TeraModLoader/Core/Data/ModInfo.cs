@@ -42,6 +42,15 @@ namespace Detrav.TeraModLoader.Core.Data
                             if (version.Major <= val) return false;
                         }
                         break;
+                    case '*':
+                        break;
+                    default:
+                        {
+                            int val;
+                            if(!int.TryParse(ver[0].Trim(),out val)) return false;
+                            if(val!=version.Major) return false;
+                        }
+                        break;
                 }
                 if(ver.Length>1)
                 {
@@ -59,6 +68,15 @@ namespace Detrav.TeraModLoader.Core.Data
                                 int val;
                                 if (!int.TryParse(ver[1].Trim().Substring(1).Trim(), out val)) return false;
                                 if (version.Minor <= val) return false;
+                            }
+                            break;
+                        case '*':
+                            break;
+                        default:
+                            {
+                                int val;
+                                if (!int.TryParse(ver[1].Trim(), out val)) return false;
+                                if (val != version.Minor) return false;
                             }
                             break;
                     }
@@ -80,6 +98,15 @@ namespace Detrav.TeraModLoader.Core.Data
                                     if (version.Build <= val) return false;
                                 }
                                 break;
+                            case '*':
+                                break;
+                            default:
+                                {
+                                    int val;
+                                    if (!int.TryParse(ver[2].Trim(), out val)) return false;
+                                    if (val != version.Build) return false;
+                                }
+                                break;
                         }
                     }
                     if (ver.Length > 3)
@@ -98,6 +125,15 @@ namespace Detrav.TeraModLoader.Core.Data
                                     int val;
                                     if (!int.TryParse(ver[3].Trim().Substring(1).Trim(), out val)) return false;
                                     if (version.Revision <= val) return false;
+                                }
+                                break;
+                            case '*':
+                                break;
+                            default:
+                                {
+                                    int val;
+                                    if (!int.TryParse(ver[3].Trim(), out val)) return false;
+                                    if (val != version.Revision) return false;
                                 }
                                 break;
                         }
