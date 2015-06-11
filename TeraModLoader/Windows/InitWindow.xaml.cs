@@ -43,10 +43,14 @@ namespace Detrav.TeraModLoader.Windows
             foreach (var el in servers)
                 listBoxServers.Items.Add(el.name);
             listBoxServers.SelectedIndex = config.serverIndex;
+            int i = 0;
             foreach (var el in PacketCreator.getVerions())
+            {
                 listBoxVersion.Items.Add(new ComboBoxEnumWithDescription(el));
-
-            listBoxVersion.SelectedItem = config.version;
+                if (config.version.Equals(el))
+                    listBoxVersion.SelectedIndex = i;
+                i++;
+            }
             Logger.debug("end InitWindow");
         }
 
