@@ -16,7 +16,7 @@
                         <MenuItem Header="Тестовое окно"
                                   Click="menuItemTest_Click" />
                         <MenuItem Header="Debug">
-                            <MenuItem Header="Сущьности" />
+                            <MenuItem Header="Сущьности" Click="MenuItemDebugEntities_Click" />
                         </MenuItem>
                     </ContextMenu>
                 </TabItem.ContextMenu>

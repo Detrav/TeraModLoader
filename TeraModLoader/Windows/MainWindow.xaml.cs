@@ -157,5 +157,19 @@ namespace Detrav.TeraModLoader.Windows
                 tc.Value.unLoad();
             }
         }
+
+        private void MenuItemDebugEntities_Click(object sender, RoutedEventArgs e)
+        {
+            if((tabControl.SelectedItem as TabItem).Header is Connection)
+            {
+                try
+                {
+                    var c = teraClients[(tabControl.SelectedItem as TabItem).Header as Connection];
+                    EntityWindow ew = new EntityWindow(c);
+                    ew.Show();
+                }
+                catch { }
+            }
+        }
     }
 }
