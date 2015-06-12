@@ -34,5 +34,11 @@ namespace Detrav.TeraApi.Interfaces
         event OnPartyUpdateStamina()
         .......
         */
+
+        System.Collections.IEnumerable getEntities();
+
+        System.Collections.IEnumerable getNpcs();
+
+        System.Collections.IEnumerable getPlayers();
     }
 }
