@@ -255,5 +255,33 @@ namespace Detrav.TeraModLoader.Core.P2904
                     return entities[id] as TeraPlayer;
             return null;
         }
+
+
+        public TeraEntity[] getEntities()
+        {
+            return entities.Values.ToArray();
+        }
+
+        public TeraNpc[] getNpcs()
+        {
+            List<TeraNpc> npcs = new List<TeraNpc>();
+            foreach(var e in entities)
+            {
+                if (e.Value is TeraNpc)
+                    npcs.Add(e.Value as TeraNpc);
+            }
+            return npcs.ToArray();
+        }
+
+        public TeraPlayer[] getPlayers()
+        {
+            List<TeraPlayer> npcs = new List<TeraPlayer>();
+            foreach (var e in entities)
+            {
+                if (e.Value is TeraPlayer)
+                    npcs.Add(e.Value as TeraPlayer);
+            }
+            return npcs.ToArray();
+        }
     }
 }
