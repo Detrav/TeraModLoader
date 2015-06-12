@@ -35,10 +35,10 @@ namespace Detrav.TeraApi.Interfaces
         .......
         */
 
-        System.Collections.IEnumerable getEntities();
+        TeraEntity[] getEntities();
 
-        System.Collections.IEnumerable getNpcs();
+        TeraNpc[] getNpcs();
 
-        System.Collections.IEnumerable getPlayers();
+        TeraPlayer[] getPlayers();
     }
 }
