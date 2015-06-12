@@ -160,12 +160,19 @@ namespace Detrav.TeraModLoader.Core.P2904
              * Проверяем если есть такой ловушк с ай ди, то ищем НПС или игрока
              * Проверяем если находим НПС ищем игрока
              */
-                        if (entities.ContainsKey(skill.idWho))
+                        try
                         {
-                            TeraEntity te = entities[skill.idWho];
-                            if (entities.ContainsKey(skill.idTarget))
-                                onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, entities[skill.idTarget],skill.crit));
-                            else onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, null,skill.crit));
+                            if (entities.ContainsKey(skill.idWho))
+                            {
+                                TeraEntity te = entities[skill.idWho];
+                                if (entities.ContainsKey(skill.idTarget))
+                                    onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, entities[skill.idTarget], skill.crit));
+                                else onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, null, skill.crit));
+                            }
+                        }
+                        catch (Exception exc)
+                        {
+                            Logger.debug("{0}", Core.Data.ExceptionExtended.GetExceptionDetails(exc));
                         }
                     }
                     break;

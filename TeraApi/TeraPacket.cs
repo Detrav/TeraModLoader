@@ -25,6 +25,7 @@ namespace Detrav.TeraApi
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine(this.GetType().ToString());
             PrintProperties(sb, this, 1);
             return sb.ToString();
         }
