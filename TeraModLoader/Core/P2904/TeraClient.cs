@@ -154,6 +154,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                     if (onSkillResult != null)
                     {
                         var skill = (S_EACH_SKILL_RESULT)PacketCreator.create(teraPacketWithData);
+                        Logger.debug(skill.ToString());
                         //Logger.debug(s_despawn_npc.ToString());
                         /*
              * Проверяем если есть такой игрок с ай ди, то делаем что нужно и выходим
