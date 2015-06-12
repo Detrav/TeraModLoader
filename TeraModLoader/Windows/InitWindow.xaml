@@ -6,7 +6,7 @@
         Width="300"
         ResizeMode="NoResize">
     <DockPanel>
-        <Label DockPanel.Dock="Top">Выбирите драйвер для захвата:</Label>
+        <Label DockPanel.Dock="Top">Выберите драйвер для захвата:</Label>
         <ComboBox DockPanel.Dock="Top"
                   x:Name="comboBoxDriver"
                   SelectionChanged="comboBoxDriver_SelectionChanged">
@@ -14,13 +14,13 @@
             <ComboBoxItem Content="Windows pcap" />
             <ComboBoxItem Content="Windows Packet Filter Kit" />
         </ComboBox>
-        <Label DockPanel.Dock="Top">Выбирите устройство захвата:</Label>
+        <Label DockPanel.Dock="Top">Выберите устройство захвата:</Label>
         <ComboBox DockPanel.Dock="Top"
                   x:Name="listBoxDevices"></ComboBox>
-        <Label DockPanel.Dock="Top">Выбирите сервер:</Label>
+        <Label DockPanel.Dock="Top">Выберите сервер:</Label>
         <ComboBox DockPanel.Dock="Top"
                   x:Name="listBoxServers"></ComboBox>
-        <Label DockPanel.Dock="Top">Выбирите версию:</Label>
+        <Label DockPanel.Dock="Top">Выберите версию:</Label>
         <ComboBox DockPanel.Dock="Top"
                   x:Name="listBoxVersion"></ComboBox>
         <DockPanel DockPanel.Dock="Bottom"

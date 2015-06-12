@@ -15,6 +15,11 @@
                     <ContextMenu>
                         <MenuItem Header="Тестовое окно"
                                   Click="menuItemTest_Click" />
+                        <MenuItem Header="Debug">
+                            <MenuItem Header="Сущьности" />
+                            <MenuItem Header="Игроки" />
+                            <MenuItem Header="Игроки" />
+                        </MenuItem>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <Grid>
