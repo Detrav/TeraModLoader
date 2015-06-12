@@ -64,6 +64,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                         self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
                         clearParty();
                         party[self.id] = self;
+                        entities[self.id] = self;
                         self.partyId = ulong.MaxValue;
                         if (onLogin != null) onLogin(this, new LoginEventArgs(self));
                         if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
