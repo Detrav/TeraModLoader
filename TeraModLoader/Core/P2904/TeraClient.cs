@@ -59,6 +59,7 @@ namespace Detrav.TeraModLoader.Core.P2904
             {
                 case OpCode2904.S_LOGIN:
                     {
+                        entities.Clear();
                         var s_login = (S_LOGIN)PacketCreator.create(teraPacketWithData);
                         Logger.debug(s_login.ToString());
                         self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
