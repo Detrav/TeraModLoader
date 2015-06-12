@@ -22,7 +22,7 @@ namespace Detrav.TeraApi.OpCodes.P2904
             id = packet.toUInt64(34);
             //readUInt64(34, "id");
             //readUInt64(38, "unique id");
-            name = packet.toDoubleString(name_start, 100);
+            name = packet.toDoubleString(name_start, name_start+ 100);
             //readString(name_start, "name");
             //readString(guild_start, "guild");
             //readString(guild_rank_start, "guild rank");
