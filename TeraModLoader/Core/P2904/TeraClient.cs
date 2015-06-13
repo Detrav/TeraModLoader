@@ -61,7 +61,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                     {
                         entities.Clear();
                         var s_login = (S_LOGIN)PacketCreator.create(teraPacketWithData);
-                        //Logger.debug(s_login.ToString());
+                        Logger.debug(s_login.ToString());
                         self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
                         clearParty();
                         party[self.id] = self;
@@ -74,7 +74,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                 case OpCode2904.S_PARTY_MEMBER_LIST:
                     {
                         var s_party_list = (S_PARTY_MEMBER_LIST)PacketCreator.create(teraPacketWithData);
-                        //Logger.debug(s_party_list.ToString());
+                        Logger.debug(s_party_list.ToString());
                         //clearParty();
                         foreach (var p in s_party_list.players)
                         {
@@ -97,7 +97,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                     break;
                 case OpCode2904.S_LEAVE_PARTY:
                     {
-                        //Logger.debug("S_LEAVE_PARTY");
+                        Logger.debug("S_LEAVE_PARTY");
                         clearParty();
                         party[self.partyId] = self;
                         if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
@@ -106,7 +106,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                 case OpCode2904.S_LEAVE_PARTY_MEMBER:
                     {
                         var s_leave_member = (S_LEAVE_PARTY_MEMBER)PacketCreator.create(teraPacketWithData);
-                        //Logger.debug(s_leave_member.ToString());
+                        Logger.debug(s_leave_member.ToString());
                         ulong remId = 0;
                         foreach (var pair in party)
                             if (pair.Value.partyId == s_leave_member.partyId)
@@ -124,23 +124,23 @@ namespace Detrav.TeraModLoader.Core.P2904
                     break;
                 case OpCode2904.S_SPAWN_PROJECTILE:
                     {
-                        //Logger.debug("S_SPAWN_PROJECTILE");
                         var s_spawn_proj = (S_SPAWN_PROJECTILE)PacketCreator.create(teraPacketWithData);
+                        Logger.debug(s_spawn_proj.ToString());
                         if (entities.ContainsKey(s_spawn_proj.idPlayer))
                             entities[s_spawn_proj.id] = new TeraEntity(s_spawn_proj.id, entities[s_spawn_proj.idPlayer]);
                     }
                     break;
                 case OpCode2904.S_DESPAWN_PROJECTILE:
                     {
-                        //Logger.debug("S_DESPAWN_PROJECTILE");
                         var s_despawn_proj = (S_DESPAWN_PROJECTILE)PacketCreator.create(teraPacketWithData);
+                        Logger.debug(s_despawn_proj.ToString());
                         if (entities.ContainsKey(s_despawn_proj.id)) entities.Remove(s_despawn_proj.id);
                     }
                     break;
                 case OpCode2904.S_SPAWN_NPC:
                     {
                         var s_spawn_npc = (S_SPAWN_NPC)PacketCreator.create(teraPacketWithData);
-                        //Logger.debug(s_spawn_npc.ToString());
+                        Logger.debug(s_spawn_npc.ToString());
                         TeraEntity te = null;
                         if (s_spawn_npc.parentId != 0)
                             entities.TryGetValue(s_spawn_npc.parentId, out te);
@@ -149,15 +149,15 @@ namespace Detrav.TeraModLoader.Core.P2904
                     break;
                 case OpCode2904.S_DESPAWN_NPC:
                     var s_despawn_npc = (S_DESPAWN_NPC)PacketCreator.create(teraPacketWithData);
-                    //Logger.debug(s_despawn_npc.ToString());
+                    Logger.debug(s_despawn_npc.ToString());
                     if (entities.ContainsKey(s_despawn_npc.id)) entities.Remove(s_despawn_npc.id);
                     break;
                 case OpCode2904.S_EACH_SKILL_RESULT:
                     if (onSkillResult != null)
                     {
                         var skill = (S_EACH_SKILL_RESULT)PacketCreator.create(teraPacketWithData);
-                        //Logger.debug(skill.ToString());
-                        ////Logger.debug(s_despawn_npc.ToString());
+                        Logger.debug(skill.ToString());
+                        //Logger.debug(s_despawn_npc.ToString());
                         /*
              * Проверяем если есть такой игрок с ай ди, то делаем что нужно и выходим
              * Проверяем если есть такой ловушк с ай ди, то ищем НПС или игрока
@@ -175,7 +175,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                         }
                         catch (Exception exc)
                         {
-                            //Logger.debug("{0}", Core.Data.ExceptionExtended.GetExceptionDetails(exc));
+                            Logger.debug("{0}", Core.Data.ExceptionExtended.GetExceptionDetails(exc));
                         }
                     }
                     break;
@@ -187,7 +187,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                 case OpCode2904.S_NPC_STATUS:
                     {
                         var npc_status = PacketCreator.create(teraPacketWithData) as S_NPC_STATUS;
-                        //Logger.debug(npc_status.ToString());
+                        Logger.debug(npc_status.ToString());
                         if(entities.ContainsKey(npc_status.npcId))
                         {
                             TeraEntity npc = entities[npc_status.npcId];
@@ -204,7 +204,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                 case OpCode2904.S_SPAWN_USER:
                     {
                         var s_spawn_user = PacketCreator.create(teraPacketWithData) as S_SPAWN_USER;
-                        //Logger.debug(s_spawn_user.ToString());
+                        Logger.debug(s_spawn_user.ToString());
                         var player = getPlayer(s_spawn_user.id);
                         if (player == null) player = new TeraPlayer(s_spawn_user.id, s_spawn_user.name);
                         entities[s_spawn_user.id] = player;
@@ -213,7 +213,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                 case OpCode2904.S_DESPAWN_USER:
                     {
                         var s_despawn_user = PacketCreator.create(teraPacketWithData) as S_DESPAWN_USER;
-                        //Logger.debug(s_despawn_user.ToString());
+                        Logger.debug(s_despawn_user.ToString());
                         if (entities.ContainsKey(s_despawn_user.id))
                             entities.Remove(s_despawn_user.id);
                     }
