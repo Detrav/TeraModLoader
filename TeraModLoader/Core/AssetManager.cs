@@ -188,5 +188,19 @@ namespace Detrav.TeraModLoader.Core
                     s(stream);
             }
         }
+
+
+        public TOut deSerialize<TOut>(string json)
+        {
+            JsonSerializerSettings jss = new JsonSerializerSettings();
+            jss.NullValueHandling = NullValueHandling.Ignore;
+            return JsonConvert.DeserializeObject<TOut>(json, jss);
+        }
+
+        public string serialize(object f)
+        {
+            JsonSerializerSettings s = new JsonSerializerSettings();
+            return JsonConvert.SerializeObject(f);
+        }
     }
 }
