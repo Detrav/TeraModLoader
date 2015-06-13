@@ -75,7 +75,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                     {
                         var s_party_list = (S_PARTY_MEMBER_LIST)PacketCreator.create(teraPacketWithData);
                         //Logger.debug(s_party_list.ToString());
-                        clearParty();
+                        //clearParty();
                         foreach (var p in s_party_list.players)
                         {
                             TeraPlayer pl = getPlayer(p.id);
