@@ -59,6 +59,7 @@
     <Compile Include="Interfaces\IAssetManager.cs" />
     <Compile Include="Interfaces\ICacheManager.cs" />
     <Compile Include="Interfaces\IConfigManager.cs" />
+    <Compile Include="Interfaces\ILoggerFile.cs" />
     <Compile Include="Interfaces\ITeraClient.cs" />
     <Compile Include="Interfaces\ITeraMod.cs" />
     <Compile Include="Logger.cs" />
