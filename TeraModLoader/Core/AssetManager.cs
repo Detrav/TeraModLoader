@@ -202,5 +202,23 @@ namespace Detrav.TeraModLoader.Core
             JsonSerializerSettings s = new JsonSerializerSettings();
             return JsonConvert.SerializeObject(f);
         }
+
+
+        public Detrav.TeraApi.Interfaces.ILoggerFile createLoggerFile(string path, AssetType assetType = AssetType.relative)
+        {
+            string file = "";
+            switch (assetType)
+            {
+                case AssetType.local: return null;
+                case AssetType.global:
+                    file = path;
+                    break;
+                case AssetType.relative:
+                    file = Path.Combine(assets, modName, path);
+                    break;
+            }
+            if (!Directory.Exists(Path.GetDirectoryName(file))) Directory.CreateDirectory(Path.GetDirectoryName(file));
+            return new LoggerFile(file);
+        }
     }
 }

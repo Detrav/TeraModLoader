@@ -134,6 +134,7 @@
     <Compile Include="Core\Data\MyConfig.cs" />
     <Compile Include="Core\Data\ServerInfo.cs" />
     <Compile Include="Core\ITeraClientWithLoader.cs" />
+    <Compile Include="Core\LoggerFile.cs" />
     <Compile Include="Core\P2904\CacheManager.cs" />
     <Compile Include="Core\P2904\TeraClient.cs" />
     <Compile Include="Core\TeraModManager.cs" />
