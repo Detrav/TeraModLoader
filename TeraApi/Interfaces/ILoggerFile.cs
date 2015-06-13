@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraApi.Interfaces
 {
-    interface ILoggerFile : IDisposable
+    public interface ILoggerFile : IDisposable
     {
         /// <summary>
         /// Записываем в лог текст, каждая запись в новой строке
