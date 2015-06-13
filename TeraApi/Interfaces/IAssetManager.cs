@@ -33,7 +33,7 @@ namespace Detrav.TeraApi.Interfaces
         string getMyFolder();
         void openFile(string path, OnOpenFile s, AssetType assetType = AssetType.relative);
         void saveFile(string path, OnSaveFile s, AssetType assetType = AssetType.relative);
-        void createLoggerFile(string path, AssetType aseetType = AssetType.relative);
+        ILoggerFile createLoggerFile(string path, AssetType aseetType = AssetType.relative);
     }
 
     public delegate void OnOpenFile(StreamReader s);
