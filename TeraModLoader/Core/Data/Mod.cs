@@ -47,9 +47,9 @@ namespace Detrav.TeraModLoader.Core.Data
                     try
                     {
                         assembly = Assembly.Load(ReadAllBytes(stream));
-                        foreach(var t in assembly.GetTypes())
+                        foreach (var t in assembly.GetTypes())
                         {
-                            if(t.GetInterfaces().Contains(typeof(ITeraMod)))
+                            if (t.GetInterfaces().Contains(typeof(ITeraMod)))
                             {
                                 type = t;
                                 break;
@@ -57,7 +57,12 @@ namespace Detrav.TeraModLoader.Core.Data
                         }
                         if (type == null) return;
                     }
-                    catch (Exception me) { Logger.debug(ExceptionExtended.GetExceptionDetails(me)); return; }
+                    catch (Exception me)
+                    {
+                        //if (me is ReflectionTypeLoadException)
+                        //    Logger.debug(ExceptionExtended.GetExceptionDetails(me as ReflectionTypeLoadException));
+                        Logger.debug(ExceptionExtended.GetExceptionDetails(me)); return;
+                    }
                 }
                 if(modInfo.Icon!=null)
                 {

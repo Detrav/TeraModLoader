@@ -99,7 +99,8 @@ namespace Detrav.TeraModLoader.Core.P2904
                     {
                         Logger.debug("S_LEAVE_PARTY");
                         clearParty();
-                        party[self.partyId] = self;
+                        self.partyId = ulong.MaxValue;
+                        party[self.id] = self;
                         if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
                         break;
                     }
