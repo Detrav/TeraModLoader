@@ -57,7 +57,7 @@ namespace Detrav.TeraModLoader.Core.Data
                         }
                         if (type == null) return;
                     }
-                    catch(Exception me) { return; }
+                    catch (Exception me) { Logger.debug(ExceptionExtended.GetExceptionDetails(me)); return; }
                 }
                 if(modInfo.Icon!=null)
                 {
