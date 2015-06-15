@@ -40,5 +40,6 @@ namespace Detrav.TeraApi.Interfaces
         TeraNpc[] getNpcs();
 
         TeraPlayer[] getPlayers();
+        TeraPlayer[] getParty();
     }
 }
