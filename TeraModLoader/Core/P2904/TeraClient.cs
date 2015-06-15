@@ -208,7 +208,11 @@ namespace Detrav.TeraModLoader.Core.P2904
                         var s_spawn_user = PacketCreator.create(teraPacketWithData) as S_SPAWN_USER;
                         Logger.debug(s_spawn_user.ToString());
                         var player = getPlayer(s_spawn_user.id);
-                        if (player == null) player = new TeraPlayer(s_spawn_user.id, s_spawn_user.name);
+                        if (player == null)
+                        {
+                            player = new TeraPlayer(s_spawn_user.id, s_spawn_user.name);
+                            Logger.debug("NewPlayer {0}", s_spawn_user.name);
+                        }
                         entities[player.id] = player;
                     }
                     break;
