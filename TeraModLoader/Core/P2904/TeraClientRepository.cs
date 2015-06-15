@@ -126,6 +126,7 @@ namespace Detrav.TeraModLoader.Core.P2904
         public TeraPartyPlayer[] getParty()
         {
             List<TeraPartyPlayer> tpps = new List<TeraPartyPlayer>();
+            if(self!=null)
             tpps.Add(self);
             foreach(var pair in party)
             {
