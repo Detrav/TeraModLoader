@@ -20,26 +20,5 @@ namespace Detrav.TeraApi.Interfaces
         event OnUpdateCharacteristic onUpdateCharacteristic;
         event OnNewPartyList onNewPartyList;
         event OnSkillResult onSkillResult;
-        TeraPlayer getPlayer(ulong id);
-        TeraPlayer getPlayerSelf();
-        NpcDataBase getNpcDataBaseByUlongId(ulong id);
-        /*
-        Думаю тут сделаю больше событий, может обработанные события??
-        event OnLogin(ссылка на своего игрока)
-        event OnPartyList(TeraPlayer[])
-        event OnPartyLeave()
-        event OnPartyMemberLeave()
-        event OnPartyUpdateHp()
-        event OnPartyUpdateMp()
-        event OnPartyUpdateStamina()
-        .......
-        */
-
-        TeraEntity[] getEntities();
-
-        TeraNpc[] getNpcs();
-
-        TeraPlayer[] getPlayers();
-        TeraPlayer[] getParty();
     }
 }

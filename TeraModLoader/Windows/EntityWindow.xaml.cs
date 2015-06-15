@@ -1,4 +1,5 @@
 ﻿using Detrav.TeraApi.Interfaces;
+using Detrav.TeraModLoader.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,8 @@ namespace Detrav.TeraModLoader.Windows
     /// </summary>
     public partial class EntityWindow : Window
     {
-        ITeraClient client;
-        public EntityWindow(ITeraClient client)
+        ITeraGame client;
+        internal EntityWindow(ITeraGame client)
         {
             this.client = client;
             InitializeComponent();

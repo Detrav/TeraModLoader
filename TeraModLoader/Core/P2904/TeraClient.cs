@@ -18,7 +18,7 @@ using System.Windows.Controls;
 
 namespace Detrav.TeraModLoader.Core.P2904
 {
-    internal class TeraClient : ITeraClientWithLoader
+    internal partial class TeraClient : ITeraGame
     {
         public event OnPacketArrival onPacketArrival;
         public event OnTick onTick;
@@ -27,11 +27,7 @@ namespace Detrav.TeraModLoader.Core.P2904
         public event OnNewPartyList onNewPartyList;
         public event OnSkillResult onSkillResult;
 
-        private Dictionary<ulong, TeraPlayer> party = new Dictionary<ulong, TeraPlayer>();
-        private TeraPlayer self = null;
-        Dictionary<ulong, TeraEntity> entities = new Dictionary<ulong,TeraEntity>();
 
-        CacheManager cacheManager = new CacheManager();
 
 
         private ITeraMod[] mods;
@@ -59,16 +55,13 @@ namespace Detrav.TeraModLoader.Core.P2904
             {
                 case OpCode2904.S_LOGIN:
                     {
-                        entities.Clear();
+                        clearDBParty();
+                        clearDBEntities();
                         var s_login = (S_LOGIN)PacketCreator.create(teraPacketWithData);
                         Logger.debug(s_login.ToString());
-                        self = new TeraPlayer(s_login.id, s_login.name, s_login.level);
-                        clearParty();
-                        party[self.id] = self;
-                        entities[self.id] = self;
-                        self.partyId = ulong.MaxValue;
-                        if (onLogin != null) onLogin(this, new LoginEventArgs(self));
-                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                        replaceSelf(new TeraPartyPlayer(s_login.id,ulong.MaxValue, s_login.name));
+                        if (onLogin != null) onLogin(this, new LoginEventArgs(getSelf()));
+                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(getParty()));
                     }
                     break;
                 case OpCode2904.S_PARTY_MEMBER_LIST:
@@ -78,102 +71,64 @@ namespace Detrav.TeraModLoader.Core.P2904
                         //clearParty();
                         foreach (var p in s_party_list.players)
                         {
-                            TeraPlayer pl = getPlayer(p.id);
-                            if(pl==null)
-                            {
-                                pl = new TeraPlayer(p.id, p.name, p.level, p.playerClass, p.partyId);
-                                party[p.id] = pl;
-                            }
-                            else
-                            {
-                                //pl.name = p.name;
-                                pl.partyId = p.partyId;
-                                pl.playerClass = p.playerClass;
-                                pl.level = p.level;
-                            }
+                            AddorUpdatePartyPlayerById(p.id, new TeraPartyPlayer(p.id, p.partyId, p.name, p.level, p.playerClass));
                         }
-                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(getParty()));
                     }
                     break;
                 case OpCode2904.S_LEAVE_PARTY:
                     {
                         Logger.debug("S_LEAVE_PARTY");
-                        clearParty();
-                        self.partyId = ulong.MaxValue;
-                        party[self.id] = self;
-                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                        clearDBParty();
+                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(getParty()));
                         break;
                     }
                 case OpCode2904.S_LEAVE_PARTY_MEMBER:
                     {
                         var s_leave_member = (S_LEAVE_PARTY_MEMBER)PacketCreator.create(teraPacketWithData);
                         Logger.debug(s_leave_member.ToString());
-                        ulong remId = 0;
-                        foreach (var pair in party)
-                            if (pair.Value.partyId == s_leave_member.partyId)
-                            {
-                                remId = pair.Key;
-                                break;
-                            }
-                        if (remId != 0)
-                        {
-                            Logger.debug("remove from Party {0}", party[remId].safeName);
-                            party[remId].partyId = 0;
-                            party.Remove(remId);
-                        }
-                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(party.Values.ToArray()));
+                        removePartyPlayerByPartyId(s_leave_member.partyId);
+                        if (onNewPartyList != null) onNewPartyList(this, new NewPartyListEventArgs(getParty()));
                     }
                     break;
                 case OpCode2904.S_SPAWN_PROJECTILE:
                     {
                         var s_spawn_proj = (S_SPAWN_PROJECTILE)PacketCreator.create(teraPacketWithData);
                         Logger.debug(s_spawn_proj.ToString());
-                        if (entities.ContainsKey(s_spawn_proj.idPlayer))
-                            entities[s_spawn_proj.id] = new TeraEntity(s_spawn_proj.id, entities[s_spawn_proj.idPlayer]);
+                        replaceEntityById(s_spawn_proj.id, new TeraEntity(s_spawn_proj.id, getEntityById(s_spawn_proj.idPlayer)));
                     }
                     break;
                 case OpCode2904.S_DESPAWN_PROJECTILE:
                     {
                         var s_despawn_proj = (S_DESPAWN_PROJECTILE)PacketCreator.create(teraPacketWithData);
                         Logger.debug(s_despawn_proj.ToString());
-                        if (entities.ContainsKey(s_despawn_proj.id)) entities.Remove(s_despawn_proj.id);
+                        removeEntityById(s_despawn_proj.id);
                     }
                     break;
                 case OpCode2904.S_SPAWN_NPC:
                     {
                         var s_spawn_npc = (S_SPAWN_NPC)PacketCreator.create(teraPacketWithData);
                         Logger.debug(s_spawn_npc.ToString());
-                        TeraEntity te = null;
-                        if (s_spawn_npc.parentId != 0)
-                            entities.TryGetValue(s_spawn_npc.parentId, out te);
-                        entities[s_spawn_npc.id] = new TeraNpc(s_spawn_npc.id, cacheManager.getNpc(s_spawn_npc.header, s_spawn_npc.template), te);
+                        TeraEntity te = getEntityById(s_spawn_npc.parentId);
+                        replaceEntityById(s_spawn_npc.id,new TeraNpc(s_spawn_npc.id, cacheManager.getNpc(s_spawn_npc.header, s_spawn_npc.template), te));
                     }
                     break;
                 case OpCode2904.S_DESPAWN_NPC:
                     var s_despawn_npc = (S_DESPAWN_NPC)PacketCreator.create(teraPacketWithData);
                     Logger.debug(s_despawn_npc.ToString());
-                    if (entities.ContainsKey(s_despawn_npc.id)) entities.Remove(s_despawn_npc.id);
+                    removeEntityById(s_despawn_npc.id);
                     break;
                 case OpCode2904.S_EACH_SKILL_RESULT:
                     if (onSkillResult != null)
                     {
                         var skill = (S_EACH_SKILL_RESULT)PacketCreator.create(teraPacketWithData);
                         Logger.debug(skill.ToString());
-                        //Logger.debug(s_despawn_npc.ToString());
-                        /*
-             * Проверяем если есть такой игрок с ай ди, то делаем что нужно и выходим
-             * Проверяем если есть такой ловушк с ай ди, то ищем НПС или игрока
-             * Проверяем если находим НПС ищем игрока
-             */
                         try
                         {
-                            if (entities.ContainsKey(skill.idWho))
-                            {
-                                TeraEntity te = entities[skill.idWho];
-                                if (entities.ContainsKey(skill.idTarget))
-                                    onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, entities[skill.idTarget], skill.crit));
-                                else onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, te, null, skill.crit));
-                            }
+                            TeraEntity who = getEntityById(skill.idWho);
+                            TeraEntity target = getEntityById(skill.idTarget);
+                            if (onSkillResult != null)
+                                onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, who, target, skill.crit));
                         }
                         catch (Exception exc)
                         {
@@ -190,15 +145,15 @@ namespace Detrav.TeraModLoader.Core.P2904
                     {
                         var npc_status = PacketCreator.create(teraPacketWithData) as S_NPC_STATUS;
                         Logger.debug(npc_status.ToString());
-                        if(entities.ContainsKey(npc_status.npcId))
+                        TeraEntity te = getEntityById(npc_status.npcId);
+                        if (te != null)
                         {
-                            TeraEntity npc = entities[npc_status.npcId];
-                            if(npc is TeraNpc)
+                            if (te is TeraNpc)
                             {
-                                if(entities.ContainsKey(npc_status.playerId))
-                                    (npc as TeraNpc).target = entities[npc_status.playerId];
-                                else
-                                    (npc as TeraNpc).target = null;
+                                TeraEntity target = getEntityById(npc_status.playerId);
+                                TeraNpc npc = te as TeraNpc;
+                                npc.target = target;
+                                replaceEntityById(npc.id, npc);
                             }
                         }
                     }
@@ -207,21 +162,14 @@ namespace Detrav.TeraModLoader.Core.P2904
                     {
                         var s_spawn_user = PacketCreator.create(teraPacketWithData) as S_SPAWN_USER;
                         Logger.debug(s_spawn_user.ToString());
-                        var player = getPlayer(s_spawn_user.id);
-                        if (player == null)
-                        {
-                            player = new TeraPlayer(s_spawn_user.id, s_spawn_user.name);
-                            Logger.debug("NewPlayer {0}", s_spawn_user.name);
-                        }
-                        entities[player.id] = player;
+                        replaceEntityById(s_spawn_user.id, new TeraPlayer(s_spawn_user.id, s_spawn_user.name));
                     }
                     break;
                 case OpCode2904.S_DESPAWN_USER:
                     {
                         var s_despawn_user = PacketCreator.create(teraPacketWithData) as S_DESPAWN_USER;
                         Logger.debug(s_despawn_user.ToString());
-                        if (entities.ContainsKey(s_despawn_user.id))
-                            entities.Remove(s_despawn_user.id);
+                        removeEntityById(s_despawn_user.id);
                     }
                     break;
             }
@@ -233,70 +181,6 @@ namespace Detrav.TeraModLoader.Core.P2904
         {
             if (onTick != null)
                 onTick(this, EventArgs.Empty);
-        }
-
-        public TeraPlayer getPlayerSelf()
-        {
-            return self;
-        }
-
-        public NpcDataBase getNpcDataBaseByUlongId(ulong id)
-        {
-            return cacheManager.getNpc(id);
-        }
-
-        private void clearParty()
-        {
-            foreach(var pair in party)
-            {
-                Logger.debug("remove from Party {0}", pair.Value.safeName);
-                pair.Value.partyId = 0;
-            }
-            party.Clear();
-        }
-
-        public TeraPlayer getPlayer(ulong id)
-        {
-            if(id == self.id) return self;
-            if (party.ContainsKey(id)) return party[id];
-            if (entities.ContainsKey(id))
-                if (entities[id] is TeraPlayer)
-                    return entities[id] as TeraPlayer;
-            return null;
-        }
-
-
-        public TeraEntity[] getEntities()
-        {
-            return entities.Values.ToArray();
-        }
-
-        public TeraNpc[] getNpcs()
-        {
-            List<TeraNpc> npcs = new List<TeraNpc>();
-            foreach(var e in entities)
-            {
-                if (e.Value is TeraNpc)
-                    npcs.Add(e.Value as TeraNpc);
-            }
-            return npcs.ToArray();
-        }
-
-        public TeraPlayer[] getPlayers()
-        {
-            List<TeraPlayer> npcs = new List<TeraPlayer>();
-            foreach (var e in entities)
-            {
-                if (e.Value is TeraPlayer)
-                    npcs.Add(e.Value as TeraPlayer);
-            }
-            return npcs.ToArray();
-        }
-
-
-        public TeraPlayer[] getParty()
-        {
-            return party.Values.ToArray();
         }
     }
 }

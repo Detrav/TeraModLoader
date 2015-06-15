@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Core\TeraEntity.cs" />
     <Compile Include="Core\TeraNpc.cs" />
+    <Compile Include="Core\TeraPartyPlayer.cs" />
     <Compile Include="Core\TeraPlayer.cs" />
     <Compile Include="DataBase\NpcDataBase.cs" />
     <Compile Include="Enums\NpcType.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Interfaces\ILoggerFile.cs" />
     <Compile Include="Interfaces\ITeraClient.cs" />
     <Compile Include="Interfaces\ITeraMod.cs" />
+    <Compile Include="Interfaces\ITeraRepository.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="OpCodes\OpCode2805.cs" />
     <Compile Include="OpCodes\OpCode2904.cs" />

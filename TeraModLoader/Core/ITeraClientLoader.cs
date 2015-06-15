@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Detrav.TeraModLoader.Core
 {
-    interface ITeraClientWithLoader : ITeraClient
+    interface ITeraClientLoader
     {
         void load(ITeraMod[] p);
         void unLoad();

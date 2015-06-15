@@ -165,7 +165,7 @@ namespace Detrav.TeraModLoader.Core
             return files.ToArray();
         }
 
-        public static ITeraClientWithLoader createTeraClient()
+        public static ITeraGame createTeraClient()
         {
             switch(PacketCreator.getCurrentVersion())
             {
