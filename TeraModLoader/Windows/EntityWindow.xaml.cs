@@ -30,24 +30,24 @@ namespace Detrav.TeraModLoader.Windows
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             dataGrid.Columns.Clear();
-            switch(comboBoxType.SelectedIndex)
+            switch (comboBoxType.SelectedIndex)
             {
                 case 0:
                     dataGrid.ItemsSource = null;
                     dataGrid.ItemsSource = client.getEntities();
-                        break;
+                    break;
                 case 1:
-                        dataGrid.ItemsSource = null;
-                        dataGrid.ItemsSource = client.getNpcs();
-                        break;
+                    dataGrid.ItemsSource = null;
+                    dataGrid.ItemsSource = client.getNpcs();
+                    break;
                 case 2:
-                        dataGrid.ItemsSource = null;
-                        dataGrid.ItemsSource = client.getPlayers();
-                        break;
+                    dataGrid.ItemsSource = null;
+                    dataGrid.ItemsSource = client.getPlayers();
+                    break;
                 case 3:
-                        dataGrid.ItemsSource = null;
-                        dataGrid.ItemsSource = client.getParty();
-                        break;
+                    dataGrid.ItemsSource = null;
+                    dataGrid.ItemsSource = client.getParty();
+                    break;
             }
             
         }
