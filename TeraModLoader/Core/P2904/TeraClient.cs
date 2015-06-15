@@ -292,5 +292,11 @@ namespace Detrav.TeraModLoader.Core.P2904
             }
             return npcs.ToArray();
         }
+
+
+        public TeraPlayer[] getParty()
+        {
+            return party.Values.ToArray();
+        }
     }
 }
