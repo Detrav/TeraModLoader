@@ -13,6 +13,7 @@
                 <ComboBoxItem Content="Всё" />
                 <ComboBoxItem Content="NPC" />
                 <ComboBoxItem Content="Игроки" />
+                <ComboBoxItem Content="Группа" />
             </ComboBox>
             <Button Width="60"
                     Content="Обновить" Click="Button_Click" />

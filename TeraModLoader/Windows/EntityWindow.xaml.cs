@@ -44,6 +44,10 @@ namespace Detrav.TeraModLoader.Windows
                         dataGrid.ItemsSource = null;
                         dataGrid.ItemsSource = client.getPlayers();
                         break;
+                case 3:
+                        dataGrid.ItemsSource = null;
+                        dataGrid.ItemsSource = client.getParty();
+                        break;
             }
             
         }
