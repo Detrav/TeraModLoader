@@ -117,6 +117,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                             }
                         if (remId != 0)
                         {
+                            Logger.debug("remove from Party {0}", party[remId].safeName);
                             party[remId].partyId = 0;
                             party.Remove(remId);
                         }
@@ -208,7 +209,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                         Logger.debug(s_spawn_user.ToString());
                         var player = getPlayer(s_spawn_user.id);
                         if (player == null) player = new TeraPlayer(s_spawn_user.id, s_spawn_user.name);
-                        entities[s_spawn_user.id] = player;
+                        entities[player.id] = player;
                     }
                     break;
                 case OpCode2904.S_DESPAWN_USER:
@@ -244,6 +245,7 @@ namespace Detrav.TeraModLoader.Core.P2904
         {
             foreach(var pair in party)
             {
+                Logger.debug("remove from Party {0}", pair.Value.safeName);
                 pair.Value.partyId = 0;
             }
             party.Clear();
