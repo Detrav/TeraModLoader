@@ -73,6 +73,7 @@ namespace Detrav.TeraModLoader.Core.P2904
 
         public TeraEntity getEntityById(ulong id)
         {
+            if (id == 0) return null;
             if (id == self.id)
                 return self;
             TeraPartyPlayer tpp;
@@ -80,8 +81,15 @@ namespace Detrav.TeraModLoader.Core.P2904
                 return tpp;
             TeraEntity te;
             if (entities.TryGetValue(id, out te))
+            {
                 return te;
-            return null;
+            }
+            else
+            {
+                entities[id] = new TeraEntity(id);
+                return entities[id];
+            }
+            
         }
         public void replaceEntityById(ulong id, TeraEntity entity)
         {
