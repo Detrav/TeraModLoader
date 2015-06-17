@@ -22,10 +22,13 @@ namespace Detrav.TeraModLoader.Core.P2904
 
         public void AddorUpdatePartyPlayerById(ulong id, TeraPartyPlayer player)
         {
+            if (id == self.id)
+                replaceSelf(player);
             party[id] = player;
         }
         public TeraPartyPlayer getPartyPlayerByPartyId(ulong partyId)
         {
+            if (partyId == self.partyId) return getSelf();
             foreach(var el in party)
             {
                 if (el.Value.partyId == partyId)
@@ -35,6 +38,7 @@ namespace Detrav.TeraModLoader.Core.P2904
         }
         public TeraPartyPlayer getPartyPlayerById(ulong id)
         {
+            if (id == self.id) return getSelf();
             TeraPartyPlayer tpp;
             if (party.TryGetValue(id, out tpp))
                 return tpp;
