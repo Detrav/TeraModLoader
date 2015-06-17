@@ -23,6 +23,15 @@ namespace Detrav.TeraApi
             time = DateTime.Now;
         }
 
+        public TeraPacketWithData(byte[] _data, PacketType _type, DateTime _time)
+        {
+            data = (byte[])_data.Clone();
+            size = toUInt16(0);//Размер
+            opCode = toUInt16(2);//id пакета или OpCode
+            type = _type;
+            time = _time;
+        }
+
 
         static public byte toByte(byte[] data, int b)
         {
