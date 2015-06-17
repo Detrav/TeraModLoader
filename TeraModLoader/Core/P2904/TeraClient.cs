@@ -128,7 +128,7 @@ namespace Detrav.TeraModLoader.Core.P2904
                             TeraEntity who = getEntityById(skill.idWho);
                             TeraEntity target = getEntityById(skill.idTarget);
                             if (onSkillResult != null)
-                                onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, who, target, skill.crit));
+                                onSkillResult(this, new SkillResultEventArgs(skill.damage, skill.dType, who, target, skill.crit,teraPacketWithData.time));
                         }
                         catch (Exception exc)
                         {

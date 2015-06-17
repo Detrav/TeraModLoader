@@ -16,14 +16,14 @@ namespace Detrav.TeraApi.Events
         public bool crit { get; private set; }
         public DateTime time { get; private set; }
 
-        public SkillResultEventArgs(uint damage, ushort type,TeraEntity who,TeraEntity target,bool crit)
+        public SkillResultEventArgs(uint damage, ushort type,TeraEntity who,TeraEntity target,bool crit, DateTime time)
         {
             this.damage = damage;
             this.type = type;
             this.who = who;
             this.target = target;
             this.crit = crit;
-            this.time = DateTime.Now;
+            this.time = time;
         }
     }
 
