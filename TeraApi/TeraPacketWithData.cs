@@ -13,12 +13,14 @@ namespace Detrav.TeraApi
         public ushort size { get; set; }
         public ushort opCode { get; set; }
         public byte[] data { get; private set; }
+        public DateTime time { get; private set; }
         public TeraPacketWithData(byte[] _data, PacketType _type)
         {
             data = (byte[])_data.Clone();
             size = toUInt16(0);//Размер
             opCode = toUInt16(2);//id пакета или OpCode
             type = _type;
+            time = DateTime.Now;
         }
 
 
