@@ -79,6 +79,7 @@
     <Compile Include="OpCodes\P2904\C_CHECK_VERSION.cs" />
     <None Include="OpCodes\P2904\examples\S_LEAVE_PARTY_MEMBER.txt" />
     <Compile Include="OpCodes\P2904\S_DESPAWN_NPC.cs" />
+    <Compile Include="OpCodes\P2904\S_END_USER_PROJECTILE.cs" />
     <Compile Include="OpCodes\P2904\S_DESPAWN_PROJECTILE.cs" />
     <Compile Include="OpCodes\P2904\S_DESPAWN_USER.cs" />
     <Compile Include="OpCodes\P2904\S_EACH_SKILL_RESULT.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="OpCodes\P2904\S_PARTY_MEMBER_CHANGE_STAMINA.cs" />
     <Compile Include="OpCodes\P2904\S_PARTY_MEMBER_LIST.cs" />
     <Compile Include="OpCodes\P2904\S_SPAWN_NPC.cs" />
+    <Compile Include="OpCodes\P2904\S_START_USER_PROJECTILE.cs" />
     <Compile Include="OpCodes\P2904\S_SPAWN_PROJECTILE.cs" />
     <Compile Include="OpCodes\P2904\S_SPAWN_USER.cs" />
     <Compile Include="OpCodes\P2904\S_USER_STATUS.cs" />
