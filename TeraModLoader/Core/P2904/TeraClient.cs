@@ -172,6 +172,20 @@ namespace Detrav.TeraModLoader.Core.P2904
                         removeEntityById(s_despawn_user.id);
                     }
                     break;
+                case OpCode2904.S_START_USER_PROJECTILE:
+                    {
+                        var s_spawn_proj = (S_START_USER_PROJECTILE)PacketCreator.create(teraPacketWithData);
+                        Logger.debug(s_spawn_proj.ToString());
+                        replaceEntityById(s_spawn_proj.id, new TeraEntity(s_spawn_proj.id, getEntityById(s_spawn_proj.idPlayer)));
+                    }
+                    break;
+                case OpCode2904.S_END_USER_PROJECTILE:
+                    {
+                        var s_despawn_proj = (S_END_USER_PROJECTILE)PacketCreator.create(teraPacketWithData);
+                        Logger.debug(s_despawn_proj.ToString());
+                        removeEntityById(s_despawn_proj.id);
+                    }
+                    break;
             }
             if (onPacketArrival != null)
                 onPacketArrival(this, new PacketArrivalEventArgs(teraPacketWithData));
