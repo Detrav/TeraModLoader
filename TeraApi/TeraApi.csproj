@@ -103,7 +103,10 @@
   <ItemGroup>
     <None Include="DataBase\NpcDataBase.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="OpCodes\P2904\examples\S_END_USER_PROJECTILE.txt" />
+    <None Include="OpCodes\P2904\examples\S_START_USER_PROJECTILE.txt" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="OpCodes\P2904\examples\C_CHECK_VERSION.txt" />
     <None Include="OpCodes\P2904\examples\S_DESPAWN_NPC.txt" />
