@@ -22,7 +22,11 @@ namespace Detrav.TeraModLoader.Core.Data
         //public Guid guid { get; private set; }
         public bool enable { get; set; }
         private Type type;
+        #if DEBUG
+        public string fullName { get { return String.Format("{0}.debug.{1}", name, version); } }
+        #else
         public string fullName { get { return String.Format("{0}.{1}", name, version); } }
+        #endif
         private string zipFile;
 
         public Mod(string file)

@@ -9,9 +9,9 @@ namespace Detrav.TeraApi.OpCodes
 {
     public enum OpCodeVersion
     {
-        [Description("Тестовая версия")]
+        [Description("Тестовая версия (Устарелый)")]
         Any,
-        [Description("28 05")]
+        [Description("28 05 (Устарелый)")]
         P2805,
         [Description("29 04")]
         P2904
