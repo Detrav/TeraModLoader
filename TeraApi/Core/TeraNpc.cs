@@ -17,5 +17,16 @@ namespace Detrav.TeraApi.Core
             this.npc = npc;
             this.name = npc.safeName;
         }
+        private uint _hp = 0;
+        public uint hp
+        {
+            get
+            {
+                if (_hp != 0) return _hp;
+                if (npc != null) return npc.hp;
+                return 0;
+            }
+            set { _hp = value; }
+        }
     }
 }
