@@ -1,5 +1,6 @@
 ﻿/*На сайте выложили базу, зачем напрягаться с дешифровкой игры когда можно взять у них:
 * http://teradatabase.net/ru/npcs/
+https://json-indent.appspot.com/indent
 */
 var result = [];
 var ii1 = 0;
