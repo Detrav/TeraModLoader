@@ -12,6 +12,7 @@ namespace Detrav.TeraApi.Core
         public TeraEntity parent { get; set; }
         public string name { get; set; }
         public string safeName { get { if (name != null) return name; return id.ToString(); } }
+        //public uint hp { get; set; }
         public TeraEntity(ulong id, TeraEntity parent)
         {
             this.id = id;
